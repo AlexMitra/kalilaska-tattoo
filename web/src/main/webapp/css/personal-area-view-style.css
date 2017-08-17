@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+/* Personal area side menu classes */
+
+.side-menu-container{
+  float: left;
+  width: var(--side-menu-width);
+  height: 100%;
+  padding-top: 30px;
+  padding-left: 60px;
+  background-color: var(--side-bar-background-color);
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  font-size: 110%;
+  letter-spacing: var(--roboto-spacing);
+}
+
+.side-menu-item{
+  list-style: none;
+}
+
+.side-menu-item-link {
+  margin: 0 10px;
+  padding: 15px 0 0 0;
+  color: black;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Personal area body content classes */
+
+.personal-area-content{
+  width: var(--personal-area-body-width);
+  margin: 0 auto;
+  height: 100%;
+  padding-top: 30px;
+  padding-left: var(--side-menu-width);
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 100%;
+  color: black;
+}
+
+/* All accounts content classes */
+.all-accounts-title{
+  text-align: left;
+  margin-bottom: 5vh;
+}
+.all-accounts-search-panel{
+  margin-bottom: 5vh;
+}
+
+.search-account-by-role-btn{ 
+	color: #fff;
+	background-color: #222;
+	border-color: #080808;
+}
+
+.search-account-by-role-btn:hover {
+  color: brown;  
+}
+
+.search-account-by-role-btn:active {
+  color: brown;
+}
+
+.search-account-by-role-btn:focus {
+  color: #fff;  
+}
+
+.role-checkboxes-area{
+	overflow: hidden;
+}
+
+.accounts-table-area{
+	overflow: scroll;  
+    max-height: 55%;   
+    border: 0px;
+}
+
+.accounts-table-linkrow{
+    text-align: left;
+}
+
+tr.accounts-table-linkrow{
+    background-color: whitesmoke;
+}
+
+tr.accounts-table-linkrow:hover{  
+    cursor: pointer;    
+}
+
+tr.accounts-table-linkrow:active{ 
+    color: brown;    
+}
+
+.role-marker {    
+    border: 1.5px solid #800000;
+  	border-radius: 4px;
+  	padding: 3px;
+  	display: inline-block;
+  	background-color: #dadada;
+}
+
+/* Slider classes */
+/* The switch - the box around the slider */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 21px;
+    vertical-align: bottom;
+}
+
+
+/* Hide default HTML checkbox */
+
+.switch input {
+    display: none;
+}
+
+
+/* The slider */
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #337ab7;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #337ab7;
+    color:
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(29px);
+    -ms-transform: translateX(29px);
+    transform: translateX(29px);
+}
+
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 21px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

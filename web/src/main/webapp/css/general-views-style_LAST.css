@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+:root{
+  --body-content-height:70em;
+  --side-bar-background-color:#DEDEDE;
+  --logo-color:#FF5C23;
+  --quicksand-rare-spacing:0.2em;
+  --quicksand-close-spacing:0.05em;
+  --roboto-spacing:0.03em;
+  --side-menu-width:270px;
+  --personal-area-body-width:90%;
+  --header-footer-height:80px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* logotipe class */
+
+.fa-hand-peace-o{
+  color: var(--logo-color);
+}
+
+/* main menu classes*/
+
+.all-menu-container {
+  position: fixed;
+  width: 100%;
+  height: var(--header-footer-height);
+  padding: 0 3%;
+  border-bottom: 1px black solid;
+  font-family: 'Quicksand', sans-serif;
+  background-color: white;
+}
+
+.site-name-container {
+  float: left;
+  width: 30%;
+  padding: 25px 0 0 0;
+  font-size: 150%;
+  text-align: right;
+  letter-spacing: var(--quicksand-rare-spacing);
+}
+
+.menu-container {
+  float: left;
+  width: 70%;
+  text-align: right;
+  letter-spacing: var(--quicksand-rare-spacing);
+}
+
+.menu-item, a {
+  list-style: none;
+  display: inline-block;
+  margin: 0 10px;
+  padding: 15px 0 0 0;
+  font-size: 93%;
+  text-decoration: none;
+  color: black;
+}
+
+.menu-item-link {
+  margin: 0 10px;
+  padding: 15px 0 0 0;
+  font-size: 93%;
+  color: black;
+  background-color: transparent;
+  border: none;
+  letter-spacing: var(--quicksand-rare-spacing);
+  outline: none;
+}
+
+/* body main content class*/
+
+.body-container{
+  padding-top: 80px;
+  width: 100%;
+  height: var(--body-content-height);
+}
+
+/* home view content class */
+
+.home-view-body-content{
+  float: left;
+  width: 30%;
+  height: 30%;
+  margin: 20% 0 0 0;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 200%;
+  color: black;
+}
+
+.warning-message{
+	color: red;
+	font-weight: 100;
+}
+
+/* Login and registration body classes */
+
+.login-form-container{
+  display: block;
+  width: 30%;
+  height: 30%;
+  margin: 13% 0 0 35%;
+  font-size: 110%;
+}
+
+.form-input-style{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 100;
+  font-size: 93%;
+  letter-spacing: var(--quicksand-close-spacing);
+  color: black;
+}
+
+.registration-form-container{
+  display: block;
+  width: 30%;
+  height: 30%;
+  margin: 10% 0 0 35%;
+  font-size: 110%;
+}
+
+/* footer content classes */
+
+.footer-container{
+  width: 100%;
+  height: var(--header-footer-height);
+  font-family: 'Quicksand', sans-serif;
+  background-color: white;
+  text-align: center;
+  letter-spacing: var(--quicksand-rare-spacing);
+  border-top: 1px solid black;
+  z-index: 10;
+}
+
+.language-container{	
+  height: calc(var(--header-footer-height)/2);
+  padding: 15px 0 0 0;
+  font-size: 80%;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  letter-spacing: var(--quicksand-close-spacing);
+}
+
+.language-item{
+  list-style: none;
+  display: inline-block;
+  margin: 0 15px;
+  color: black;
+}
+
+.language-link{
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.footer-message-container{
+  height: calc(var(--header-footer-height)/2);
+  padding: 5px 0 0 0;
+  font-size: 100%;
+  color: black;
+}

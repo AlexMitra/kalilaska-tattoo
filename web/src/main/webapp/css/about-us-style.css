@@ -1,0 +1,85 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: 'Quicksand', sans-serif;
+}
+.header {
+    margin-left: 5%;
+/*    font-size: 300%;*/
+    
+}
+
+.line {
+    border: 1px solid #040338;       
+    margin-top: 10px;
+    margin-bottom: 10px;    
+}
+
+.contact-data-container {
+    margin: 10px 10px 10px 0;
+}
+
+.my-photo {
+    float: left;
+    width: 242px;
+    height: 333px;
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
+.contact-data {    
+    margin-left: 10%;
+    font-size: 70%;
+}
+
+.contact-data p{    
+    font-size: 150%;
+    line-height: 200%;
+    font-weight: 500;
+}
+
+.part-of-data {
+    font-weight: 600;
+    clear: both;
+    margin-left: 5%;
+    padding: 10px 10px 10px 0;
+/*    font-size: 130%;*/
+    width: 90%;
+    display: inline-block;    
+}
+
+.name-part-of-data {
+/*    font-size: 130%;*/
+    text-align: center;
+    font-weight: bold;
+    color: #040338;
+    font-family: roboto, sans-serif;
+}
+
+.company-name {
+    float: left;
+}
+
+.working-period {
+    float: right;
+}
+
+.profession {
+    clear: both;
+    font-style: italic;
+}
+
+.accent {
+    font-family: roboto, sans-serif;
+    font-size: bold;
+}
+
+.skills-list {
+    margin-left: 20px;;
+}
+
+.body-cv-container {
+    padding: var(--header-footer-height);
+  max-width: 100%;  
+}

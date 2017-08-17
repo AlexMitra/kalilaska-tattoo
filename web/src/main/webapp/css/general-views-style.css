@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+:root{
+  --body-content-height:70em;
+  --side-bar-background-color:#DEDEDE;
+  --logo-color:#FF5C23;
+  --quicksand-rare-spacing:0.2em;
+  --quicksand-close-spacing:0.05em;
+  --roboto-spacing:0.03em;
+  --side-menu-width:270px;
+  --personal-area-body-width:90%;
+  --header-footer-height:80px;
+  --header-footer-background:rgba(24, 24, 24, 0.9);
+/*    --header-footer-background2:rgba(48, 48, 48, 0.9);*/
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* logotipe class */
+
+.fa-hand-peace-o{
+  color: var(--logo-color);
+}
+
+/* main menu classes*/
+
+.all-menu-container {
+  position: fixed;
+  width: 100%;
+  height: var(--header-footer-height);
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--header-footer-background);    
+    display: grid;
+    grid-template-columns: [site-title-start]
+        2fr
+        [site-title-end] 
+        2fr 
+        [menu-start]
+        4fr
+        [menu-end];    
+    align-items: center;
+    z-index: 100; 
+}
+
+.site-name-container {
+  grid-column: site-title-start/site-title-end;
+   justify-self: end; 
+  font-size: 140%;
+  letter-spacing: var(--quicksand-rare-spacing);
+  color: darkgray;
+}
+
+.menu-container {
+  grid-column: menu-start/menu-end;
+}
+
+
+.menu-item {
+    float: left;
+    margin: 0 30px;   
+}
+
+.menu-item-link {
+  color: rgb(150, 150, 150);
+  font-size: 85%;  
+  background-color: transparent;
+  border: none;
+  letter-spacing: var(--quicksand-rare-spacing);
+  outline: none;  
+}
+
+/* body main content class*/
+
+.body-container{  
+  max-width: 100%;
+  height: var(--body-content-height);  
+}
+
+/* home view content class */
+
+.home-view-background {
+    background: url("image/home-view-background.JPG") no-repeat center;
+    background-size: cover;
+}
+
+.center-view-body-content-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr [view-content-col-start]3fr[view-content-col-end] 1fr;
+    grid-template-rows: 1fr [view-content-row-start]1fr[view-content-row-end] 2fr;  
+}
+
+
+.home-view-body-content {
+    grid-column: view-content-col-start/view-content-col-end;
+    grid-row: view-content-row-start/view-content-row-end;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 200%;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+}
+
+
+/* Login and registration body classes */
+
+.login-registration-form-container{
+    grid-column: view-content-col-start/view-content-col-end;
+    grid-row: view-content-row-start/view-content-row-end;
+    width: 50%;      
+    font-size: 110%;    
+    align-self: center;
+    justify-self: center;
+}
+
+.login-signup-link-title {
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+    font-size: 130%;
+}
+
+.login-title {
+    float: left;
+    display: inline-block;
+    width: 50%;
+    border-right: 2px solid var(--header-footer-background);
+}
+
+.signup-title {
+    float: left;
+    display: inline-block;
+    width: 50%;
+    border-left: 2px solid var(--header-footer-background);
+}
+
+.login-signup-link-container {
+    float: left;
+    display: inline-block;
+    width: 50%;    
+}
+
+.login-signup-link {    
+  background-color: transparent;
+  border: none;  
+  outline: none; 
+}
+
+.form-input-style{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 100;
+  font-size: 93%;
+  letter-spacing: var(--quicksand-close-spacing);
+  color: black;
+}
+
+/* footer content classes */
+
+.footer-container{
+  width: 100%;
+  height: var(--header-footer-height);  
+  display: grid;
+    grid-template-columns: repeat(5, 1fr) 
+        [language-start]        
+        2fr
+        [language-end] 
+        repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.footer-style {
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--header-footer-background);
+  color: black;
+}
+
+
+.language-container {
+    grid-column: language-start/language-end;
+}
+
+.language-item{
+  display: inline-block;
+  padding: 0 10px;
+  font-size: 80%;  
+  letter-spacing: var(--quicksand-close-spacing);
+}
+
+
+.language-link{  
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.footer-message-container{  
+  font-size: 100%;  
+    letter-spacing: var(--quicksand-rare-spacing);    
+    grid-column: span 12;
+}
+
+/* for all pages*/
+
+.warning-message{
+	color: red;
+	font-weight: 100;
+}
