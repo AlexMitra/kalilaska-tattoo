@@ -2,7 +2,8 @@
 
 :root{
   --body-content-height:70em;
-  --side-bar-background-color:#DEDEDE;
+  --side-bar-background-color:rgba(96, 96, 96, 0.5);
+  --personal-area-background-color:#DEDEDE;
   --logo-color:#FF5C23;
   --quicksand-rare-spacing:0.2em;
   --quicksand-close-spacing:0.05em;
@@ -11,12 +12,17 @@
   --personal-area-body-width:90%;
   --header-footer-height:80px;
   --header-footer-background:rgba(24, 24, 24, 0.9);
-/*    --header-footer-background2:rgba(48, 48, 48, 0.9);*/
+  --common-form-width:400px;
 }
 
 * {
   padding: 0;
   margin: 0;
+}
+
+
+textarea {
+    resize: none;
 }
 
 /* logotipe class */
@@ -56,7 +62,6 @@
 .menu-container {
   grid-column: menu-start/menu-end;
 }
-
 
 .menu-item {
     float: left;
@@ -108,6 +113,16 @@
 }
 
 
+.center-form-container {
+    grid-column: view-content-col-start/view-content-col-end;
+    grid-row: view-content-row-start/view-content-row-end;
+    width: var(--common-form-width);
+    font-size: 110%;    
+    align-self: center;
+    justify-self: center;
+}
+
+
 /* Login and registration body classes */
 
 .login-registration-form-container{
@@ -152,10 +167,9 @@
   outline: none; 
 }
 
-.form-input-style{
+.form-label-style{
   font-family: 'Quicksand', sans-serif;
-  font-weight: 100;
-  font-size: 93%;
+  font-weight: 500;
   letter-spacing: var(--quicksand-close-spacing);
   color: black;
 }
@@ -211,5 +225,5 @@
 
 .warning-message{
 	color: red;
-	font-weight: 100;
+	font-weight: 500;
 }

@@ -4,13 +4,19 @@ import by.kalilaska.ktattoo.command.impl.AddAccountCommand;
 import by.kalilaska.ktattoo.command.impl.AllowAccountCommand;
 import by.kalilaska.ktattoo.command.impl.AuthenticationCommand;
 import by.kalilaska.ktattoo.command.impl.DeleteAccountCommand;
+import by.kalilaska.ktattoo.command.impl.DeleteAvatarCommand2;
 import by.kalilaska.ktattoo.command.impl.EditAccountCommand;
+import by.kalilaska.ktattoo.command.impl.EditProfileCommand;
+import by.kalilaska.ktattoo.command.impl.EditProfileViewCommand;
 import by.kalilaska.ktattoo.command.impl.ForbideAccountCommand;
 import by.kalilaska.ktattoo.command.impl.LanguageCommand;
 import by.kalilaska.ktattoo.command.impl.LogoutCommand;
+import by.kalilaska.ktattoo.command.impl.MastersViewCommand;
 import by.kalilaska.ktattoo.command.impl.PersonalAreaAllAccountsViewCommand;
 import by.kalilaska.ktattoo.command.impl.PersonalAreaViewCommand;
+import by.kalilaska.ktattoo.command.impl.RegistrationAccountCommand;
 import by.kalilaska.ktattoo.command.impl.SimpleViewCommand;
+import by.kalilaska.ktattoo.command.impl.UpdateAvatarCommand;
 import by.kalilaska.ktattoo.pathlist.PathBodyContentList;
 import by.kalilaska.ktattoo.pathlist.PathBodyList;
 import by.kalilaska.ktattoo.pathlist.PathViewList;
@@ -20,6 +26,9 @@ import by.kalilaska.ktattoo.service.impl.ConsultationServiceJdbc;
 import by.kalilaska.ktattoo.service.impl.RegistrationServiceJdbc;
 import by.kalilaska.ktattoo.service.impl.RoleServiceJdbc;
 import by.kalilaska.ktattoo.service.impl.SeanceServiceJdbc;
+import by.kalilaska.ktattoo.service.impl.TattooMasterServiceJdbc;
+import by.kalilaska.ktattoo.service.impl.TattooStyleServiceJdbc;
+import by.kalilaska.ktattoo.webname.URINameList;
 import by.kalilaska.ktattoo.webtype.LanguageType;
 
 
@@ -35,12 +44,20 @@ public enum CommandType {
     HOME_VIEW (new SimpleViewCommand(
     		PathViewList.BASE_VIEW_PATH, 
     		PathBodyList.HOME_VIEW_BODY)),
+    
+    MASTERS_VIEW(new MastersViewCommand(
+    		new TattooMasterServiceJdbc(), 
+    		PathViewList.BASE_VIEW_PATH, 
+    		PathBodyList.MASTERS_VIEW_BODY)),
+    
     LOGIN_VIEW (new SimpleViewCommand(
     		PathViewList.BASE_VIEW_PATH, 
     		PathBodyList.LOGIN_VIEW_BODY)),
+    
     REGISTRATION_VIEW (new SimpleViewCommand(
     		PathViewList.BASE_VIEW_PATH, 
     		PathBodyList.REGISTRATION_VIEW_BODY)),
+    
     PERSONAL_AREA_VIEW (new PersonalAreaViewCommand(
     		PathViewList.BASE_VIEW_PATH, 
     		PathBodyList.PERSONAL_AREA_VIEW_BODY, 
@@ -48,7 +65,31 @@ public enum CommandType {
     
     ABOUT_US_VIEW (new SimpleViewCommand(
     		PathViewList.BASE_VIEW_PATH, 
-    		PathBodyList.ABOUT_US_VIEW_BODY)),
+    		PathBodyList.ABOUT_US_VIEW_BODY)),    
+    
+    PERSONAL_AREA_EDIT_PROFILE_VIEW (new EditProfileViewCommand(
+    		new TattooMasterServiceJdbc(), new TattooStyleServiceJdbc(), 
+    		PathViewList.BASE_VIEW_PATH, 
+    		PathBodyList.PERSONAL_AREA_VIEW_BODY, 
+    		PathBodyContentList.PA_BODY_CONTENT_EDIT_PROFILE)),    
+    
+//    DELETE_AVATAR(new DeleteAvatarCommand(
+//    		new AccountServiceJdbc(), URINameList.PERSONAL_AREA_PAGE_URI)),
+    
+    DELETE_AVATAR(new DeleteAvatarCommand2(
+    		new AccountServiceJdbc(), 
+    		PathViewList.BASE_VIEW_PATH, 
+    		PathBodyList.PERSONAL_AREA_VIEW_BODY, 
+    		PathBodyContentList.PA_BODY_CONTENT_START)),
+    
+    UPDATE_AVATAR (new UpdateAvatarCommand(
+    		new AccountServiceJdbc(), URINameList.PERSONAL_AREA_PAGE_URI)),
+    
+    EDIT_PROFILE (new EditProfileCommand(
+    		new AccountServiceJdbc(), new TattooMasterServiceJdbc(), new TattooStyleServiceJdbc(), 
+    		PathViewList.BASE_VIEW_PATH, 
+    		PathBodyList.PERSONAL_AREA_VIEW_BODY, 
+    		PathBodyContentList.PA_BODY_CONTENT_START)),
     
     PERSONAL_AREA_ALL_ACCOUNTS_VIEW (new PersonalAreaAllAccountsViewCommand(
     		new AccountServiceJdbc(), new RoleServiceJdbc(), 
@@ -62,7 +103,7 @@ public enum CommandType {
     		PathBodyList.PERSONAL_AREA_VIEW_BODY, 
     		PathBodyContentList.PA_BODY_CONTENT_ALL_ACCOUNTS)),
     
-    EDIT_ACCOUNT(new EditAccountCommand(new AccountServiceJdbc(), 
+    EDIT_ACCOUNT(new EditAccountCommand(new AccountServiceJdbc(new TattooMasterServiceJdbc()), 
     		PathViewList.BASE_VIEW_PATH, 
     		PathBodyList.PERSONAL_AREA_VIEW_BODY, 
     		PathBodyContentList.PA_BODY_CONTENT_ALL_ACCOUNTS)),
@@ -83,11 +124,15 @@ public enum CommandType {
     		PathBodyContentList.PA_BODY_CONTENT_ALL_ACCOUNTS)),
     
     LOGOUT (new LogoutCommand(PathViewList.BASE_VIEW_PATH)),
-
 	
 	AUTHENTICATION(new AuthenticationCommand(
 			new AuthenticationServiceJdbc(new AccountServiceJdbc(), 
-					new ConsultationServiceJdbc(), new SeanceServiceJdbc()), 
+					new ConsultationServiceJdbc(), new SeanceServiceJdbc(), new TattooStyleServiceJdbc()), 
+			PathViewList.BASE_VIEW_PATH, 
+			PathBodyList.PERSONAL_AREA_VIEW_BODY)),	
+	
+	REGISTRATION_ACCOUNT(new RegistrationAccountCommand(
+			new RegistrationServiceJdbc(new AccountServiceJdbc()), 			
 			PathViewList.BASE_VIEW_PATH, 
 			PathBodyList.PERSONAL_AREA_VIEW_BODY));
 

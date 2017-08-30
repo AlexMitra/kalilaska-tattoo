@@ -10,7 +10,7 @@
           </div>
 
           <div class="contact-data-container">
-              <img class="my-photo" src="images/forCV.jpeg" alt="">
+              <img class="my-photo" src="images/forCV.JPG" alt="">
               <div class="contact-data">           
                 <p><strong class="accent"> Date of birth: </strong> October 16, 1986</p>
                 <p><strong class="accent"> Email: </strong> lovcov.alex@gmail.com, lovcov.alex@icloud.com</p>

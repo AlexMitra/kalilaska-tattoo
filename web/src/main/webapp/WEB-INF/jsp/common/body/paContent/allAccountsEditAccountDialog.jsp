@@ -36,14 +36,15 @@
 		  							<button class="btn btn-default dropdown-toggle" type="button" id="edit-account-rolesList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		    						<fmt:message key="personalArea.allAccounts.dialog.roles.button" bundle="${ rb }" /><span class="caret"></span>
 		  							</button>
-	  							
-	  								<c:set var="allRoles" value="${personalAreaViewBean.getRoles()}"/>
-	  							
-		  							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		  								<c:forEach items="${allRoles}" var="role">		
-		    							<li><a id="li-${role.getName()}" href="#" onclick="accountsTableEditButton.changeRole(this.id)"><c:out value="${role.getName()}"/></a></li>    							
-		    							</c:forEach>
-		  							</ul>
+	  								<c:if test="${personalAreaViewBean.getRole() eq 'Administrator'}">
+		  								<c:set var="allRoles" value="${personalAreaViewBean.getRoles()}"/>
+		  							
+			  							<ul class="dropdown-menu" aria-labelledby="edit-account-rolesList">
+			  								<c:forEach items="${allRoles}" var="role">		
+			    							<li><a id="li-${role.getName()}" href="#" onclick="accountsTableEditButton.changeRole(this.id)"><c:out value="${role.getName()}"/></a></li>    							
+			    							</c:forEach>
+			  							</ul>
+		  							</c:if>
 								</div>
 								<br>
 							

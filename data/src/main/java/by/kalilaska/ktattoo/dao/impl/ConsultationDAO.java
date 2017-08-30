@@ -3,6 +3,8 @@ package by.kalilaska.ktattoo.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,7 +61,7 @@ public class ConsultationDAO extends AbstractDAO<Integer, ConsultationEntity> {
 //							resultSet.getString("client"), 
 //							resultSet.getInt("FK_master_id"), 
 //							resultSet.getString("master"));
-					consultation = mapRow(resultSet);
+					consultation = mapRow(resultSet);					
 					consultations.add(consultation);
 				} while (resultSet.next());
 			}
@@ -88,7 +90,7 @@ public class ConsultationDAO extends AbstractDAO<Integer, ConsultationEntity> {
 //							resultSet.getString("client"), 
 //							resultSet.getInt("FK_master_id"), 
 //							resultSet.getString("master"));
-					consultation = mapRow(resultSet);
+					consultation = mapRow(resultSet);					
 					consultations.add(consultation);
 				}while(resultSet.next());
 			}
@@ -128,8 +130,13 @@ public class ConsultationDAO extends AbstractDAO<Integer, ConsultationEntity> {
 	protected ConsultationEntity mapRow(ResultSet resultSet) throws DaoSQLException {
 		ConsultationEntity consultation = null;
 		try {
-			consultation = new ConsultationEntity(resultSet.getInt("id"), 
-					resultSet.getDate("date"), 
+			Date date = null;
+			Timestamp timestamp = resultSet.getTimestamp("date");
+			if (timestamp != null)
+			    date = new Date(timestamp.getTime());
+			
+			consultation = new ConsultationEntity(resultSet.getInt("id"),					
+					date, 
 					resultSet.getInt("FK_account_id"), 
 					resultSet.getString("client"), 
 					resultSet.getInt("FK_master_id"), 

@@ -10,23 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.command.CommandFactory;
 import by.kalilaska.ktattoo.command.IActionCommand;
-import by.kalilaska.ktattoo.manager.PathViewManager;
 import by.kalilaska.ktattoo.pathlist.PathViewList;
 import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webmanager.PathViewManager;
 import by.kalilaska.ktattoo.webtype.TransitionType;
 
 /**
  * Created by lovcov on 13.07.2017.
  */
-@WebServlet(name = "MainController", urlPatterns = { "/home.html", "/login.html", "/registration.html",
-		"/personalArea.html",  "/about-us.html", "/personalArea-allAccounts.html"})
+@WebServlet(name = "MainController", urlPatterns = { "/home.html", "/masters.html", "/login.html", "/registration.html",
+		"/personalArea.html",  "/about-us.html", "/personalArea-edit.html", "/personalArea-allAccounts.html"})
 public class MainController extends HttpServlet {
+	private final static Logger LOGGER = LogManager.getLogger(MainController.class);
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {		
-		executeRequest(request, response);
+			throws ServletException, IOException {
+		doGet(request, response);		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,14 +41,15 @@ public class MainController extends HttpServlet {
 
 	private void executeRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		LOGGER.log(Level.INFO, "in main controller");
 		CommandFactory commandFactory = new CommandFactory();
 		SessionRequestContent content = new SessionRequestContent();
 		content.extractValues(request);
 
 		IActionCommand command = commandFactory.initCommand(content);
-		String view = command.getView(content);		
+		String view = command.getView(content);
 		TransitionType transition = content.getTransition();		
-		content.rewriteValues(request);		
+		content.rewriteValues(request);
 		
 		goResponse(request, response, view, transition);
 	}

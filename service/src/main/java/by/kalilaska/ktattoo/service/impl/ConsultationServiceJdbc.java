@@ -46,6 +46,7 @@ public class ConsultationServiceJdbc implements ConsultationService {
 			
 			transactionManager.commit();
 		}catch (DaoSQLException e) {
+			//LOG
 			transactionManager.rollback();
 		}
 		transactionManager.endTransaction();

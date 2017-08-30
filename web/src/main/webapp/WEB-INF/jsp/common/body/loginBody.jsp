@@ -22,11 +22,11 @@
         <form id="authenticationForm" action="personalArea.html" method="POST" enctype="utf8">
         	<input type="hidden" name="command" value="authentication" />
             <div class="form-group">
-                <label class="form-input-style" for="authenticationName"><fmt:message key="form.name" bundle="${ rb }" /></label>
+                <label class="form-label-style" for="authenticationName"><fmt:message key="form.name" bundle="${ rb }" /></label>
                 <input type="text" class="form-control" id="authenticationName" placeholder="Name" name="authentication_name">
             </div>
             <div class="form-group">
-                <label class="form-input-style" for="authenticationPassword"><fmt:message key="form.password" bundle="${ rb }" /></label>
+                <label class="form-label-style" for="authenticationPassword"><fmt:message key="form.password" bundle="${ rb }" /></label>
                 <input type="password" class="form-control" id="authenticationPassword" placeholder="Password", name="authentication_pass">
             </div>
             <div class="form-group warning-message">

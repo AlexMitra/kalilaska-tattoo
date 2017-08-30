@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MasterPersonalAreaViewBean extends AbstractPersonalAreaViewBean{
 	private String aboutInfo;
-	private List<TattooWorkPhotoBean> photos;
+	private List<TattooPhotoBean> photos;
 	private List<TattooStyleBean> styles;
 
 	public MasterPersonalAreaViewBean() {
@@ -17,37 +17,48 @@ public class MasterPersonalAreaViewBean extends AbstractPersonalAreaViewBean{
 		return aboutInfo;
 	}
 
-	public List<TattooWorkPhotoBean> getPhotos() {
+	public List<TattooPhotoBean> getPhotos() {
 		return photos;
 	}
 
 	public List<TattooStyleBean> getStyles() {
 		return styles;
 	}
+	
+	public String writeStyles() {
+		StringBuilder result = new StringBuilder();
+		if(styles != null && !styles.isEmpty()) {
+			for (int i=0; i< styles.size(); i++) {
+				if(i > 0) {
+					result.append(", ");
+				}
+				result.append(styles.get(i).getName());
+			}
+		}
+		
+		return result.toString();
+	}
 
 	public void setAboutInfo(String aboutInfo) {
 		this.aboutInfo = aboutInfo;
 	}
 
-	public void setPhotos(List<TattooWorkPhotoBean> photos) {
-		if(photos != null) {
-			this.photos.addAll(photos);
-		}		
+	public void setPhotos(List<TattooPhotoBean> photos) {		
+		this.photos = photos;		
 	}
 
-	public void setStyles(List<TattooStyleBean> styles) {
-		if(styles != null) {
-			this.styles.addAll(styles);
-		}		
+	public void setStyles(List<TattooStyleBean> styles) {		
+		this.styles = styles;
+				
 	}
 	
-	public void addPhoto(TattooWorkPhotoBean photo) {
+	public void addPhoto(TattooPhotoBean photo) {
 		if(photo != null && !photos.contains(photo)) {
 			photos.add(photo);
 		}		
 	}
 	
-	public void removePhoto(TattooWorkPhotoBean photo) {
+	public void removePhoto(TattooPhotoBean photo) {
 		if(photo != null) {
 			photos.remove(photo);
 		}		

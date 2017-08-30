@@ -12,15 +12,20 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import by.kalilaska.ktattoo.manager.PathBodyManager;
 import by.kalilaska.ktattoo.pathlist.PathBodyList;
 import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webname.CommandNameList;
 import by.kalilaska.ktattoo.webname.RequestAttrNameList;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 import by.kalilaska.ktattoo.webname.URINameList;
 
-@WebFilter(urlPatterns = {"/personalArea.html",  "/personalArea-allAccounts.html"})
+@WebFilter(urlPatterns = {
+		"/personalArea.html", 
+		"/personalArea-edit.html", 
+		"/personalArea-allAccounts.html",
+		"/personalArea-deleteAvatar.html", 
+		"/personalArea-updateAvatar.html"})
 public class AuthenticationFilter implements Filter{
 	
 	private PathBodyManager bodyManager;
@@ -49,13 +54,13 @@ public class AuthenticationFilter implements Filter{
     		session.setAttribute(SessionAttrNameList.ATTRIBUTE_FOR_COMMAND, 
         			CommandNameList.LOGIN_VIEW_COMMAND);
     		
-    		String viewName = URINameList.LOGIN_PAGE_URI;
-	        request.setAttribute(RequestAttrNameList.ATTRIBUTE_FOR_VIEW_NAME, viewName);
+    		String redirectedUri = URINameList.LOGIN_PAGE_URI;
+	        request.setAttribute(RequestAttrNameList.ATTRIBUTE_FOR_VIEW_NAME, redirectedUri);
 	        
     		if(bodyManager != null) {
     			String viewBody = bodyManager.getProperty(PathBodyList.LOGIN_VIEW_BODY);
     			session.setAttribute(SessionAttrNameList.ATTRIBUTE_FOR_VIEW_BODY, viewBody);
-    		}      	
+    		}
 	        
         }
     	chain.doFilter(request, response);

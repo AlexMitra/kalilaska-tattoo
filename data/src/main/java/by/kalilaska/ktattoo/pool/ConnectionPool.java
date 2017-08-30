@@ -92,27 +92,16 @@ public class ConnectionPool {
 	}
 	
 	public void removeConnections() {
-		lock.lock();
-		try {
-			int poolSize = connectionQueue.size();
-			if(poolSize < DBConfigNameList.POOL_SIZE) {
-				//log
+		for (int i = 0; i < DBConfigNameList.POOL_SIZE; i++) {				
+			try {
+				ProxyConnection connection = connectionQueue.take();
+				connection.closeConnection();
+			} catch (SQLException | InterruptedException e) {					
+				//LOG
 			}
-			System.out.println("destroy start: " + connectionQueue.size());//UDALIT!!!!!
-			for (int i = 0; i < poolSize; i++) {				
-				try {
-					ProxyConnection connection = connectionQueue.take();
-					connection.closeConnection();
-				} catch (SQLException | InterruptedException e) {					
-					e.printStackTrace();
-				}
-			}
-			System.out.println("connectionQueue.size(): " + connectionQueue.size());//UDALIT!!!!!
-			checkOutDrivers();
-		}finally {
-			lock.unlock();
 		}
-	}	
+		checkOutDrivers();		
+	}
 	
 	private void checkOutDrivers() {
 		try {
@@ -125,5 +114,4 @@ public class ConnectionPool {
 			//LOG
 		}
 	}
-
 }

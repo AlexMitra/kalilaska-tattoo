@@ -5,6 +5,7 @@ public class AccountBean {
 	private String name;
 	private String email;
 	private String password;
+	private String confirmPassword;
 	private String phone;
 	private String photoURL;
 	private boolean isAllowed;
@@ -54,6 +55,10 @@ public class AccountBean {
 	public String getPassword() {
 		return password;
 	}
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
 
 	public String getPhone() {
 		return phone;
@@ -85,6 +90,10 @@ public class AccountBean {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public void setPhone(String phone) {

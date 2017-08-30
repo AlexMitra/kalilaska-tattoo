@@ -6,6 +6,7 @@ import by.kalilaska.ktattoo.bean.AccountBean;
 import by.kalilaska.ktattoo.bean.AdminPersonalAreaViewBean;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.service.AccountService;
+import by.kalilaska.ktattoo.webname.MessageNameList;
 import by.kalilaska.ktattoo.webname.RequestParamNameList;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 
@@ -62,7 +63,8 @@ public class EditAccountCommand extends PersonalAreaViewCommand{
         					accountService.getWrongMessage());
         		}
         	}else {
-        		//SOME MESSAGE
+        		makeWrongMessage(content, SessionAttrNameList.ATTRIBUTE_FOR_EDIT_ACCOUNT_FAILURE, 
+        				MessageNameList.SOME_DATA_IS_NULL);
         	}
         }
     	if(bodyContent != null) {

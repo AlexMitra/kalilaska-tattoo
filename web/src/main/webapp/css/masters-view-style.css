@@ -1,0 +1,139 @@
+:root{    
+    --master-photo-delimiter: 30px;
+    --master-photo-width: calc((80vw - 2*var(--master-photo-delimiter))/3);
+    --master-photo-height: calc(0.75*var(--master-photo-width));
+}
+
+/*style on masters view*/
+.masters-body {
+    width: 80%;
+  margin: auto;
+}
+
+.masters-title-container {    
+    padding-top: 90px;
+    padding-bottom: 20px;
+    max-width: 100%;
+    border-bottom: 2px solid black;
+    text-align: center;
+    font-size: 200%;
+}
+
+.all-masters-list-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, var(--master-photo-width));
+    grid-auto-rows: calc( var(--master-photo-height) + 100px);
+    grid-auto-flow: dense;
+    grid-gap: var(--master-photo-delimiter);
+}
+
+.master-item-container {    
+    width: 100%;
+    text-align: center;    
+}
+
+.master-photo {
+    display: block;
+    width: var(--master-photo-width);
+    height: var(--master-photo-height);
+    margin: auto;
+}
+
+.master-name {
+    display: block;    
+    text-align: center;
+    font-size: 150%;
+    padding: 10px;
+}
+
+.master-portfolio-button {
+    display: inline-block;
+    width: 80%;
+    margin: auto;
+    border: none;
+    border-radius: 3px;
+    background-color: black;
+    padding: 10px 0;
+    color: white;
+    outline: none;
+}
+
+/*style on dialogs*/
+
+.portfolio-dialog-title {
+    margin-left: 20px;
+    font-size: 150%;
+}
+
+.master-portfolio-body {
+    overflow: auto;
+}
+
+.master-photo-in-dialog {
+    float: left;
+    display: inline-block;
+    width: var(--master-photo-width);
+    height: var(--master-photo-height); 
+    margin: 10px 20px 20px 20px;
+}
+
+.master-info {    
+    font-size: 150%;    
+    padding-left: 20px;
+    font-weight: 300;
+    font-family: 'Quicksand', sans-serif;
+    text-align: left;
+}
+
+.master-style-info {
+    display: block;
+    font-size: 150%;
+    font-style: italic;
+    margin-top: 20px;
+    font-weight: 300;
+    font-family: 'Quicksand', sans-serif;
+    text-align: left;
+}
+
+.portfolio-title {
+    clear: both;
+    width: 100%;
+    padding: 20px 0;
+    font-size: 200%;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+}
+
+.portfolio-photos-container {
+    width: 100%;    
+    text-align: center;
+}
+
+.portfolio-photo {    
+    float: left;
+    width: 33%;
+    display: inline-block;    
+    height: auto;
+}
+
+.consultation-link-container {
+    clear: both;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.consultation-view-button {
+    display: inline-block;
+    width: 50%;
+    margin: auto;
+    border: none;
+    border-radius: 3px;
+    background-color: black;
+    padding: 10px 0;
+    color: white;
+    outline: none;
+}

@@ -2,8 +2,9 @@ package by.kalilaska.ktattoo.command.impl;
 
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
-import by.kalilaska.ktattoo.manager.PathViewManager;
 import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webmanager.PathViewManager;
+import by.kalilaska.ktattoo.webtype.LanguageType;
 import by.kalilaska.ktattoo.webtype.TransitionType;
 
 
@@ -24,6 +25,7 @@ public class LogoutCommand implements IActionCommand {
     }
     
     public void execute(SessionRequestContent content) {
+    	LanguageType.resetCurrentLocaleAndLanguage();
     	content.setTransition(TransitionType.SESSION_INVALIDATE);
     }
 

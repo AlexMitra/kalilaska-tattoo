@@ -1,53 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration scan="true" scanPeriod="30 seconds" status="warn">
-    <Properties>
-        <Property name="logHome">${catalina.base}/log/ktattoo</Property>
-    </Properties>
+	<Properties>
+		<Property name="LOG_HOME">D:\PROGRAMM\apache-tomcat-8.0.33\logs\ktattoo</Property>		
+	</Properties>
 
-    <Appenders>
+	<Appenders>
+		<RollingFile name="trace-log" fileName="${LOG_HOME}/ktattoo.log" filePattern="${LOG_HOME}/ktattoo-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>%.-19date [%thread] [%level] %c{1} >>> %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="error-log" fileName="${LOG_HOME}/error.log" filePattern="${LOG_HOME}/error-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>%.-19date [%thread] [%level] %c{1} >>> %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+		
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout>
-                <Pattern>%.-19date [%thread] [%level] [%logger] >>> %msg%n</Pattern>
-            </PatternLayout>
+            <PatternLayout pattern="%.-19date [%thread] [%level] %c{1} >>> %msg%n"/>
         </Console>
-
-        <RollingFile name="fileAudit" fileName="${logHome}/ktattoo.log"
-                     filePattern="${logHome}/$${date:yyyy-MM}/sphere-%d{yyyy-MM-dd}.log.gz">
-            <PatternLayout>
-                <Pattern>%.-19date [%thread] [%level] >>> %msg%n</Pattern>
-            </PatternLayout>
-            <Policies>
-                <TimeBasedTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="5 MB"/>
-            </Policies>
-        </RollingFile>
-
-        <RollingFile name="fileError" fileName="${logHome}/error.log"
-                     filePattern="${logHome}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}.log.gz">
-            <PatternLayout>
-                <Pattern>%.-19date [%thread] [%level] >>> %msg%n</Pattern>
-            </PatternLayout>
-            <Policies>
-                <TimeBasedTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="5 MB"/>
-            </Policies>
-        </RollingFile>
     </Appenders>
 
-    <Loggers>
-        <Logger name="by.kalilaska" level="debug" additivity="false">
-            <appender-ref ref="console" level="debug" />
-            <appender-ref ref="fileAudit" level="debug"/>
-            <appender-ref ref="fileError" level="error"/>
-        </Logger>
-        <logger name="org.apache" level="error" additivity="false">	
-			<appender-ref ref="fileError" />		
-			<appender-ref ref="console" />
-		</logger>
-
-        <Root level="error">
-            <appender-ref ref="fileError" />
-            <appender-ref ref="console" />
+    <Loggers>    
+	    <Logger name="by.kalilaska" level="debug" additivity="false">
+			<appender-ref ref="trace-log" level="info"/>
+            <appender-ref ref="error-log" level="error"/>
+            <appender-ref ref="console" level="info"/>
+		</Logger>
+    
+        <Root level="info" additivity="false">
+            <AppenderRef ref="console"/>
         </Root>
     </Loggers>
+
 </Configuration>

@@ -15,7 +15,7 @@ package by.kalilaska.ktattoo.filter;
 //	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 //			throws IOException, ServletException {		
 //		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-//		String uri = httpServletRequest.getRequestURI();		
+//		String uri = httpServletRequest.getRequestURI();
 //		if(uri != null && !uri.isEmpty()) {
 //			String commandName = URICommandNameMap.uriCommandMap.get(uri);			
 //			if(commandName != null && !commandName.isEmpty()) {

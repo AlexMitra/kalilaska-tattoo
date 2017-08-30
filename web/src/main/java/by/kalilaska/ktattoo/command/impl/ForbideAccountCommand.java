@@ -6,6 +6,7 @@ import by.kalilaska.ktattoo.bean.AccountBean;
 import by.kalilaska.ktattoo.bean.AdminPersonalAreaViewBean;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.service.AccountService;
+import by.kalilaska.ktattoo.webname.MessageNameList;
 import by.kalilaska.ktattoo.webname.RequestParamNameList;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 
@@ -36,10 +37,12 @@ public class ForbideAccountCommand extends PersonalAreaViewCommand {
                 	
                 	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN, adminViewBean);
         		}else {
-        			//SOME MESSAGE
+        			makeWrongMessage(content, SessionAttrNameList.ATTRIBUTE_FOR_FORBIDE_ACCOUNT_FAILURE, 
+        					MessageNameList.FORBIDE_ACCOUNT_ERROR);
         		}
         	}else {
-        		//SOME MESSAGE
+        		makeWrongMessage(content, SessionAttrNameList.ATTRIBUTE_FOR_FORBIDE_ACCOUNT_FAILURE, 
+        				MessageNameList.SOME_DATA_IS_NULL);
         	}
         }
     	if(bodyContent != null) {

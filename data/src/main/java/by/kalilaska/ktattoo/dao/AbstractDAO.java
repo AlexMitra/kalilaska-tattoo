@@ -13,7 +13,7 @@ public abstract class AbstractDAO<K extends Number, T> {
 	}
 
 	public abstract List<T> findAll() throws DaoSQLException;
-	public abstract T findById(K id);
+	public abstract T findById(K id) throws DaoSQLException;
 	public abstract boolean delete(K id) throws DaoSQLException;
 	public abstract boolean delete(T entity);
 	public abstract T create(T entity) throws DaoSQLException;

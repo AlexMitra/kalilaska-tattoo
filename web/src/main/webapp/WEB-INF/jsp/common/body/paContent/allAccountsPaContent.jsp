@@ -9,6 +9,8 @@
 	<%@include file="allAccountsAllowAccountDialog.jsp"%>
 	<%@include file="allAccountsDeleteAccountDialog.jsp"%>
 
+<div class="all-area-white-background-container">
+<div class="personal-area-stretch-content-container">
 	<div class="all-accounts-title">
 		<h2><fmt:message key="personalArea.allAccounts.title" bundle="${ rb }" />
 			<label class="switch">
@@ -26,8 +28,20 @@
     <div class="form-group warning-message" align="left">
     	<span><c:out value="${editAccountFailure}"/></span>
     </div>
+    <div class="form-group warning-message" align="left">
+    	<span><c:out value="${forbideAccountFailure}"/></span>
+    </div>
+    <div class="form-group warning-message" align="left">
+    	<span><c:out value="${allowAccountFailure}"/></span>
+    </div>
+    <div class="form-group warning-message" align="left">
+    	<span><c:out value="${deleteAccountFailure}"/></span>
+    </div>
     <c:set var="createAccountFailure" value="${null}" scope="session"/>
     <c:set var="editAccountFailure" value="${null}" scope="session"/>
+    <c:set var="forbideAccountFailure" value="${null}" scope="session"/>
+    <c:set var="allowAccountFailure" value="${null}" scope="session"/>
+    <c:set var="deleteAccountFailure" value="${null}" scope="session"/>
 	
 	<!-- Search panel -->
 	<div class="form-group input-group all-accounts-search-panel">
@@ -113,3 +127,5 @@
 			<button id="delete-account-button" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-account-dialog" onclick="accountsTableDeleteButton.showDialog()" disabled ><fmt:message key="personalArea.allAccounts.delete.button" bundle="${ rb }" /></button>
 		</div>
 	</div>
+</div>
+</div>

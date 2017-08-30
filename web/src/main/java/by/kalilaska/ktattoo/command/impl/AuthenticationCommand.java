@@ -3,12 +3,13 @@ package by.kalilaska.ktattoo.command.impl;
 import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
-import by.kalilaska.ktattoo.manager.MessageManager;
-import by.kalilaska.ktattoo.manager.PathBodyManager;
-import by.kalilaska.ktattoo.manager.PathViewManager;
 import by.kalilaska.ktattoo.pathlist.PathBodyList;
 import by.kalilaska.ktattoo.service.AuthenticationService;
 import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundException;
+import by.kalilaska.ktattoo.webmanager.PathBodyManager;
+import by.kalilaska.ktattoo.webmanager.PathViewManager;
+import by.kalilaska.ktattoo.webmanager.WebMessageManager;
 import by.kalilaska.ktattoo.webname.CommandNameList;
 import by.kalilaska.ktattoo.webname.MessageNameList;
 import by.kalilaska.ktattoo.webname.RequestParamNameList;
@@ -19,6 +20,7 @@ import by.kalilaska.ktattoo.webtype.TransitionType;
 public class AuthenticationCommand implements IActionCommand{
 	private PathViewManager viewManager;
 	private PathBodyManager bodyManager;
+	private WebMessageManager messageManager;
 	private String defaultView;
     private String view;
     private String defaultViewBody;
@@ -40,7 +42,10 @@ public class AuthenticationCommand implements IActionCommand{
     	try {
 			viewManager = new PathViewManager();
 			bodyManager = new PathBodyManager();
+			messageManager = new WebMessageManager();
 		} catch (ViewSourceNotFoundException e) {
+			// LOG
+		} catch (WebMessageFileNotFoundException e) {
 			// LOG			
 		}
     }
@@ -70,15 +75,14 @@ public class AuthenticationCommand implements IActionCommand{
             	
             }else if(personalAreaViewBean != null) {//SEND REDIRECT NE NADO!            	
             	view = defaultView;
-            	viewBody = defaultViewBody;            	
+            	viewBody = defaultViewBody;
             	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN, 
             			personalAreaViewBean);
             }
             content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_VIEW_BODY, viewBody);
         }else {
-        	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_INVALID_NAME_PASS,
-        			MessageManager.getProperty(MessageNameList.NAME_OR_PASS_IS_NULL));//SDELAT' METHOD getProperty NON STATIC
-        	
+        	makeWrongMessage(content, SessionAttrNameList.ATTRIBUTE_FOR_INVALID_NAME_PASS, 
+        			MessageNameList.NAME_OR_PASS_IS_NULL);
         }
     }
 
@@ -86,6 +90,12 @@ public class AuthenticationCommand implements IActionCommand{
 	public String getView(SessionRequestContent content) {
 		execute(content);
         return view;
+	}
+	
+	private void makeWrongMessage(SessionRequestContent content, String attributeName, String messagePath) {
+		if(messageManager != null) {
+    		content.insertSessionAttribute(attributeName, messageManager.getProperty(messagePath));
+    	}
 	}
 
 }
