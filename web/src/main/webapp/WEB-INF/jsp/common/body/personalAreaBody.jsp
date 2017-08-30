@@ -2,7 +2,12 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-	<div class="body-container">
+<%@ page import="by.kalilaska.ktattoo.webname.AccountRoleNameList" session="true"%>
+<c:set var="adminRole" value="${AccountRoleNameList.ADMINISTRATOR}" scope="session"/>
+<c:set var="masterRole" value="${AccountRoleNameList.MASTER}" scope="session"/>
+<c:set var="userRole" value="${AccountRoleNameList.USER}" scope="session"/>
+
+	<main class="personal-area-body-container">
 
 		<%@include file="menu/sideMenu.jsp"%>
 	
@@ -11,6 +16,9 @@
 		    <c:if test="${paContent != null}">
 		    	<c:if test="${paContent == 'startContent'}">
 					<%@include file="paContent/startPaContent.jsp" %>
+				</c:if>
+				<c:if test="${paContent == 'editProfileContent'}">
+					<%@include file="paContent/editProfilePaContent.jsp" %>
 				</c:if>
 				<c:if test="${paContent == 'allAccountsContent'}">
 					<%@include file="paContent/allAccountsPaContent.jsp" %>
@@ -22,4 +30,4 @@
 			</c:if>
 	
 	    </div>
-	</div>
+	</main>

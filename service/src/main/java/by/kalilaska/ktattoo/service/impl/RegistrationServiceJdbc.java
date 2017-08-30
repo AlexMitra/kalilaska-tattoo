@@ -7,6 +7,9 @@ import by.kalilaska.ktattoo.bean.AccountBean;
 import by.kalilaska.ktattoo.encoder.MD5Encoder;
 import by.kalilaska.ktattoo.service.AccountService;
 import by.kalilaska.ktattoo.service.RegistrationService;
+import by.kalilaska.ktattoo.serviceexception.ServiceMessageFileNotFoundException;
+import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
+import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 import by.kalilaska.ktattoo.servicetype.AccountRoleType;
 import by.kalilaska.ktattoo.servicetype.DataType;
 import by.kalilaska.ktattoo.validator.FormDataValidator;
@@ -15,11 +18,21 @@ public class RegistrationServiceJdbc implements RegistrationService {
 	
 	private AccountService accountService;
 	private FormDataValidator validator;
+	private ServiceMessageManager messageManager;
 	private String wrongMessage;
 
 	public RegistrationServiceJdbc(AccountService accountService) {
 		this.accountService = accountService;
 		validator = new FormDataValidator();
+		initManager();
+	}
+	
+	private void initManager() {
+		try {
+			messageManager = new ServiceMessageManager();
+		} catch (ServiceMessageFileNotFoundException e) {
+			//LOG
+		}
 	}
 
 	@Override
@@ -31,12 +44,12 @@ public class RegistrationServiceJdbc implements RegistrationService {
 		if(name != null && validator.validate(name, DataType.NAME) 
 				&& password != null && validator.validate(password, DataType.PASS) 
 						&& email != null && validator.validate(email, DataType.EMAIL) 
-								&& confirmPassword.equals(password)){
+								&& confirmPassword != null && confirmPassword.equals(password)){
 			
-			List<AccountBean> nameEmailCheckList = accountService.findAccountByNameOrEmail(name, email);			
+			List<AccountBean> accountCheckList = accountService.findAccountByNameOrEmailOrPass(name, email, password);			
 			
-			if(nameEmailCheckList == null || nameEmailCheckList.isEmpty()){
-				password = MD5Encoder.encode(password);				
+			if(accountCheckList == null || accountCheckList.isEmpty()){
+				password = MD5Encoder.encode(password);
 				AccountBean accountBean = accountService.create(name, email, password);
 				
 				if(accountBean != null) {
@@ -52,15 +65,23 @@ public class RegistrationServiceJdbc implements RegistrationService {
 					viewBean.setAllowed(accountBean.isAllowed());
 					viewBean.setRole(accountBean.getRole());					
 				}else {
-					wrongMessage = "can not create account, something wrong";
+					wrongMessage = makeWrongMessage(ServiceMessageNameList.CREATE_ACCOUNT_UNKNOWN_ERROR);					
 				}				
 			}else {
-				wrongMessage = "can not create account, name or email already exists";
+				wrongMessage = makeWrongMessage(ServiceMessageNameList.CREATE_ACCOUNT_DATA_ALREADY_EXISTS);				
 			}
 		}else {
-			wrongMessage = "can not create account, name or email or password is invalid";
+			wrongMessage = makeWrongMessage(ServiceMessageNameList.CREATE_ACCOUNT_DATA_INVALID);			
 		}
 		return viewBean;
+	}
+	
+	private String makeWrongMessage(String messagePath) {
+		String message = null;
+		if(messageManager != null) {
+			message = messageManager.getProperty(messagePath);
+		}
+		return message;
 	}
 	
 	@Override

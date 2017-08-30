@@ -1,6 +1,5 @@
 package by.kalilaska.ktattoo.dao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import by.kalilaska.ktattoo.pool.ConnectionPool;
@@ -19,7 +18,9 @@ public class TransactionManager {
             }
             dao.setConnection(connection);
             for (AbstractDAO d : daos) {
-                d.setConnection(connection);
+            	if(d != null) {
+            		d.setConnection(connection);
+            	}                
             }
     	}        
     }
@@ -31,7 +32,7 @@ public class TransactionManager {
             } catch (SQLException e) {
                 //LOG
             }            
-            ConnectionPool.getInstance().releaseConnection(connection);           
+            ConnectionPool.getInstance().releaseConnection(connection);
     	}
     }
     

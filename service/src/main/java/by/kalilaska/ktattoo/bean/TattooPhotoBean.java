@@ -1,15 +1,14 @@
 package by.kalilaska.ktattoo.bean;
 
-public class TattooWorkPhotoBean {
+public class TattooPhotoBean {
 	private int id;
 	private String url;
-	private boolean isDone;
-	//private String masterName;
+	private boolean isDone;	
 
-	public TattooWorkPhotoBean() {
+	public TattooPhotoBean() {
 		
 	}
-	public TattooWorkPhotoBean(int id, String url, boolean isDone) {
+	public TattooPhotoBean(int id, String url, boolean isDone) {
 		super();
 		this.id = id;
 		this.url = url;
@@ -35,6 +34,6 @@ public class TattooWorkPhotoBean {
 	}
 	@Override
 	public String toString() {
-		return "TattooWorkPhotoBean [id=" + id + ", url=" + url + ", isDone=" + isDone + "]";
+		return "TattooPhotoBean [id=" + id + ", url=" + url + ", isDone=" + isDone + "]";
 	}	
 }

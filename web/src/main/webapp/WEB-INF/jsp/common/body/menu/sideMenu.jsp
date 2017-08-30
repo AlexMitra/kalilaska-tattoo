@@ -2,22 +2,74 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-    <div class="side-menu-container">
+    <nav class="side-menu-container">
     	<ul>
 			<li class="side-menu-item">
             	<form id="personalArea-view-link" action="personalArea.html" method="POST">
                 	<input type="hidden" name="command" value="personal_area_view" />
             	</form>
             	<button class="side-menu-item-link" type="submit" form="personalArea-view-link" value="">
+                	<i class="fa fa-home fa-lg side-menu-icon" aria-hidden="true"></i>
                 	<fmt:message key="personalArea.side.menu.start" bundle="${ rb }" />
             	</button>
 			</li>
+			
+			<li class="side-menu-item">
+	            <form id="add-consultation-view-link" action="personalArea-addConsultation.html" method="POST">
+	            	<input type="hidden" name="command" value="personal_area_add_consultation_view" />
+	            </form>
+	            <button class="side-menu-item-link" type="submit" form="add-consultation-view-link" value="">
+	            	<i class="fa fa-address-book fa-lg side-menu-icon" aria-hidden="true"></i>
+	            	<fmt:message key="personalArea.side.menu.add.consultation" bundle="${ rb }" />
+	            </button>
+            </li>
+            
+            <li class="side-menu-item">
+                <form id="all-consultations-view-link" action="personalArea-allConsultations.html" method="POST">
+                    <input type="hidden" name="command" value="personal_area_all_accounts_view" />
+                </form>
+                <button class="side-menu-item-link" type="submit" form="all-consultations-view-link" value="">
+                    <i class="fa fa-calendar fa-lg side-menu-icon" aria-hidden="true"></i>
+                    <fmt:message key="personalArea.side.menu.all.consultations" bundle="${ rb }" />
+                </button>
+            </li>
+            
+            <li class="side-menu-item">
+                <form id="add-seance-view-link" action="personalArea-addSeance.html" method="POST">
+                    <input type="hidden" name="command" value="personal_area_add_seance_view" />
+                </form>
+                <button class="side-menu-item-link" type="submit" form="add-seance-view-link" value="">
+                    <i class="fa fa-handshake-o fa-lg side-menu-icon" aria-hidden="true"></i>
+                    <fmt:message key="personalArea.side.menu.add.seance" bundle="${ rb }" />
+                </button>
+            </li>
+            
+            <li class="side-menu-item">
+                <form id="all-seances-view-link" action="personalArea-allSeances.html" method="POST">
+                    <input type="hidden" name="command" value="personal_area_all_seances_view" />
+                </form>
+                <button class="side-menu-item-link" type="submit" form="all-seances-view-link" value="">
+                    <i class="fa fa-calendar fa-lg side-menu-icon" aria-hidden="true"></i>
+                    <fmt:message key="personalArea.side.menu.all.seances" bundle="${ rb }" />
+                </button>
+            </li>
+            
+            <li class="side-menu-item">
+                <form id="my-works-view-link" action="personalArea-works.html" method="POST">
+                    <input type="hidden" name="command" value="personal_area_works_view" />
+                </form>
+                <button class="side-menu-item-link" type="submit" form="my-works-view-link" value="">
+                    <i class="fa fa-picture-o fa-lg side-menu-icon" aria-hidden="true"></i>
+                    <fmt:message key="personalArea.side.menu.my.works" bundle="${ rb }" />
+                </button>
+            </li>
 
 			<li class="side-menu-item">
             	<form id="all-accounts-view-link" action="personalArea-allAccounts.html" method="POST">
                 	<input type="hidden" name="command" value="personal_area_all_accounts_view" />
             	</form>
             	<button class="side-menu-item-link" type="submit" form="all-accounts-view-link" value="">
+                	<i class="fa fa-users fa-lg side-menu-icon" aria-hidden="true"></i>
                 	<fmt:message key="personalArea.side.menu.all.accounts" bundle="${ rb }" />
             	</button>
 			</li>
@@ -27,8 +79,9 @@
                 	<input type="hidden" name="command" value="logout" />
             	</form>
             	<button class="side-menu-item-link" type="submit" form="logout-link" value="">
+                	<i class="fa fa-sign-out fa-lg side-menu-icon" aria-hidden="true"></i>
                 	<fmt:message key="personalArea.side.menu.logout" bundle="${ rb }" />
             	</button>
 			</li>                    
 		</ul>
-    </div>
+    </nav>

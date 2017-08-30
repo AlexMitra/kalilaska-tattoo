@@ -2,10 +2,10 @@ package by.kalilaska.ktattoo.controller;
 
 
 
-import by.kalilaska.ktattoo.manager.PathBodyManager;
-import by.kalilaska.ktattoo.manager.PathViewManager;
 import by.kalilaska.ktattoo.pathlist.PathBodyList;
 import by.kalilaska.ktattoo.pathlist.PathViewList;
+import by.kalilaska.ktattoo.webmanager.PathBodyManager;
+import by.kalilaska.ktattoo.webmanager.PathViewManager;
 import by.kalilaska.ktattoo.webname.RequestAttrNameList;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 import by.kalilaska.ktattoo.webtype.LanguageType;

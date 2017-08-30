@@ -3,6 +3,8 @@ package by.kalilaska.ktattoo.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,8 +87,13 @@ public class SeanceDAO extends AbstractDAO<Integer, SeanceEntity> {
 	protected SeanceEntity mapRow(ResultSet resultSet) throws DaoSQLException {
 		SeanceEntity seance = null;
 		try {
+			Date date = null;
+			Timestamp timestamp = resultSet.getTimestamp("date");
+			if (timestamp != null)
+			    date = new Date(timestamp.getTime());
+			
 			seance = new SeanceEntity(resultSet.getInt("id"), 
-					resultSet.getDate("date"), 
+					date, 
 					resultSet.getByte("duration_hours"), 
 					resultSet.getBigDecimal("cost_per_hour"), 
 					resultSet.getInt("FK_account_id"), 

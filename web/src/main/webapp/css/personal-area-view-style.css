@@ -1,23 +1,29 @@
 @charset "UTF-8";
 
+.personal-area-body-container {
+    max-width: 100%;
+    height: var(--body-content-height);    
+    display: grid;
+    grid-template-columns: [side-menu-col-start] var(--side-menu-width) [side-menu-col-end view-content-col-start]1fr[view-content-col-end];    
+}
+
 /* Personal area side menu classes */
 
 .side-menu-container{
-  float: left;
-  width: var(--side-menu-width);
-  height: 100%;
-  padding-top: 30px;
-  padding-left: 60px;
+  grid-column: side-menu-col-start/side-menu-col-end;
+  margin-top: var(--header-footer-height);
+  padding-top: 20px;
+  padding-left: 40px;
   background-color: var(--side-bar-background-color);
   text-align: left;
   font-family: 'Roboto', sans-serif;
   color: black;
-  font-size: 110%;
+  font-size: 90%;
   letter-spacing: var(--roboto-spacing);
 }
 
 .side-menu-item{
-  list-style: none;
+    display: block;
 }
 
 .side-menu-item-link {
@@ -29,21 +35,335 @@
   outline: none;
 }
 
-/* Personal area body content classes */
+.side-menu-icon {
+    width: 30px;
+    text-align: center;
+    color: var(--header-footer-background);
+}
+
+/* Personal area content classes */
 
 .personal-area-content{
-  width: var(--personal-area-body-width);
-  margin: 0 auto;
-  height: 100%;
-  padding-top: 30px;
-  padding-left: var(--side-menu-width);
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-  font-size: 100%;
-  color: black;
+    grid-column: view-content-col-start/view-content-col-end;
+    margin-top: var(--header-footer-height);
+    background-color: var(--personal-area-background-color);  
+    font-family: 'Roboto', sans-serif;  
+    color: black;
+}
+
+.personal-area-content-grid-container {
+    padding: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: [avatar-col-start] calc(var(--master-photo-width) + 40px) [avatar-col-end account-content-start] 1fr [account-content-end];
+    grid-template-rows: [avatar-row-start] calc(var(--master-photo-height) + 40px + 70px) [avatar-row-end common-row] repeat(2, 1fr);
+    grid-gap: 20px;    
+}
+
+.personal-area-avatar-container {    
+    grid-column: avatar-col-start/avatar-col-end;
+    padding: 20px 20px 20px 20px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.avatar-photo {
+    width: var(--master-photo-width);
+    height: var(--master-photo-height);
+}
+
+.account-profile-edit-button {
+    height: 50px;
+    margin-top: 20px;
+    display: inline-block;
+    width: 100%;
+    background-color: var(--side-bar-background-color);
+}
+
+.personal-area-title-container {
+    grid-column: account-content-start/account-content-end;
+    padding: 20px 20px 20px 20px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.account-name {
+    display: inline-block;
+    padding: 5px 0 0 10px;
+    font-size: 170%;
+    font-weight: 500;
+}
+
+.signal-message{
+    max-width: 13%;
+    min-width: 80px;
+    padding: 10px 0;
+    margin: 10px 10px;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 80%;
+}
+
+.wrong-message {
+    float: right;
+    display: inline-block;
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.remind-message {
+    float: right;
+    display: inline-block;
+    background-color: rgba(255, 240, 0, 0.8);
+}
+
+.working-message-container {
+    clear: both;
+    overflow: auto;    
+}
+
+.working-message {    
+    float: left;
+    display: block;
+    background-color: rgba(30, 200, 70, 1.0);
+}
+
+.account-info {
+    clear: both;
+    padding-left: 10%;
+    padding-top: 10px;
+}
+
+.account-info-item { 
+    display: inline-block;
+    width: 50px;
+    font-size: 120%;
+}
+
+.account-info-item-value {
+    font-size: 85%;
+    max-height: 8em;
+    overflow: hidden;
+}
+
+.own-consultations-seances-container {
+    grid-column: span 2;
+    grid-row: span 1;
+    padding: 20px 20px 20px 20px;
+    background-color: white;
+    border-radius: 3px;
+    height: calc((var(--body-content-height) - var(--header-footer-height) - 4*20px - 6*20px - var(--master-photo-height))/2);
+    overflow: auto;
+}
+
+.consultations-seances-title {
+    font-size: 150%;
+}
+
+.consultations-seances-value {
+    font-size: 120%;
+}
+
+.consultations-seances-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0 0 0;
+}
+
+.consultations-seances-list-item {
+    display: block;
+    width: 250px;
+    background-color: lightblue;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin: 10px 0;
+}
+
+.personal-area-avatar-image-container {
+    position: relative;
+}
+
+.update-avatar-button-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(24, 24, 24, 0.6);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .4s ease;
+}
+
+.personal-area-avatar-image-container:hover .update-avatar-button-container{  
+  height: 50px;  
+}
+
+.update-avatar-label {
+  white-space: nowrap; 
+  color: rgb(192, 192, 192);
+  font-size: 16px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;  
+  outline: none;
+  cursor: pointer;
+}
+
+.update-avatar-label:hover {  
+  color: white;
+}
+
+.update-avatar-label:active {  
+  color: white;
+}
+
+.update-avatar-input {    
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.delete-avatar-button-container {
+position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;  
+  background-color: rgba(24, 24, 24, 0.6);
+  overflow: hidden;
+  width: 100%;
+    height:0;
+  transition: .4s ease;
+}
+
+.personal-area-avatar-image-container:hover .delete-avatar-button-container{  
+   bottom: calc(100% - 30px);
+  height: 30px;
+}
+
+.delete-avatar-button {    
+  white-space: nowrap; 
+  color: rgb(192, 192, 192);
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;  
+  outline: none;
+}
+
+.delete-avatar-button:hover {
+	color: white;
+}
+
+.delete-avatar-button:active {
+	color: white;
+}
+
+.account-info-item-value-warning {
+    padding: 5px;
+    font-size: 85%;
+    max-height: 8em;
+    overflow: hidden;
+    border: 2px solid rgba(255, 0, 0, 0.8);
+    border-radius: 3px;
+    animation-name: withoutInfo;
+    animation-duration: 2s;
+    animation-iteration-count: 1000;
+}
+
+@keyframes withoutInfo {
+    from {border: 2px solid rgba(255, 0, 0, 0.8);}
+    to {border: 2px solid white;}
+}
+
+/* Edit profile classes */
+
+.all-area-white-background-container{
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	overflow: auto;
+}
+
+.personal-area-center-content-container {
+    padding: 20px;
+    width: 50%;    
+    margin: auto;
+}
+
+.personal-area-center-form-container {
+    width: var(--common-form-width);    
+}
+
+.edit-profile-title-container {    
+    padding: 10px 0;
+    text-align: center;
+    font-size: 150%;
+}
+
+.edit-profile-style-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 150px;
+    overflow: auto;    
+}
+
+.edit-profile-style-list-item {
+    display: block;
+    padding: 5px 10px;
+    margin: 10px 0;    
+    background-color: lightgreen;
+    font-size: 75%;
+    width: calc(var(--common-form-width) - 20px);
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
+}
+
+.edit-profile-style-list-container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.edit-profile-dropdown-list-item {
+    display: block;
+    font-size: 75%;
+    width: var(--common-form-width);
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
+}
+
+.edit-profile-style-item-remove {
+    float: right;
+    color: var(--header-footer-background);
+}
+
+.edit-profile-style-item-remove:focus {    
+    color: var(--header-footer-background);
 }
 
 /* All accounts content classes */
+
+.personal-area-stretch-content-container {
+    padding: 20px;
+    width: 95%;    
+    margin: auto;
+    height: calc(var(--body-content-height) - 2*var(--header-footer-height) - 2*20px);
+}
+
 .all-accounts-title{
   text-align: left;
   margin-bottom: 5vh;
@@ -75,9 +395,9 @@
 }
 
 .accounts-table-area{
-	overflow: scroll;  
-    max-height: 55%;   
-    border: 0px;
+	overflow: auto;  
+    max-height: 70%;
+    border: 0px;    
 }
 
 .accounts-table-linkrow{

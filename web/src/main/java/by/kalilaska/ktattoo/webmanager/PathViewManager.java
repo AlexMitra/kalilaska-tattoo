@@ -1,4 +1,4 @@
-package by.kalilaska.ktattoo.manager;
+package by.kalilaska.ktattoo.webmanager;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -16,7 +16,7 @@ public class PathViewManager {
     	try {
     		resourceBundle = ResourceBundle.getBundle(PropFileNameList.PATH_VIEW_FILE);
     	}catch(MissingResourceException e) {
-    		throw new ViewSourceNotFoundException();
+    		throw new ViewSourceNotFoundException(e);
     	}
     	
     }

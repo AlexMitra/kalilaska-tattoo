@@ -2,9 +2,9 @@ package by.kalilaska.ktattoo.command.impl;
 
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
-import by.kalilaska.ktattoo.manager.PathBodyManager;
-import by.kalilaska.ktattoo.manager.PathViewManager;
 import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webmanager.PathBodyManager;
+import by.kalilaska.ktattoo.webmanager.PathViewManager;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 
 /**
