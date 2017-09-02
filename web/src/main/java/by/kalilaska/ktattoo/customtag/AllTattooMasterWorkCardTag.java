@@ -7,11 +7,15 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.TattooMasterBean;
 import by.kalilaska.ktattoo.webname.ImageNameList;
 
 public class AllTattooMasterWorkCardTag extends TagSupport {
-
+	private final static Logger LOGGER = LogManager.getLogger(AllTattooMasterWorkCardTag.class);
 	private List<TattooMasterBean> masterBeanList;	
 	
 	public void setMasterList(List<TattooMasterBean> masterBeanList) {
@@ -35,7 +39,7 @@ public class AllTattooMasterWorkCardTag extends TagSupport {
 					out.write("</button>");
 					out.write("</div>");
 				} catch (IOException e) {
-					// LOG			
+					LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 				}
 			}
 		}

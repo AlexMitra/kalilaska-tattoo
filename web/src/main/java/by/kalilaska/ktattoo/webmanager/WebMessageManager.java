@@ -3,20 +3,25 @@ package by.kalilaska.ktattoo.webmanager;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundWebException;
 import by.kalilaska.ktattoo.webname.PropFileNameList;
 
 /**
  * Created by lovcov on 13.07.2017.
  */
 public class WebMessageManager {
+	private final static Logger LOGGER = LogManager.getLogger(WebMessageManager.class);
     private static ResourceBundle resourceBundle;
 
-    public WebMessageManager() throws WebMessageFileNotFoundException {
+    public WebMessageManager() throws WebMessageFileNotFoundWebException {
     	try {
     		resourceBundle = ResourceBundle.getBundle(PropFileNameList.WEB_MESSAGE_FILE);
     	}catch(MissingResourceException e) {
-    		throw new WebMessageFileNotFoundException(e);
+    		throw new WebMessageFileNotFoundWebException(e);
     	}
     }
     
@@ -24,7 +29,7 @@ public class WebMessageManager {
     	try {
     		resourceBundle = ResourceBundle.getBundle(PropFileNameList.WEB_MESSAGE_FILE);
     	}catch(MissingResourceException e) {
-    		//LOG
+    		LOGGER.log(Level.WARN, "can not find configuration file for messages: " + e.getMessage());
     	}
     }
     

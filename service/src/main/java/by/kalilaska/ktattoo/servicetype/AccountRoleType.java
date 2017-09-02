@@ -44,25 +44,5 @@ public enum AccountRoleType {
 		return role;
 	}
 	
-	public abstract AbstractPersonalAreaViewBean getPersonalAreaViewBean();
-	
-//	public static AccountRoleType defineRoleType(List<String> roleNameList) {
-//		List<AccountRoleType> roleTypeList = new ArrayList<>();
-//		AccountRoleType roleType = null;		
-//		
-//		if(roleNameList != null && !roleNameList.isEmpty()) {			
-//			roleNameList.stream().forEach(name -> roleTypeList.add(valueOf(name.toUpperCase())));			
-//		}
-//		
-//		if(roleTypeList.contains(ADMINISTRATOR)) {
-//			roleType = ADMINISTRATOR;
-//		}else if(roleTypeList.contains(MASTER)){
-//			roleType = MASTER;
-//		}else if(roleTypeList.contains(USER)) {
-//			roleType = USER;
-//		}
-//		
-//		return roleType;
-//	}
-	
+	public abstract AbstractPersonalAreaViewBean getPersonalAreaViewBean();	
 }

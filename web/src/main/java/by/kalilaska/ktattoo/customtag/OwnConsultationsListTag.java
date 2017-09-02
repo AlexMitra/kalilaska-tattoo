@@ -6,12 +6,16 @@ import java.util.List;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.ConsultationBean;
 import by.kalilaska.ktattoo.webname.I18nNameList;
 import by.kalilaska.ktattoo.webutil.DateUtil;
 
 public class OwnConsultationsListTag extends AbstractI18nMessageTag {
-	
+	private final static Logger LOGGER = LogManager.getLogger(OwnConsultationsListTag.class);
 	private List<ConsultationBean> consultations;	
 	private DateUtil dateUtil = new DateUtil();
 	
@@ -33,7 +37,7 @@ public class OwnConsultationsListTag extends AbstractI18nMessageTag {
 						out.write("</li>");
 					}
 				} catch (IOException e) {
-					// LOG			
+					LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 				}
 			}
 		}

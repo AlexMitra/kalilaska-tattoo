@@ -45,10 +45,6 @@ public class DateUtil {
 	}
 	
 	public boolean isBefore(Date date) {
-//		System.out.println("current day: " + currentDate.get(Calendar.DAY_OF_YEAR));
-//		GregorianCalendar comparedDate = new GregorianCalendar();
-//		comparedDate.setTime(date);
-//		System.out.println("compared day: " + comparedDate.get(Calendar.DAY_OF_YEAR));
 		return currentDate.getTime().before(date);
 	}
 

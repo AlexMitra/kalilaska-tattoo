@@ -4,7 +4,7 @@ import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.service.AccountService;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyContentManager;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
@@ -51,7 +51,7 @@ public class DeleteAvatarCommand2 implements IActionCommand{
 			bodyManager = new PathBodyManager();
 			bodyContentManager = new PathBodyContentManager();
 			//messageManager = new WebMessageManager();
-		} catch (ViewSourceNotFoundException e) {
+		} catch (ViewSourceNotFoundWebException e) {
 			// LOG
 		}
     }

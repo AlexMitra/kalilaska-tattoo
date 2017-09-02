@@ -4,8 +4,10 @@ import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.service.AccountService;
+import by.kalilaska.ktattoo.webname.CommandNameList;
 import by.kalilaska.ktattoo.webname.RequestAttrNameList;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
+import by.kalilaska.ktattoo.webtype.TransitionType;
 
 public class DeleteAvatarCommand implements IActionCommand{
 
@@ -18,7 +20,7 @@ public class DeleteAvatarCommand implements IActionCommand{
 		this.defaultURI = redirectedURI;
 	}
 	
-	private void execute(SessionRequestContent content) {
+	private void execute(SessionRequestContent content) {		
 		Object bean = content.getSessionAttributes().get(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN);
     	AbstractPersonalAreaViewBean personalAreaViewBean = null;
     	
@@ -29,9 +31,9 @@ public class DeleteAvatarCommand implements IActionCommand{
     		boolean deleted = false;
     		
     		if(bean instanceof AbstractPersonalAreaViewBean) {
-    			personalAreaViewBean = (AbstractPersonalAreaViewBean)bean;  			
+    			personalAreaViewBean = (AbstractPersonalAreaViewBean)bean;
     			deleted = accountService.deletePhotoUrl(personalAreaViewBean.getId());
-    			System.out.println("in delete avatar command, deleted: " + deleted);
+    			
         		if(deleted == false) {
         			content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_DELETE_AVATAR_FAILURE, 
         					accountService.getWrongMessage() != null ? accountService.getWrongMessage() : "");
@@ -41,7 +43,10 @@ public class DeleteAvatarCommand implements IActionCommand{
     						personalAreaViewBean);
     			}
     		}
-    	}
+    	}    	
+    	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_COMMAND, 
+    			CommandNameList.PERSONAL_AREA_VIEW_COMMAND);
+    	content.setTransition(TransitionType.SEND_REDIRECT);
 	}
 
 	@Override

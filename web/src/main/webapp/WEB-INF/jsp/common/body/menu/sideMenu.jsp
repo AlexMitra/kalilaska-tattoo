@@ -5,7 +5,7 @@
     <nav class="side-menu-container">
     	<ul>
 			<li class="side-menu-item">
-            	<form id="personalArea-view-link" action="personalArea.html" method="POST">
+            	<form id="personalArea-view-link" action="personalArea.html" method="GET">
                 	<input type="hidden" name="command" value="personal_area_view" />
             	</form>
             	<button class="side-menu-item-link" type="submit" form="personalArea-view-link" value="">
@@ -15,7 +15,7 @@
 			</li>
 			
 			<li class="side-menu-item">
-	            <form id="add-consultation-view-link" action="personalArea-addConsultation.html" method="POST">
+	            <form id="add-consultation-view-link" action="personalArea-addConsultation.html" method="GET">
 	            	<input type="hidden" name="command" value="personal_area_add_consultation_view" />
 	            </form>
 	            <button class="side-menu-item-link" type="submit" form="add-consultation-view-link" value="">
@@ -25,8 +25,8 @@
             </li>
             
             <li class="side-menu-item">
-                <form id="all-consultations-view-link" action="personalArea-allConsultations.html" method="POST">
-                    <input type="hidden" name="command" value="personal_area_all_accounts_view" />
+                <form id="all-consultations-view-link" action="personalArea-allConsultations.html" method="GET">
+                    <input type="hidden" name="command" value="personal_area_all_consultations_view" />
                 </form>
                 <button class="side-menu-item-link" type="submit" form="all-consultations-view-link" value="">
                     <i class="fa fa-calendar fa-lg side-menu-icon" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
             </li>
             
             <li class="side-menu-item">
-                <form id="add-seance-view-link" action="personalArea-addSeance.html" method="POST">
+                <form id="add-seance-view-link" action="personalArea-addSeance.html" method="GET">
                     <input type="hidden" name="command" value="personal_area_add_seance_view" />
                 </form>
                 <button class="side-menu-item-link" type="submit" form="add-seance-view-link" value="">
@@ -45,7 +45,7 @@
             </li>
             
             <li class="side-menu-item">
-                <form id="all-seances-view-link" action="personalArea-allSeances.html" method="POST">
+                <form id="all-seances-view-link" action="personalArea-allSeances.html" method="GET">
                     <input type="hidden" name="command" value="personal_area_all_seances_view" />
                 </form>
                 <button class="side-menu-item-link" type="submit" form="all-seances-view-link" value="">
@@ -55,7 +55,7 @@
             </li>
             
             <li class="side-menu-item">
-                <form id="my-works-view-link" action="personalArea-works.html" method="POST">
+                <form id="my-works-view-link" action="personalArea-works.html" method="GET">
                     <input type="hidden" name="command" value="personal_area_works_view" />
                 </form>
                 <button class="side-menu-item-link" type="submit" form="my-works-view-link" value="">
@@ -63,9 +63,19 @@
                     <fmt:message key="personalArea.side.menu.my.works" bundle="${ rb }" />
                 </button>
             </li>
+            
+            <li class="side-menu-item">
+                <form id="add-style-view-link" action="personalArea-addStyle.html" method="GET">
+                    <input type="hidden" name="command" value="personal_area_add_style_view" />
+                </form>
+                <button class="side-menu-item-link" type="submit" form="add-style-view-link" value="">
+                    <i class="fa fa-pencil-square-o fa-lg side-menu-icon" aria-hidden="true"></i>
+                    Add style
+                </button>
+            </li>
 
 			<li class="side-menu-item">
-            	<form id="all-accounts-view-link" action="personalArea-allAccounts.html" method="POST">
+            	<form id="all-accounts-view-link" action="personalArea-allAccounts.html" method="GET">
                 	<input type="hidden" name="command" value="personal_area_all_accounts_view" />
             	</form>
             	<button class="side-menu-item-link" type="submit" form="all-accounts-view-link" value="">

@@ -15,12 +15,6 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>by.kalilaska</groupId>-->
-            <!--<artifactId>web</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>by.kalilaska</groupId>
             <artifactId>data</artifactId>

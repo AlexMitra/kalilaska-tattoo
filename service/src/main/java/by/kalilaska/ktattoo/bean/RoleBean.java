@@ -4,12 +4,10 @@ public class RoleBean {
 	private byte id;
 	private String name;	
 
-	public RoleBean() {
-		
+	public RoleBean() {		
 	}
 	
-	public RoleBean(byte id, String name) {
-		super();
+	public RoleBean(byte id, String name) {		
 		this.id = id;
 		this.name = name;		
 	}
@@ -33,6 +31,5 @@ public class RoleBean {
 	@Override
 	public String toString() {
 		return "RoleBean [" + name + "]";
-	}	
-
+	}
 }

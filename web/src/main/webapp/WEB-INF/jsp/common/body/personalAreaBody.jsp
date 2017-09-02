@@ -20,6 +20,15 @@
 				<c:if test="${paContent == 'editProfileContent'}">
 					<%@include file="paContent/editProfilePaContent.jsp" %>
 				</c:if>
+				<c:if test="${paContent == 'addTattooConsultationContent'}">
+					<%@include file="paContent/addTattooConsultationPaContent.jsp" %>
+				</c:if>
+				<c:if test="${paContent == 'AllTattooConsultationsContent'}">
+					<%@include file="paContent/allTattooConsultationsPaContent.jsp" %>
+				</c:if>
+				<c:if test="${paContent == 'addTattooStyleContent'}">
+					<%@include file="paContent/addTattooStylePaContent.jsp" %>
+				</c:if>
 				<c:if test="${paContent == 'allAccountsContent'}">
 					<%@include file="paContent/allAccountsPaContent.jsp" %>
 				</c:if>

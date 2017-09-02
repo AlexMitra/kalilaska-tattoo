@@ -83,10 +83,8 @@ public abstract class AbstractPersonalAreaViewBean {
 		this.role = role;
 	}
 
-	public void setConsultations(List<ConsultationBean> consultations) {
-		if(consultations != null) {
-			this.consultations.addAll(consultations);
-		}		
+	public void setConsultations(List<ConsultationBean> consultations) {		
+		this.consultations = consultations;
 	}
 	
 	public void updateConsultations(List<ConsultationBean> consultations) {
@@ -96,10 +94,8 @@ public abstract class AbstractPersonalAreaViewBean {
 		}	
 	}
 
-	public void setSeances(List<SeanceBean> seances) {
-		if(seances != null) {
-			this.seances.addAll(seances);
-		}		
+	public void setSeances(List<SeanceBean> seances) {		
+		this.seances = seances;				
 	}
 	
 	public void updateSeances(List<SeanceBean> seances) {

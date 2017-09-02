@@ -34,6 +34,11 @@
             <appender-ref ref="error-log" level="error"/>
             <appender-ref ref="console" level="info"/>
 		</Logger>
+		
+		<Logger name="org.apache" level="error" additivity="false">	
+			<appender-ref ref="error-log" />		
+			<appender-ref ref="console" />
+		</Logger>
     
         <Root level="info" additivity="false">
             <AppenderRef ref="console"/>

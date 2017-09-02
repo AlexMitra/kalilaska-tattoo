@@ -13,8 +13,7 @@ public class SeanceBean {
 	private int masterId;
 	private String masterName;
 
-	public SeanceBean() {
-		
+	public SeanceBean() {		
 	}
 
 	public SeanceBean(int id, Date date, byte duration, BigDecimal costPerHour, int clientId, String clientName,
@@ -100,5 +99,4 @@ public class SeanceBean {
 				+ ", clientId=" + clientId + ", clientName=" + clientName + ", masterId=" + masterId + ", masterName="
 				+ masterName + "]";
 	}
-
 }

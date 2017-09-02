@@ -5,15 +5,15 @@ public class TattooPhotoBean {
 	private String url;
 	private boolean isDone;	
 
-	public TattooPhotoBean() {
-		
+	public TattooPhotoBean() {		
 	}
-	public TattooPhotoBean(int id, String url, boolean isDone) {
-		super();
+	
+	public TattooPhotoBean(int id, String url, boolean isDone) {		
 		this.id = id;
 		this.url = url;
 		this.isDone = isDone;
 	}
+	
 	public int getId() {
 		return id;
 	}

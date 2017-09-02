@@ -11,9 +11,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.kalilaska.ktattoo.dataexception.CreationConnectionDataException;
+import by.kalilaska.ktattoo.dataexception.JdbcDriverNotFoundDataException;
+import by.kalilaska.ktattoo.dataexception.PoolSizeUnadmittedDataException;
 import by.kalilaska.ktattoo.dataname.DBConfigNameList;
 
 public class ConnectionPool {
@@ -26,12 +30,15 @@ public class ConnectionPool {
 	
 	private BlockingQueue<ProxyConnection> connectionQueue;
 	
-	private ConnectionPool(){
+	private ConnectionPool() throws JdbcDriverNotFoundDataException, 
+	CreationConnectionDataException, PoolSizeUnadmittedDataException{
+		
 		connectionQueue = new ArrayBlockingQueue<>(DBConfigNameList.POOL_SIZE);
 		initQueue();
 	}
 	
-	public static ConnectionPool getInstance() {
+	public static ConnectionPool getInstance() throws JdbcDriverNotFoundDataException, 
+	CreationConnectionDataException, PoolSizeUnadmittedDataException {
 		if(!instanced.get()) {
 			lock.lock();
 			try {
@@ -47,13 +54,14 @@ public class ConnectionPool {
 	}
 
 	
-	private void initQueue() {
-		Connection connection = null;
-				      
+	private void initQueue() throws JdbcDriverNotFoundDataException, 
+	CreationConnectionDataException, PoolSizeUnadmittedDataException {
+		
+		Connection connection = null;				      
 		try {			
 			PoolConfigManager poolConfigManager = new PoolConfigManager();
 			
-			Class.forName(poolConfigManager.getDriver());			
+			Class.forName(poolConfigManager.getDriver());
 			
 			for (int i = 0; i < DBConfigNameList.POOL_SIZE; i++) {				
 				connection = DriverManager.getConnection(
@@ -62,11 +70,14 @@ public class ConnectionPool {
 						poolConfigManager.getPassword());
 				connectionQueue.add(new ProxyConnection(connection));
 			}
-			System.out.println(connectionQueue);//UDALIT!!!!!
+			if(connectionQueue.size() < DBConfigNameList.ADMITTED_POOL_SIZE) {
+				throw new PoolSizeUnadmittedDataException("connection pool size is so few: " + connectionQueue.size());
+			}
+			LOGGER.log(Level.INFO, "connectionPool size after initialization: " + connectionQueue.size());
 		} catch (SQLException e) {			
-			//Throw Exception
+			throw new CreationConnectionDataException(e);
 		} catch (ClassNotFoundException e) {			
-			//Throw Exception
+			throw new JdbcDriverNotFoundDataException(e);
 		}			
 	}
 
@@ -76,7 +87,7 @@ public class ConnectionPool {
 		try {
 			connection = connectionQueue.take();
 		} catch (InterruptedException e) {			
-			e.printStackTrace();
+			LOGGER.log(Level.ERROR, "can not take connetion from connectionQueue: " + e.getMessage());
 		}
 		return connection;		
 	}
@@ -87,17 +98,18 @@ public class ConnectionPool {
 				connectionQueue.put(connection);
 			}			
 		} catch (InterruptedException e) {			
-			//LOG
+			LOGGER.log(Level.ERROR, "can not put connetion into connectionQueue: " + e.getMessage());
 		}
 	}
 	
 	public void removeConnections() {
+		LOGGER.log(Level.INFO, "connectionPool size before close: " + connectionQueue.size());
 		for (int i = 0; i < DBConfigNameList.POOL_SIZE; i++) {				
 			try {
 				ProxyConnection connection = connectionQueue.take();
 				connection.closeConnection();
 			} catch (SQLException | InterruptedException e) {					
-				//LOG
+				LOGGER.log(Level.ERROR, "can not close connetions in connectionPool: " + e.getMessage());
 			}
 		}
 		checkOutDrivers();		
@@ -111,7 +123,7 @@ public class ConnectionPool {
 		        DriverManager.deregisterDriver(driver);
 		    }
 		} catch (SQLException e) {
-			//LOG
+			LOGGER.log(Level.ERROR, "can not check out drivers after closing all connetions: " + e.getMessage());
 		}
 	}
 }

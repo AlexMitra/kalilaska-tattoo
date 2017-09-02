@@ -6,16 +6,12 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import by.kalilaska.ktattoo.dao.AbstractDAO;
-import by.kalilaska.ktattoo.dataexception.DaoSQLException;
+import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.dataname.daoNameList;
 import by.kalilaska.ktattoo.entity.AccountEntity;
 
-public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
-	private final static Logger LOGGER = LogManager.getLogger(AccountDAO.class);
+public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{	
 
 	private final static String SQL_SELECT_ALL_ACCOUNT =
 			 "SELECT `a`.`id`, `a`.`name`, `a`.`email`, `a`.`password`, `a`.`phone`, `a`.`photo_url`, " +
@@ -87,11 +83,7 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 			"INSERT INTO `account` (`name`, `email`, `password`, `photo_url`, `is_allowed`, `FK_role_id`) VALUES " + 
 			"(?, ?, ?, NULL, true, " + daoNameList.DEFAULT_ROLE_ID + ");";
 	
-	public AccountDAO() {		
-	}
-
-	@Override
-	public List<AccountEntity> findAll() throws DaoSQLException {
+	public List<AccountEntity> findAll() throws SQLDataException {
 		LinkedList<AccountEntity> accounts = null;
 		AccountEntity account = null;
 		
@@ -107,19 +99,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 			}
 
 		}catch (SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 		
 		return accounts;
 	}
-
-	@Override
-	public AccountEntity findById(Integer id) {
-		throw new UnsupportedOperationException();
-	}
-
 	
-	public AccountEntity findAccountByName(String name) throws DaoSQLException {		
+	public AccountEntity findAccountByName(String name) throws SQLDataException {		
 		AccountEntity account = null;
 		
 		try(PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ACCOUNT_BY_NAME)) {
@@ -130,12 +116,12 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 					account = mapRow(resultSet);
 			}	
 		} catch (SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}		
 		return account;
 	}
 	
-	public List<AccountEntity> findAccountByNameOrEmail(String name, String email) throws DaoSQLException {		
+	public List<AccountEntity> findAccountByNameOrEmail(String name, String email) throws SQLDataException {		
 		List<AccountEntity> accounts = null;
 		AccountEntity account = null;
 		
@@ -152,12 +138,12 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 				}while (resultSet.next());
 			}
 		} catch (SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}		
 		return accounts;
 	}
 	
-	public List<AccountEntity> findAccountByNameOrEmailOrPass(String name, String email, String pass) throws DaoSQLException {		
+	public List<AccountEntity> findAccountByNameOrEmailOrPass(String name, String email, String pass) throws SQLDataException {		
 		List<AccountEntity> accounts = null;
 		AccountEntity account = null;
 		
@@ -175,12 +161,12 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 				}while (resultSet.next());
 			}
 		} catch (SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 		return accounts;
 	}
 	
-	public List<AccountEntity> findAccountByPhotoUrl(String photoUrl) throws DaoSQLException{
+	public List<AccountEntity> findAccountByPhotoUrl(String photoUrl) throws SQLDataException{
 		List<AccountEntity> accounts = null;
 		AccountEntity account = null;
 		
@@ -197,13 +183,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 					}while (resultSet.next());
 				}
 			} catch (SQLException e) {
-				throw new DaoSQLException(e);
+				throw new SQLDataException(e);
 			}
 		}
 		return accounts;
 	}
 	
-	public boolean forbideAccountById(Integer id) throws DaoSQLException {
+	public boolean forbideAccountById(Integer id) throws SQLDataException {
 		boolean result = false;
 		if(id != null) {
 			try(PreparedStatement statement = connection.prepareStatement(SQL_FORBIDE_ACCOUNT_BY_ID)) {
@@ -215,13 +201,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 				}
 				
 			} catch (SQLException e) {
-				throw new DaoSQLException(e);
+				throw new SQLDataException(e);
 			}
 		}		
 		return result;
 	}
 	
-	public boolean allowAccountById(Integer id) throws DaoSQLException {
+	public boolean allowAccountById(Integer id) throws SQLDataException {
 		boolean result = false;
 		if(id != null) {
 			try(PreparedStatement statement = connection.prepareStatement(SQL_ALLOW_ACCOUNT_BY_ID)) {
@@ -232,13 +218,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 					result = true;
 				}
 			} catch (SQLException e) {
-				throw new DaoSQLException(e);
+				throw new SQLDataException(e);
 			}
 		}	
 		return result;
 	}
 	
-	public boolean updatePhotoUrl(AccountEntity accountEntity) throws DaoSQLException {
+	public boolean updatePhotoUrl(AccountEntity accountEntity) throws SQLDataException {
 		boolean updated = false;
 		if(accountEntity != null) {
 			int id = accountEntity.getId();
@@ -253,13 +239,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 					updated = true;
 				}
 			} catch (SQLException e) {
-				throw new DaoSQLException(e);
+				throw new SQLDataException(e);
 			}
 		}
 		return updated;
 	}
 	
-	public boolean deletePhotoUrl(Integer id) throws DaoSQLException {
+	public boolean deletePhotoUrl(Integer id) throws SQLDataException {
 		boolean deleted = false;
 		
 		if(id != null) {			
@@ -271,14 +257,14 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 					deleted = true;
 				}
 			} catch (SQLException e) {
-				throw new DaoSQLException(e);
+				throw new SQLDataException(e);
 			}
 		}
 		return deleted;
 	}
 
 	@Override
-	public boolean delete(Integer id) throws DaoSQLException {
+	public boolean delete(Integer id) throws SQLDataException {
 		boolean result = false;
 		if(id != null) {
 			try(PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ACCOUNT_BY_ID)) {
@@ -289,19 +275,14 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 					result = true;
 				}
 			} catch (SQLException e) {
-				throw new DaoSQLException(e);
+				throw new SQLDataException(e);
 			}
 		}		
 		return result;
 	}
-
-	@Override
-	public boolean delete(AccountEntity entity) {
-		throw new UnsupportedOperationException();
-	}
 	
 	@Override
-	public AccountEntity create(AccountEntity entity) throws DaoSQLException {		
+	public AccountEntity create(AccountEntity entity) throws SQLDataException {		
 		AccountEntity account = null;
 		
 		try(PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ACCOUNT)) {
@@ -315,13 +296,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 				account = findAccountByName(entity.getName());
 			}
 		} catch (SQLException e) {			
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}		
 		return account;
 	}
 
 	@Override
-	public boolean update(AccountEntity entity) throws DaoSQLException {
+	public boolean update(AccountEntity entity) throws SQLDataException {
 		boolean result = false;
 		try(PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ACCOUNT_BY_ID)) {
 			statement.setString(1, entity.getName());
@@ -336,13 +317,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 				result = true;
 			}
 		} catch (SQLException e) {			
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 		
 		return result;
 	}	
 	
-	public boolean updateWithPass(AccountEntity entity) throws DaoSQLException {
+	public boolean updateWithPass(AccountEntity entity) throws SQLDataException {
 		boolean result = false;
 		try(PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ACCOUNT_WITH_PASS_BY_ID)) {
 			statement.setString(1, entity.getName());
@@ -358,13 +339,13 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 				result = true;
 			}
 		} catch (SQLException e) {			
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}		
 		return result;
 	}
 
 	@Override
-	protected AccountEntity mapRow(ResultSet resultSet) throws DaoSQLException {
+	protected AccountEntity mapRow(ResultSet resultSet) throws SQLDataException {
 		AccountEntity account = null;
 		
 		try {
@@ -378,10 +359,9 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 			account.setAllowed(resultSet.getBoolean("is_allowed"));
 			account.setRole(resultSet.getString("role"));
 		} catch (SQLException e) {
-			throw new DaoSQLException(e);			
+			throw new SQLDataException(e);			
 		}				
 		
 		return account;
 	}
-
 }

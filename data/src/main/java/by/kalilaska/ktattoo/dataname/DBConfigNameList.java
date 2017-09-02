@@ -9,4 +9,5 @@ public class DBConfigNameList {
 	public static String PASS_PROPERTY = "PASS";
 	
 	public final static int POOL_SIZE = 2;
+	public final static int ADMITTED_POOL_SIZE = 2;
 }

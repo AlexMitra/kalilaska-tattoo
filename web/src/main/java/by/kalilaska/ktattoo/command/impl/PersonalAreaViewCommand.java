@@ -1,9 +1,13 @@
 package by.kalilaska.ktattoo.command.impl;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
-import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
+import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyContentManager;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
@@ -16,7 +20,7 @@ import by.kalilaska.ktattoo.webtype.TransitionType;
  * Created by lovcov on 23.07.2017.
  */
 public class PersonalAreaViewCommand implements IActionCommand{
-	
+	private final static Logger LOGGER = LogManager.getLogger(PersonalAreaViewCommand.class);
 	protected PathViewManager viewManager;
 	protected PathBodyManager bodyManager;
 	protected WebMessageManager messageManager;
@@ -45,16 +49,16 @@ public class PersonalAreaViewCommand implements IActionCommand{
 			bodyManager = new PathBodyManager();
 			bodyContentManager = new PathBodyContentManager();
 			messageManager = new WebMessageManager();
-		} catch (ViewSourceNotFoundException e) {
-			// LOG
-		} catch (WebMessageFileNotFoundException e) {
-			// LOG			
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
+		} catch (WebMessageFileNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for messages: " + e.getMessage());
 		}
     }
     
     private void execute(SessionRequestContent content) {
     	Object bean = content.getSessionAttributes().get(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN);
-    	//System.out.println("PersonalAreaViewCommand, bean: " + bean);
+    	
     	if(bean == null) {
     		view = (String)content.getRequestAttributes().get(RequestAttrNameList.ATTRIBUTE_FOR_VIEW_NAME);
         	content.setTransition(TransitionType.SEND_REDIRECT);

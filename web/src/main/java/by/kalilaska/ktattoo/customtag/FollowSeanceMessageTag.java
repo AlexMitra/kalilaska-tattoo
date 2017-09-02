@@ -6,13 +6,17 @@ import java.util.List;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.SeanceBean;
 import by.kalilaska.ktattoo.webname.I18nNameList;
 import by.kalilaska.ktattoo.webutil.DateUtil;
 import by.kalilaska.ktattoo.webutil.FollowDayType;
 
 public class FollowSeanceMessageTag extends AbstractI18nMessageTag{
-
+	private final static Logger LOGGER = LogManager.getLogger(FollowSeanceMessageTag.class);
 	private List<SeanceBean> seances;	
 	private DateUtil dateUtil = new DateUtil();
 	
@@ -46,7 +50,7 @@ public class FollowSeanceMessageTag extends AbstractI18nMessageTag{
 				JspWriter out = pageContext.getOut();
 				out.write(message);
 			} catch (IOException e) {
-				// LOG			
+				LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 			}
 		}		
 		

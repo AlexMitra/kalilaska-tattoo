@@ -7,13 +7,17 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.TattooMasterBean;
 import by.kalilaska.ktattoo.bean.TattooPhotoBean;
 import by.kalilaska.ktattoo.webname.ImageNameList;
 
 public class AllTattooMasterPortfolioDialogTag extends TagSupport {
-	private final static String ID_MARKER = "ID";
-	
+	private final static Logger LOGGER = LogManager.getLogger(AllTattooMasterPortfolioDialogTag.class);
+	private final static String ID_MARKER = "ID";	
 	private final static String STYLES_DELIMITER = ", ";
 	
 	private final static String SCRIPT_TEMPLATE = "<script type='text/javascript'>\n"
@@ -60,7 +64,7 @@ public class AllTattooMasterPortfolioDialogTag extends TagSupport {
 					out.write("</div>");
 					out.write("<div class='consultation-link-container'>");
 					out.write("<form id='consultation-view-link' action='#' method='POST'>");
-					//value="consultation_view"
+					
 					out.write("<input type='hidden' name='command' value='' />");
 					out.write("</form>");
 					out.write("<button class='consultation-view-button' type='submit' form='consultation-view-link' value=''>");
@@ -72,7 +76,7 @@ public class AllTattooMasterPortfolioDialogTag extends TagSupport {
 					out.write("</div></div></div></div>");					
 
 				} catch (IOException e) {
-					// LOG			
+					LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 				}
 			}			
 		}

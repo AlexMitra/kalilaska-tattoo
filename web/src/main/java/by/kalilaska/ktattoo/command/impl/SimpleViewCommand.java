@@ -1,8 +1,12 @@
 package by.kalilaska.ktattoo.command.impl;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
@@ -11,7 +15,7 @@ import by.kalilaska.ktattoo.webname.SessionAttrNameList;
  * Created by lovcov on 23.07.2017.
  */
 public class SimpleViewCommand implements IActionCommand{
-	
+	private final static Logger LOGGER = LogManager.getLogger(SimpleViewCommand.class);
 	private PathViewManager viewManager;
 	private PathBodyManager bodyManager;
 	private String view;
@@ -37,8 +41,8 @@ public class SimpleViewCommand implements IActionCommand{
     private void initViewManager() {
     	try {
 			viewManager = new PathViewManager();			
-		} catch (ViewSourceNotFoundException e) {
-			// LOG			
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
 		}
     }
     
@@ -46,8 +50,8 @@ public class SimpleViewCommand implements IActionCommand{
     	try {
 			viewManager = new PathViewManager();
 			bodyManager = new PathBodyManager();
-		} catch (ViewSourceNotFoundException e) {
-			// LOG			
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
 		}
     }
     

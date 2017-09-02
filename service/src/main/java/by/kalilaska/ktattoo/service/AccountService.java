@@ -3,8 +3,23 @@ package by.kalilaska.ktattoo.service;
 import java.util.List;
 
 import by.kalilaska.ktattoo.bean.AccountBean;
+import by.kalilaska.ktattoo.entity.AccountEntity;
 
-public interface AccountService extends BaseService{
+public interface AccountService extends BaseService<AccountBean, AccountEntity>{
+	
+	default AccountBean convertEntityToBean(AccountEntity entity) {
+		AccountBean accountBean = null;
+		if(entity != null) {
+			accountBean = new AccountBean(entity.getId(), 
+					entity.getName(), 
+					entity.getEmail(),         			
+					entity.getPhone(), 
+					entity.getPhotoURL(), 
+					entity.isAllowed(), 
+					entity.getRole());
+		}
+		return accountBean;
+	}
 	
 	String getWrongMessage();
 	
@@ -20,5 +35,5 @@ public interface AccountService extends BaseService{
 	boolean updateProfile(AccountBean account);
 	boolean updatePhotoUrl(AccountBean account);
 	boolean deletePhotoUrl(Integer id);
-	boolean deleteAccountById(Integer id);	
+	boolean deleteAccountById(Integer id);
 }

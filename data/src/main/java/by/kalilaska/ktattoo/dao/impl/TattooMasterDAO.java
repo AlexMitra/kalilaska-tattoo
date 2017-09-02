@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import by.kalilaska.ktattoo.dao.AbstractDAO;
-import by.kalilaska.ktattoo.dataexception.DaoSQLException;
+import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.TattooMasterEntity;
 
 public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
@@ -33,9 +33,8 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 	
 	private final static String SQL_DELETE_MASTER_BY_ID = 
 			"DELETE FROM `tattoo_master_info` WHERE `tattoo_master_info`.`id` = ?;";
-
-	@Override
-	public List<TattooMasterEntity> findAll() throws DaoSQLException {
+	
+	public List<TattooMasterEntity> findAll() throws SQLDataException {
 		LinkedList<TattooMasterEntity> masters = null;
 		TattooMasterEntity master = null;
 		
@@ -49,13 +48,12 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 				}while(resultSet.next());
 			}
 		} catch (SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 		return masters;
 	}
-
-	@Override
-	public TattooMasterEntity findById(Integer id) throws DaoSQLException {
+	
+	public TattooMasterEntity findById(Integer id) throws SQLDataException {
 		TattooMasterEntity master = null;
 		if(id != null) {
 			try(PreparedStatement statement = connection.prepareStatement(SQL_SELECT_MASTER_BY_ID)) {
@@ -64,16 +62,15 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 				if(resultSet.next()) {
 					master = mapRow(resultSet);
 				}
-			} catch (SQLException e) {
-				//LOG
-				throw new DaoSQLException(e);
+			} catch (SQLException e) {				
+				throw new SQLDataException(e);
 			}
 		}		
 		return master;
 	}
 
 	@Override
-	public boolean delete(Integer id) throws DaoSQLException {
+	public boolean delete(Integer id) throws SQLDataException {
 		boolean deleted = false;
 		if(id != null) {
 			try(PreparedStatement statement = connection.prepareStatement(SQL_DELETE_MASTER_BY_ID)) {
@@ -84,19 +81,14 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 					deleted = true;
 				}
 			} catch (SQLException e) {
-				throw new DaoSQLException(e);
+				throw new SQLDataException(e);
 			}
 		}		
 		return deleted;
 	}
 
 	@Override
-	public boolean delete(TattooMasterEntity entity) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public TattooMasterEntity create(TattooMasterEntity entity) throws DaoSQLException {
+	public TattooMasterEntity create(TattooMasterEntity entity) throws SQLDataException {
 		TattooMasterEntity masterEntity = null;
 		int id = entity.getId();
 		String aboutInfo = entity.getAboutInfo();
@@ -109,16 +101,15 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 			if(executeCount > 0) {
 				masterEntity = findById(id);
 			}
-		} catch (SQLException e) {
-			// LOG
-			throw new DaoSQLException(e);
+		} catch (SQLException e) {			
+			throw new SQLDataException(e);
 		}
 		
 		return masterEntity;
 	}
 
 	@Override
-	public boolean update(TattooMasterEntity entity) throws DaoSQLException {
+	public boolean update(TattooMasterEntity entity) throws SQLDataException {
 		boolean result = false;
 		int id = entity.getId();
 		String aboutInfo = entity.getAboutInfo();
@@ -132,14 +123,14 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 				result = true;
 			}
 		} catch (SQLException e) {			
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 			
 		return result;
 	}
 
 	@Override
-	protected TattooMasterEntity mapRow(ResultSet resultSet) throws DaoSQLException {
+	protected TattooMasterEntity mapRow(ResultSet resultSet) throws SQLDataException {
 		TattooMasterEntity master = null;
 		try {
 			master = new TattooMasterEntity();
@@ -148,9 +139,8 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 			master.setPhotoUrl(resultSet.getString("photo_url"));
 			master.setAboutInfo(resultSet.getString("about_info"));
 		}catch(SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 		return master;
 	}
-
 }

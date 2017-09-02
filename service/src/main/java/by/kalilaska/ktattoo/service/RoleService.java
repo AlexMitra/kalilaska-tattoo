@@ -4,10 +4,20 @@ import java.util.List;
 
 import by.kalilaska.ktattoo.bean.RoleBean;
 import by.kalilaska.ktattoo.dao.impl.RoleDAO;
+import by.kalilaska.ktattoo.entity.RoleEntity;
 
-public interface RoleService {
-	List<String> findRoleNamesByAccountId(int id);
-	List<RoleBean> findAll();
+public interface RoleService extends BaseService<RoleBean, RoleEntity>{
 	
+	default RoleBean convertEntityToBean(RoleEntity entity) {
+		RoleBean roleBean = null;
+		if(entity != null) {
+			roleBean = new RoleBean(
+					entity.getId(), 
+					entity.getName());
+		}
+		return roleBean;
+	}
+	
+	List<RoleBean> findAll();	
 	RoleDAO getRoleDao();
 }

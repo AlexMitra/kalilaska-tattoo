@@ -1,16 +1,14 @@
 package by.kalilaska.ktattoo.bean;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class MasterPersonalAreaViewBean extends AbstractPersonalAreaViewBean{
+	private final static String STYLE_LIST_DELIITER = ", ";
 	private String aboutInfo;
 	private List<TattooPhotoBean> photos;
 	private List<TattooStyleBean> styles;
 
 	public MasterPersonalAreaViewBean() {
-		photos = new LinkedList<>();
-		styles = new LinkedList<>();
 	}
 
 	public String getAboutInfo() {
@@ -30,7 +28,7 @@ public class MasterPersonalAreaViewBean extends AbstractPersonalAreaViewBean{
 		if(styles != null && !styles.isEmpty()) {
 			for (int i=0; i< styles.size(); i++) {
 				if(i > 0) {
-					result.append(", ");
+					result.append(STYLE_LIST_DELIITER);
 				}
 				result.append(styles.get(i).getName());
 			}

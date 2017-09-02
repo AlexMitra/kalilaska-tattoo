@@ -1,12 +1,15 @@
 package by.kalilaska.ktattoo.command.impl;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
-import by.kalilaska.ktattoo.pathlist.PathBodyList;
 import by.kalilaska.ktattoo.service.AuthenticationService;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
-import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
+import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
 import by.kalilaska.ktattoo.webmanager.WebMessageManager;
@@ -18,6 +21,7 @@ import by.kalilaska.ktattoo.webname.URINameList;
 import by.kalilaska.ktattoo.webtype.TransitionType;
 
 public class AuthenticationCommand implements IActionCommand{
+	private final static Logger LOGGER = LogManager.getLogger(AuthenticationCommand.class);
 	private PathViewManager viewManager;
 	private PathBodyManager bodyManager;
 	private WebMessageManager messageManager;
@@ -43,14 +47,14 @@ public class AuthenticationCommand implements IActionCommand{
 			viewManager = new PathViewManager();
 			bodyManager = new PathBodyManager();
 			messageManager = new WebMessageManager();
-		} catch (ViewSourceNotFoundException e) {
-			// LOG
-		} catch (WebMessageFileNotFoundException e) {
-			// LOG			
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
+		} catch (WebMessageFileNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for messages: " + e.getMessage());
 		}
     }
     
-    private void execute(SessionRequestContent content) {
+    private void execute(SessionRequestContent content) {    	
     	String nameArr[] = content.getRequestParameters().get(RequestParamNameList.PARAMETER_FOR_AUTHENTICATION_ACCOUNT_NAME);
         String passwordArr[] = content.getRequestParameters().get(RequestParamNameList.PARAMETER_FOR_AUTHENTICATION_ACCOUNT_PASS);
         String name = null;
@@ -66,20 +70,25 @@ public class AuthenticationCommand implements IActionCommand{
             			CommandNameList.LOGIN_VIEW_COMMAND);
             	view = URINameList.LOGIN_PAGE_URI;
             	
-            	if(bodyManager != null) {
-            		viewBody = bodyManager.getProperty(PathBodyList.LOGIN_VIEW_BODY);
-            		content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_INVALID_NAME_PASS,
-                			service.getWrongMessage());
-            	}           	
-            	content.setTransition(TransitionType.SEND_REDIRECT);
+//            	if(bodyManager != null) {
+//            		viewBody = bodyManager.getProperty(PathBodyList.LOGIN_VIEW_BODY);
+//            		content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_INVALID_NAME_PASS,
+//                			service.getWrongMessage());
+//            	}
+            	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_INVALID_NAME_PASS,
+            			service.getWrongMessage());            	
             	
-            }else if(personalAreaViewBean != null) {//SEND REDIRECT NE NADO!            	
-            	view = defaultView;
-            	viewBody = defaultViewBody;
+            }else if(personalAreaViewBean != null) {          	
+//            	view = defaultView;
+//            	viewBody = defaultViewBody;
+            	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_COMMAND, 
+            			CommandNameList.PERSONAL_AREA_VIEW_COMMAND);
+            	view = URINameList.PERSONAL_AREA_PAGE_URI;
             	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN, 
-            			personalAreaViewBean);
+            			personalAreaViewBean);            	
             }
-            content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_VIEW_BODY, viewBody);
+            content.setTransition(TransitionType.SEND_REDIRECT);
+            //content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_VIEW_BODY, viewBody);
         }else {
         	makeWrongMessage(content, SessionAttrNameList.ATTRIBUTE_FOR_INVALID_NAME_PASS, 
         			MessageNameList.NAME_OR_PASS_IS_NULL);
@@ -97,5 +106,4 @@ public class AuthenticationCommand implements IActionCommand{
     		content.insertSessionAttribute(attributeName, messageManager.getProperty(messagePath));
     	}
 	}
-
 }

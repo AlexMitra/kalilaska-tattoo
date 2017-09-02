@@ -12,7 +12,6 @@ public class AccountBean {
 	private String role;
 
 	public AccountBean() {		
-		
 	}
 
 	public AccountBean(int id, String name, String email, String password, String phone, String photoURL,

@@ -4,12 +4,10 @@ public class RoleEntity {
 	private byte id;
 	private String name;	
 
-	public RoleEntity() {
-		
+	public RoleEntity() {		
 	}
 
-	public RoleEntity(byte id, String name) {
-		super();
+	public RoleEntity(byte id, String name) {		
 		this.id = id;
 		this.name = name;		
 	}
@@ -34,5 +32,4 @@ public class RoleEntity {
 	public String toString() {
 		return "RoleEntity [id=" + id + ", name=" + "]";
 	}
-
 }

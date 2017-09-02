@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import by.kalilaska.ktattoo.dao.AbstractDAO;
-import by.kalilaska.ktattoo.dataexception.DaoSQLException;
+import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.TattooPhotoEntity;
 
 public class TattooPhotoDAO extends AbstractDAO<Integer, TattooPhotoEntity> {
@@ -18,7 +18,7 @@ public class TattooPhotoDAO extends AbstractDAO<Integer, TattooPhotoEntity> {
 					 "INNER JOIN `tattoo_master_info` AS `tmi` ON `twph`.`FK_master_id` = `tmi`.`id` " +
 					 "WHERE `tmi`.`id` = ?;";
 	
-	public List<TattooPhotoEntity> findAllTattooPhotoByMasterId(int id) throws DaoSQLException{
+	public List<TattooPhotoEntity> findAllTattooPhotoByMasterId(int id) throws SQLDataException{
 		LinkedList<TattooPhotoEntity> tattooPhotos = null;
 		TattooPhotoEntity tattooPhoto = null;
 		
@@ -34,47 +34,31 @@ public class TattooPhotoDAO extends AbstractDAO<Integer, TattooPhotoEntity> {
 				}while(resultSet.next());
 			}
 		} catch (SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 		
 		return tattooPhotos;
 	}
 
+
 	@Override
-	public List<TattooPhotoEntity> findAll() throws DaoSQLException {
+	public boolean delete(Integer id) throws SQLDataException {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public TattooPhotoEntity findById(Integer id) {
+	public TattooPhotoEntity create(TattooPhotoEntity entity) throws SQLDataException {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean delete(Integer id) throws DaoSQLException {
+	public boolean update(TattooPhotoEntity entity) throws SQLDataException {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean delete(TattooPhotoEntity entity) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public TattooPhotoEntity create(TattooPhotoEntity entity) throws DaoSQLException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean update(TattooPhotoEntity entity) throws DaoSQLException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	protected TattooPhotoEntity mapRow(ResultSet resultSet) throws DaoSQLException {
-		TattooPhotoEntity tattooPhoto = null;
-		
-		
+	protected TattooPhotoEntity mapRow(ResultSet resultSet) throws SQLDataException {
+		TattooPhotoEntity tattooPhoto = null;		
 		try {
 			tattooPhoto = new TattooPhotoEntity();
 			tattooPhoto.setId(resultSet.getInt("id"));
@@ -82,10 +66,9 @@ public class TattooPhotoDAO extends AbstractDAO<Integer, TattooPhotoEntity> {
 			tattooPhoto.setDone(resultSet.getBoolean("is_done"));
 			tattooPhoto.setMasterId(resultSet.getInt("FK_master_id"));
 		} catch (SQLException e) {
-			throw new DaoSQLException(e);
+			throw new SQLDataException(e);
 		}
 		
 		return tattooPhoto;
 	}
-
 }

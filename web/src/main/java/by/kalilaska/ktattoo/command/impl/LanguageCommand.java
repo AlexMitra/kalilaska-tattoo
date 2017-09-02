@@ -1,14 +1,18 @@
 package by.kalilaska.ktattoo.command.impl;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 import by.kalilaska.ktattoo.webtype.LanguageType;
 
 public class LanguageCommand implements IActionCommand {
-
+	private final static Logger LOGGER = LogManager.getLogger(LanguageCommand.class);
 	private PathViewManager viewManager;
 	private String defaultView;
 	private String view;
@@ -25,8 +29,8 @@ public class LanguageCommand implements IActionCommand {
     private void initViewManager() {
     	try {
 			viewManager = new PathViewManager();			
-		} catch (ViewSourceNotFoundException e) {
-			// LOG			
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
 		}
     }
 	

@@ -355,6 +355,31 @@ position: absolute;
     color: var(--header-footer-background);
 }
 
+/* Add consultation seance content classes */
+
+.add-master-dropdown-list-item {
+        display: block;
+    font-size: 75%;
+    width: var(--common-form-width);
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
+}
+
+
+.add-tattoo-event-master-container {
+    margin-top: 25px;
+    height: 40px;
+}
+
+/* All consultations and seances content classes */
+
+.tattoo-events-table-area {
+    overflow: auto;  
+    max-height: 90%;   
+    border: 0px;    
+}
+
 /* All accounts content classes */
 
 .personal-area-stretch-content-container {

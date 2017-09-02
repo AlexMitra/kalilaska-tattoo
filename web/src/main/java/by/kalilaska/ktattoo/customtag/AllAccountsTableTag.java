@@ -7,10 +7,14 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.AccountBean;
 
 public class AllAccountsTableTag extends TagSupport {
-	
+	private final static Logger LOGGER = LogManager.getLogger(AllAccountsTableTag.class);
 	private List<AccountBean> accountList;
 	private boolean allowed;
 	
@@ -39,7 +43,7 @@ public class AllAccountsTableTag extends TagSupport {
 			out.write("</thead>");
 			out.write("<tbody id=\"accounts-data\">");
 		} catch (IOException e) {
-			// LOG			
+			LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 		}
 		return EVAL_BODY_INCLUDE;		
 	}
@@ -69,7 +73,7 @@ public class AllAccountsTableTag extends TagSupport {
 			}			
 				
 		}catch (IOException e) {
-			// LOG
+			LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 		}			
 		
 		return SKIP_BODY;
@@ -91,7 +95,7 @@ public class AllAccountsTableTag extends TagSupport {
 			 out.write("</table>");
 			 
 		} catch (IOException e) {
-			// LOG			
+			LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 		}
 		 
 		 return EVAL_PAGE;		 

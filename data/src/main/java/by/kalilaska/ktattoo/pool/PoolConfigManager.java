@@ -3,11 +3,17 @@ package by.kalilaska.ktattoo.pool;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.dataname.DBConfigNameList;
 
 
 
 public class PoolConfigManager {
+	private final static Logger LOGGER = LogManager.getLogger(PoolConfigManager.class);
+	
 	private final static String DEFAULT_JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private final static String DEFAULT_URL = "jdbc:mysql://localhost/kalilaska_tattoo";
 	private final static String DEFAULT_USER = "root";
@@ -30,6 +36,8 @@ public class PoolConfigManager {
     		password = getProperty(DBConfigNameList.PASS_PROPERTY);
     		
     	}catch (MissingResourceException e) {
+    		LOGGER.log(Level.ERROR, "can not find dataBase config file: " + e.getMessage());
+    		
 			if(driver == null || driver.isEmpty()) {
 				driver = DEFAULT_JDBC_DRIVER;
 			}

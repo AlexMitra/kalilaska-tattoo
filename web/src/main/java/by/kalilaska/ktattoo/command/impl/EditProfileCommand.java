@@ -3,6 +3,10 @@ package by.kalilaska.ktattoo.command.impl;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.bean.AccountBean;
 import by.kalilaska.ktattoo.bean.MasterPersonalAreaViewBean;
@@ -13,8 +17,8 @@ import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.service.AccountService;
 import by.kalilaska.ktattoo.service.TattooMasterService;
 import by.kalilaska.ktattoo.service.TattooStyleService;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
-import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
+import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyContentManager;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
@@ -27,7 +31,7 @@ import by.kalilaska.ktattoo.webname.URINameList;
 import by.kalilaska.ktattoo.webtype.TransitionType;
 
 public class EditProfileCommand implements IActionCommand {
-
+	private final static Logger LOGGER = LogManager.getLogger(EditProfileCommand.class);
 	private AccountService accountService;
 	private TattooMasterService masterService;
 	private TattooStyleService styleService;
@@ -64,10 +68,10 @@ public class EditProfileCommand implements IActionCommand {
 			bodyManager = new PathBodyManager();
 			bodyContentManager = new PathBodyContentManager();
 			messageManager = new WebMessageManager();
-		} catch (ViewSourceNotFoundException e) {
-			// LOG
-		}catch (WebMessageFileNotFoundException e) {
-			// LOG			
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
+		}catch (WebMessageFileNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for messages: " + e.getMessage());	
 		}
     }
     

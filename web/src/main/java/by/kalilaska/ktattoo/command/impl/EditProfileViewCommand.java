@@ -2,6 +2,10 @@ package by.kalilaska.ktattoo.command.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.MasterPersonalAreaViewBean;
 import by.kalilaska.ktattoo.bean.TattooMasterBean;
 import by.kalilaska.ktattoo.bean.TattooStyleBean;
@@ -9,7 +13,7 @@ import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.service.TattooMasterService;
 import by.kalilaska.ktattoo.service.TattooStyleService;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyContentManager;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
@@ -18,12 +22,11 @@ import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 import by.kalilaska.ktattoo.webtype.TransitionType;
 
 public class EditProfileViewCommand implements IActionCommand{
-	
+	private final static Logger LOGGER = LogManager.getLogger(EditProfileViewCommand.class);
 	private TattooMasterService masterService;
 	private TattooStyleService styleService;
 	private PathViewManager viewManager;
 	private PathBodyManager bodyManager;
-//	private WebMessageManager messageManager;
 	private String defaultView;
 	private String view;
 	private String viewBody;
@@ -51,13 +54,10 @@ public class EditProfileViewCommand implements IActionCommand{
 			viewManager = new PathViewManager();
 			bodyManager = new PathBodyManager();
 			bodyContentManager = new PathBodyContentManager();
-//			messageManager = new WebMessageManager();
-		} catch (ViewSourceNotFoundException e) {
-			// LOG
+
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
 		}
-//    	catch (WebMessageFileNotFoundException e) {
-//			// LOG			
-//		}
     }
     
     protected void execute(SessionRequestContent content) {
@@ -90,12 +90,6 @@ public class EditProfileViewCommand implements IActionCommand{
     		content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PA_BODY_CONTENT, bodyContent);
     	}    	
     }
-    
-//    protected void makeWrongMessage(SessionRequestContent content, String attributeName, String messagePath) {
-//		if(messageManager != null) {
-//    		content.insertSessionAttribute(attributeName, messageManager.getProperty(messagePath));
-//    	}
-//	}
     
     @Override
     public String getView(SessionRequestContent content) {

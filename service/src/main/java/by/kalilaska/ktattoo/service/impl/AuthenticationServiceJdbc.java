@@ -2,6 +2,10 @@ package by.kalilaska.ktattoo.service.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.bean.AccountBean;
 import by.kalilaska.ktattoo.bean.ConsultationBean;
@@ -14,16 +18,22 @@ import by.kalilaska.ktattoo.service.AuthenticationService;
 import by.kalilaska.ktattoo.service.ConsultationService;
 import by.kalilaska.ktattoo.service.SeanceService;
 import by.kalilaska.ktattoo.service.TattooStyleService;
+import by.kalilaska.ktattoo.serviceexception.MessageFileNotFoundServiceException;
+import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
+import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 import by.kalilaska.ktattoo.servicetype.AccountRoleType;
 import by.kalilaska.ktattoo.servicetype.DataType;
 import by.kalilaska.ktattoo.validator.FormDataValidator;
 
 public class AuthenticationServiceJdbc implements AuthenticationService{
+	private final static Logger LOGGER = LogManager.getLogger(AuthenticationServiceJdbc.class);
 	private AccountService accountService;
 	private ConsultationService consultationService;
 	private SeanceService seanceService;
 	private TattooStyleService styleService;
 	private FormDataValidator validator;
+	
+	private ServiceMessageManager messageManager;
 
 	public AuthenticationServiceJdbc(AccountService accountService, ConsultationService consultationService, 
 			SeanceService seanceService, TattooStyleService styleService) {		
@@ -32,10 +42,23 @@ public class AuthenticationServiceJdbc implements AuthenticationService{
 		this.seanceService = seanceService;
 		this.styleService = styleService;
 		validator = new FormDataValidator();
-	}	
+		initManager();
+	}
 	
-	public void setAccountService(AccountService accountService) {
-		this.accountService = accountService;
+	private void initManager() {
+		try {
+			messageManager = new ServiceMessageManager();
+		} catch (MessageFileNotFoundServiceException e) {
+			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
+		}
+	}
+	
+	private String makeWrongMessage(String messagePath) {
+		String message = null;
+		if(messageManager != null) {
+			message = messageManager.getProperty(messagePath);
+		}
+		return message;
 	}
 	
 	public AbstractPersonalAreaViewBean checkAccount(String name, String password) {
@@ -48,7 +71,7 @@ public class AuthenticationServiceJdbc implements AuthenticationService{
 			AccountBean accountBean = accountService.findAccountByName(name);			
 			
 			if(accountBean != null && name.equals(accountBean.getName()) && 
-					password.equals(accountBean.getPassword())){				
+					password.equals(accountBean.getPassword())){
 				
 				AccountRoleType roleType = AccountRoleType.valueOf(accountBean.getRole().toUpperCase());
 				
@@ -81,8 +104,7 @@ public class AuthenticationServiceJdbc implements AuthenticationService{
 						MasterPersonalAreaViewBean masterViewBean = (MasterPersonalAreaViewBean)viewBean;
 						masterViewBean.setStyles(styles);
 					}
-				}
-				//System.out.println(viewBean);
+				}				
 			}
 		}
 		return viewBean;		
@@ -90,7 +112,7 @@ public class AuthenticationServiceJdbc implements AuthenticationService{
 
 	@Override
 	public String getWrongMessage() {		
-		return "Invalid Name or Password";
+		return makeWrongMessage(ServiceMessageNameList.AUTHENTICATION_FAILURE);
 	}
 
 }

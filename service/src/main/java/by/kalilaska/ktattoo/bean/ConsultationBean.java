@@ -1,20 +1,23 @@
 package by.kalilaska.ktattoo.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ConsultationBean {
+	private final static String DATE_PATTERN = "dd MMMM HH:mm";
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
 	private int id;
 	private Date date;
 	private int clientId;
 	private String clientName;
 	private int masterId;
 	private String masterName;
+	private boolean isApproved;
 
-	public ConsultationBean() {
-		
+	public ConsultationBean() {		
 	}
 
-	public ConsultationBean(int id, Date date, int clientId, String clientName, int masterId, String masterName) {
+	public ConsultationBean(int id, Date date, int clientId, String clientName, int masterId, String masterName, boolean isApproved) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -22,6 +25,7 @@ public class ConsultationBean {
 		this.clientName = clientName;
 		this.masterId = masterId;
 		this.masterName = masterName;
+		this.isApproved = isApproved;
 	}
 
 	public int getId() {
@@ -48,6 +52,10 @@ public class ConsultationBean {
 		return masterName;
 	}
 
+	public boolean isApproved() {
+		return isApproved;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -72,9 +80,17 @@ public class ConsultationBean {
 		this.masterName = masterName;
 	}
 
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
+	}
+	
+	public String writeDate() {
+		return dateFormat.format(date);
+	}
+
 	@Override
 	public String toString() {
 		return "ConsultationBean [id=" + id + ", date=" + date + ", clientId=" + clientId + ", clientName=" + clientName
-				+ ", masterId=" + masterId + ", masterName=" + masterName + "]";
+				+ ", masterId=" + masterId + ", masterName=" + masterName + ", isApproved=" + isApproved + "]";
 	}
 }

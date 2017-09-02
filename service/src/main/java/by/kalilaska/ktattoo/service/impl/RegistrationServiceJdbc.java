@@ -2,12 +2,16 @@ package by.kalilaska.ktattoo.service.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.bean.AccountBean;
 import by.kalilaska.ktattoo.encoder.MD5Encoder;
 import by.kalilaska.ktattoo.service.AccountService;
 import by.kalilaska.ktattoo.service.RegistrationService;
-import by.kalilaska.ktattoo.serviceexception.ServiceMessageFileNotFoundException;
+import by.kalilaska.ktattoo.serviceexception.MessageFileNotFoundServiceException;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
 import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 import by.kalilaska.ktattoo.servicetype.AccountRoleType;
@@ -15,7 +19,7 @@ import by.kalilaska.ktattoo.servicetype.DataType;
 import by.kalilaska.ktattoo.validator.FormDataValidator;
 
 public class RegistrationServiceJdbc implements RegistrationService {
-	
+	private final static Logger LOGGER = LogManager.getLogger(RegistrationServiceJdbc.class);
 	private AccountService accountService;
 	private FormDataValidator validator;
 	private ServiceMessageManager messageManager;
@@ -30,8 +34,8 @@ public class RegistrationServiceJdbc implements RegistrationService {
 	private void initManager() {
 		try {
 			messageManager = new ServiceMessageManager();
-		} catch (ServiceMessageFileNotFoundException e) {
-			//LOG
+		} catch (MessageFileNotFoundServiceException e) {
+			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
 		}
 	}
 

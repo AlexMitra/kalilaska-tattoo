@@ -7,8 +7,6 @@ public class AdminPersonalAreaViewBean extends AbstractPersonalAreaViewBean {
 	private List<RoleBean> roles;
 
 	public AdminPersonalAreaViewBean() {
-		//accounts = new LinkedList<>();
-		//allowedRoles = new LinkedList<>();
 	}	
 	
 	public List<AccountBean> getAccounts() {
@@ -20,15 +18,11 @@ public class AdminPersonalAreaViewBean extends AbstractPersonalAreaViewBean {
 	}
 
 	public void setAccounts(List<AccountBean> accounts) {
-		//if(accounts != null) {
-			this.accounts = accounts;
-		//}		
+		this.accounts = accounts;	
 	}
 
 	public void setRoles(List<RoleBean> roles) {
-		//if(allowedRoles != null) {
-			this.roles = roles;
-		//}		
+		this.roles = roles;	
 	}
 
 	public void addAccount(AccountBean account) {

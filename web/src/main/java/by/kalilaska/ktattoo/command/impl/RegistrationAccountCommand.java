@@ -1,12 +1,16 @@
 package by.kalilaska.ktattoo.command.impl;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.AbstractPersonalAreaViewBean;
 import by.kalilaska.ktattoo.command.IActionCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.pathlist.PathBodyList;
 import by.kalilaska.ktattoo.service.RegistrationService;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
-import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
+import by.kalilaska.ktattoo.webexception.WebMessageFileNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webmanager.PathViewManager;
 import by.kalilaska.ktattoo.webmanager.WebMessageManager;
@@ -17,6 +21,7 @@ import by.kalilaska.ktattoo.webname.URINameList;
 import by.kalilaska.ktattoo.webtype.TransitionType;
 
 public class RegistrationAccountCommand implements IActionCommand {
+	private final static Logger LOGGER = LogManager.getLogger(RegistrationAccountCommand.class);
 	private PathViewManager viewManager;
 	private PathBodyManager bodyManager;
 	private WebMessageManager messageManager;
@@ -43,10 +48,10 @@ public class RegistrationAccountCommand implements IActionCommand {
 			viewManager = new PathViewManager();
 			bodyManager = new PathBodyManager();
 			messageManager = new WebMessageManager();
-		} catch (ViewSourceNotFoundException e) {
-			// LOG
-		} catch (WebMessageFileNotFoundException e) {
-			// LOG			
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find configuration file for view creation: " + e.getMessage());
+		} catch (WebMessageFileNotFoundWebException e) {
+			LOGGER.log(Level.WARN, "can not find creation file for messages: " + e.getMessage());
 		}
     }
     

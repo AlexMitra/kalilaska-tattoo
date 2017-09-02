@@ -3,7 +3,7 @@ package by.kalilaska.ktattoo.webmanager;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
 import by.kalilaska.ktattoo.webname.PropFileNameList;
 
 /**
@@ -12,11 +12,11 @@ import by.kalilaska.ktattoo.webname.PropFileNameList;
 public class PathViewManager {
     private static ResourceBundle resourceBundle;
 
-    public PathViewManager() throws ViewSourceNotFoundException {
+    public PathViewManager() throws ViewSourceNotFoundWebException {
     	try {
     		resourceBundle = ResourceBundle.getBundle(PropFileNameList.PATH_VIEW_FILE);
     	}catch(MissingResourceException e) {
-    		throw new ViewSourceNotFoundException(e);
+    		throw new ViewSourceNotFoundWebException(e);
     	}
     	
     }

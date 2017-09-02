@@ -13,6 +13,8 @@
         <link href="css/font-awesome.min.css" type="text/css" rel="stylesheet">
         <link  href="css/jquery.fancybox.min.css" type="text/css" rel="stylesheet">
         <link href="css/formValidation.min.css" type="text/css" rel="stylesheet">
+        <link href="css/bootstrap-datetimepicker.css" type="text/css" rel="stylesheet">
+        
         <link href="css/general-views-style.css" type="text/css" rel="stylesheet" >
         <link href="css/error-view-style.css" type="text/css" rel="stylesheet" >
         <link href="css/personal-area-view-style.css" type="text/css" rel="stylesheet" >
@@ -25,10 +27,15 @@
 		<script src="js/jquery.fancybox.js"></script>
 		<script src="js/formValidation.min.js"></script>
 		<script src="js/framework/bootstrap.min.js"></script>
+		<script src="js/bootstrap-datetimepicker.js"></script>
+		<script src="js/moment.min.js"></script>
+		
 		<script src="js/editProfile.js"></script>		
 		<script src="js/allowedForbiddenToggle.js"></script>
 		<script src="js/workWithAccoutTable.js"></script>
+		<script src="js/workWithConsultationsTable.js"></script>
 		<script src="js/accountsTableControlButton.js"></script>
 		<script src="js/searchAccount.js"></script>
+		<script src="js/addTattooEvent.js"></script>
 		
         <title>KT</title>

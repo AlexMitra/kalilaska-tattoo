@@ -4,16 +4,21 @@ package by.kalilaska.ktattoo.service.impl;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.AccountBean;
 import by.kalilaska.ktattoo.bean.TattooMasterBean;
 import by.kalilaska.ktattoo.dao.TransactionManager;
 import by.kalilaska.ktattoo.dao.impl.AccountDAO;
-import by.kalilaska.ktattoo.dataexception.DaoSQLException;
+import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.encoder.MD5Encoder;
 import by.kalilaska.ktattoo.entity.AccountEntity;
 import by.kalilaska.ktattoo.service.AccountService;
 import by.kalilaska.ktattoo.service.TattooMasterService;
-import by.kalilaska.ktattoo.serviceexception.ServiceMessageFileNotFoundException;
+import by.kalilaska.ktattoo.service.DaoFactory;
+import by.kalilaska.ktattoo.serviceexception.MessageFileNotFoundServiceException;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
 import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 import by.kalilaska.ktattoo.servicetype.AccountRoleType;
@@ -21,7 +26,7 @@ import by.kalilaska.ktattoo.servicetype.DataType;
 import by.kalilaska.ktattoo.validator.FormDataValidator;
 
 public class AccountServiceJdbc implements AccountService{
-	
+	private final static Logger LOGGER = LogManager.getLogger(AccountServiceJdbc.class);
 	private ServiceMessageManager messageManager;
 	private String wrongMessage;
 	
@@ -30,8 +35,8 @@ public class AccountServiceJdbc implements AccountService{
 	private TransactionManager transactionManager;
 	private FormDataValidator validator;
 	
-	public AccountServiceJdbc() {
-		accountDao = new AccountDAO();
+	public AccountServiceJdbc() {		
+		accountDao = DaoFactory.createDao(this.getClass());
 		transactionManager = new TransactionManager();
 		validator = new FormDataValidator();
 		initManager();
@@ -39,7 +44,7 @@ public class AccountServiceJdbc implements AccountService{
 	
 	public AccountServiceJdbc(TattooMasterService masterService) {
 		this.masterService = masterService;
-		accountDao = new AccountDAO();
+		accountDao = DaoFactory.createDao(this.getClass());
 		transactionManager = new TransactionManager();
 		validator = new FormDataValidator();
 		initManager();
@@ -48,8 +53,8 @@ public class AccountServiceJdbc implements AccountService{
 	private void initManager() {
 		try {
 			messageManager = new ServiceMessageManager();
-		} catch (ServiceMessageFileNotFoundException e) {
-			//LOG
+		} catch (MessageFileNotFoundServiceException e) {
+			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
 		}
 	}
 
@@ -62,25 +67,17 @@ public class AccountServiceJdbc implements AccountService{
 		
         try {
         	accountEntity = accountDao.findAccountByName(name);
-            if(accountEntity != null) {        	
-            	accountBean = new AccountBean(accountEntity.getId(), 
-            			accountEntity.getName(), 
-            			accountEntity.getEmail(), 
-            			accountEntity.getPassword(), 
-            			accountEntity.getPhone(), 
-            			accountEntity.getPhotoURL(), 
-            			accountEntity.isAllowed(), 
-            			accountEntity.getRole());            	
+            if(accountEntity != null) {
+            	accountBean = convertEntityToBean(accountEntity);
+            	accountBean.setPassword(accountEntity.getPassword());
             }
         	
         	transactionManager.commit();
-        } catch (DaoSQLException e) {        	
+        } catch (SQLDataException e) {        	
         	transactionManager.rollback();
-           // log
+        	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
         }		
-		
-        transactionManager.endTransaction();
-        
+        transactionManager.endTransaction();        
         return accountBean;
 	}
 	
@@ -98,21 +95,14 @@ public class AccountServiceJdbc implements AccountService{
             if(accountEntityList != null && !accountEntityList.isEmpty()) {
             	accountBeanList = new LinkedList<>();
             	for (AccountEntity accountEntity : accountEntityList) {
-            		accountBean = new AccountBean(accountEntity.getId(), 
-            				accountEntity.getName(), 
-            				accountEntity.getEmail(), 
-            				accountEntity.getPassword(), 
-            				accountEntity.getPhone(), 
-            				accountEntity.getPhotoURL(), 
-            				accountEntity.isAllowed(), 
-            				accountEntity.getRole());
+            		accountBean = convertEntityToBean(accountEntity);
             		accountBeanList.add(accountBean);
 				}
             }        	
         	transactionManager.commit();
-        } catch (DaoSQLException e) {        	
+        } catch (SQLDataException e) {        	
         	transactionManager.rollback();
-           // log
+        	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
         }		
         transactionManager.endTransaction();
         
@@ -132,21 +122,16 @@ public class AccountServiceJdbc implements AccountService{
             if(accountEntityList != null && !accountEntityList.isEmpty()) {
             	accountBeanList = new LinkedList<>();
             	for (AccountEntity accountEntity : accountEntityList) {
-            		accountBean = new AccountBean(accountEntity.getId(), 
-            				accountEntity.getName(), 
-            				accountEntity.getEmail(), 
-            				accountEntity.getPassword(), 
-            				accountEntity.getPhone(), 
-            				accountEntity.getPhotoURL(), 
-            				accountEntity.isAllowed(), 
-            				accountEntity.getRole());
+            		
+            		accountBean = convertEntityToBean(accountEntity);
+            		accountBean.setPassword(accountEntity.getPassword());
             		accountBeanList.add(accountBean);
 				}
             }        	
         	transactionManager.commit();
-        } catch (DaoSQLException e) {        	
+        } catch (SQLDataException e) {        	
         	transactionManager.rollback();
-           // log
+        	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
         }		
         transactionManager.endTransaction();
         
@@ -166,21 +151,15 @@ public class AccountServiceJdbc implements AccountService{
             if(accountEntityList != null && !accountEntityList.isEmpty()) {
             	accountBeanList = new LinkedList<>();
             	for (AccountEntity accountEntity : accountEntityList) {
-            		accountBean = new AccountBean(accountEntity.getId(), 
-            				accountEntity.getName(), 
-            				accountEntity.getEmail(), 
-            				accountEntity.getPassword(), 
-            				accountEntity.getPhone(), 
-            				accountEntity.getPhotoURL(), 
-            				accountEntity.isAllowed(), 
-            				accountEntity.getRole());
+
+            		accountBean = convertEntityToBean(accountEntity);
             		accountBeanList.add(accountBean);
 				}
             }        	
         	transactionManager.commit();
-        } catch (DaoSQLException e) {        	
+        } catch (SQLDataException e) {        	
         	transactionManager.rollback();
-           // log
+        	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
         }		
         transactionManager.endTransaction();
         
@@ -191,8 +170,7 @@ public class AccountServiceJdbc implements AccountService{
 	public List<AccountBean> findAll() {
 		transactionManager.beginTransaction(accountDao);
 		
-		LinkedList<AccountBean> accountBeanList = null;
-		//AccountEntity accountEntity = null;
+		LinkedList<AccountBean> accountBeanList = null;		
 		AccountBean accountBean = null;
 		
 		try {
@@ -202,20 +180,15 @@ public class AccountServiceJdbc implements AccountService{
 				accountBeanList = new LinkedList<>();
 				
 				for (AccountEntity accountEntity : accountEntityList) {
-					accountBean = new AccountBean(accountEntity.getId(), 
-							accountEntity.getName(), 
-							accountEntity.getEmail(), 
-							accountEntity.getPhone(), 
-							accountEntity.getPhotoURL(), 
-							accountEntity.isAllowed(), 
-							accountEntity.getRole());
+
+					accountBean = convertEntityToBean(accountEntity);
 					accountBeanList.add(accountBean);
 				}
 			}
 			transactionManager.commit();
-		}catch (DaoSQLException e) {
+		}catch (SQLDataException e) {
 			transactionManager.rollback();
-	           // log
+			LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 		}		
 
 		transactionManager.endTransaction();
@@ -230,9 +203,9 @@ public class AccountServiceJdbc implements AccountService{
 		try {			
 			result = accountDao.forbideAccountById(id);			
 			transactionManager.commit();
-		}catch (DaoSQLException e) {
+		}catch (SQLDataException e) {
 			transactionManager.rollback();
-	           // log
+			LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 		}		
 		transactionManager.endTransaction();
 		
@@ -246,9 +219,9 @@ public class AccountServiceJdbc implements AccountService{
 		try {
 			result = accountDao.allowAccountById(id);
 			transactionManager.commit();
-		}catch(DaoSQLException e) {
+		}catch(SQLDataException e) {
 			transactionManager.rollback();
-	           // log
+			LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 		}
 		transactionManager.endTransaction();
 		
@@ -264,19 +237,12 @@ public class AccountServiceJdbc implements AccountService{
 			accountEntity = accountDao.create(accountEntity);
 			
 			if(accountEntity != null) {
-				accountBean = new AccountBean(accountEntity.getId(), 
-						accountEntity.getName(), 
-						accountEntity.getEmail(), 
-						accountEntity.getPassword(), 
-						accountEntity.getPhone(), 
-						accountEntity.getPhotoURL(), 
-						accountEntity.isAllowed(), 
-						accountEntity.getRole());
+				accountBean = convertEntityToBean(accountEntity);
 			}
 			transactionManager.commit();			
-		}catch (DaoSQLException e) {
+		}catch (SQLDataException e) {
 			transactionManager.rollback();
-	           // log
+			LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 		}
 		transactionManager.endTransaction();
 		return accountBean;
@@ -289,9 +255,9 @@ public class AccountServiceJdbc implements AccountService{
 		try {			
 			result = accountDao.delete(id);			
 			transactionManager.commit();
-		}catch (DaoSQLException e) {
+		}catch (SQLDataException e) {
 			transactionManager.rollback();
-	           // log
+			LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 		}		
 		transactionManager.endTransaction();
 		
@@ -342,11 +308,10 @@ public class AccountServiceJdbc implements AccountService{
 						accountUpdated = masterBean != null ? true : false;
 					}
 					transactionManager.commit();
-				}catch (DaoSQLException e) {
+				}catch (SQLDataException e) {
 					transactionManager.rollback();
-				    // log
-				}
-				
+					LOGGER.log(Level.ERROR, "exception in AccountDAO or TattooMasterDAO: " + e.getMessage());
+				}				
 				transactionManager.endTransaction();
 			}
 		}else {
@@ -414,17 +379,17 @@ public class AccountServiceJdbc implements AccountService{
 					try {			
 						result = accountDao.updateWithPass(accountEntity);
 						transactionManager.commit();
-					}catch (DaoSQLException e) {
+					}catch (SQLDataException e) {
 						transactionManager.rollback();
-				           // log
+						LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 					}
 				}else {
 					try {			
 						result = accountDao.update(accountEntity);
 						transactionManager.commit();
-					}catch (DaoSQLException e) {
+					}catch (SQLDataException e) {
 						transactionManager.rollback();
-				           // log
+						LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 					}
 				}				
 				transactionManager.endTransaction();
@@ -454,9 +419,9 @@ public class AccountServiceJdbc implements AccountService{
 				try {			
 					updated = accountDao.updatePhotoUrl(accountEntity);
 					transactionManager.commit();
-				}catch (DaoSQLException e) {
+				}catch (SQLDataException e) {
 					transactionManager.rollback();
-			           // log
+					LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 				}
 				transactionManager.endTransaction();
 			}else {
@@ -478,9 +443,9 @@ public class AccountServiceJdbc implements AccountService{
 			try {			
 				deleted = accountDao.deletePhotoUrl(id);
 				transactionManager.commit();
-			}catch (DaoSQLException e) {
+			}catch (SQLDataException e) {
 				transactionManager.rollback();
-			    // log
+				LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 			}
 			transactionManager.endTransaction();
 		}else {			

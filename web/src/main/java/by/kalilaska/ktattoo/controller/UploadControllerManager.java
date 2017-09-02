@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.webname.UploadControllerConfigNameList;
 
 public class UploadControllerManager {
-
+	private final static Logger LOGGER = LogManager.getLogger(UploadControllerManager.class);
 	private final static String DEFAULT_UPLOAD_FOLDER = "images";
 	private final static String DEFAULT_ROOT_PATH = "D:/JAVA/EPAM/kalilaska-tattoo/web/src/main/webapp/";
 	private final static String DEFAULT_FILE_MAX_SIZE = "1536000";
@@ -40,7 +44,9 @@ public class UploadControllerManager {
     		admittedFileSuffixList = new ArrayList<String>(Arrays.asList(value.split(SUFFIX_VALUES_SEPARATOR)));    		
     		photoUrlSeparator = getProperty(UploadControllerConfigNameList.PHOTO_URL_SEPARATOR_PROPERTY);
     		
-    	}catch (MissingResourceException e) {    		
+    	}catch (MissingResourceException e) {
+    		LOGGER.log(Level.ERROR, "can not find UploadController config file: " + e.getMessage());
+    		
 			if(uploadFolder == null || uploadFolder.isEmpty()) {
 				uploadFolder = DEFAULT_UPLOAD_FOLDER;
 			}

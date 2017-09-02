@@ -7,10 +7,14 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.bean.TattooStyleBean;
 
 public class OwnStylesListTag  extends TagSupport {
-	
+	private final static Logger LOGGER = LogManager.getLogger(OwnStylesListTag.class);
 	private List<TattooStyleBean> styles;
 	
 	public void setStyleList(List<TattooStyleBean> styles) {		
@@ -34,7 +38,7 @@ public class OwnStylesListTag  extends TagSupport {
 					out.write("</li>");
 					
 				} catch (IOException e) {
-					// LOG			
+					LOGGER.log(Level.ERROR, "output exception: " + e.getMessage());
 				}
 			}
 		}

@@ -12,8 +12,12 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.kalilaska.ktattoo.pathlist.PathBodyList;
-import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundException;
+import by.kalilaska.ktattoo.webexception.ViewSourceNotFoundWebException;
 import by.kalilaska.ktattoo.webmanager.PathBodyManager;
 import by.kalilaska.ktattoo.webname.CommandNameList;
 import by.kalilaska.ktattoo.webname.RequestAttrNameList;
@@ -25,9 +29,13 @@ import by.kalilaska.ktattoo.webname.URINameList;
 		"/personalArea-edit.html", 
 		"/personalArea-allAccounts.html",
 		"/personalArea-deleteAvatar.html", 
-		"/personalArea-updateAvatar.html"})
+		"/personalArea-updateAvatar.html", 
+		"/personalArea-addConsultation.html", 
+		"/personalArea-allConsultations.html", 
+		"/personalArea-addStyle.html"})
+
 public class AuthenticationFilter implements Filter{
-	
+	private final static Logger LOGGER = LogManager.getLogger(AuthenticationFilter.class);
 	private PathBodyManager bodyManager;
 
 	public AuthenticationFilter() {		
@@ -37,9 +45,8 @@ public class AuthenticationFilter implements Filter{
 	public void init(FilterConfig filterConfig) throws ServletException {
 		try {
 			bodyManager = new PathBodyManager();
-		} catch (ViewSourceNotFoundException e) {
-			// LOG
-			e.printStackTrace();
+		} catch (ViewSourceNotFoundWebException e) {
+			LOGGER.log(Level.ERROR, "can not find configuration file for view creation: " + e.getMessage());
 		}
 	}
 

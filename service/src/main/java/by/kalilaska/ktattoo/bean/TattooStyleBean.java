@@ -5,12 +5,10 @@ public class TattooStyleBean {
 	private String name;
 	private String description;
 
-	public TattooStyleBean() {
-		
+	public TattooStyleBean() {		
 	}
 
-	public TattooStyleBean(short id, String name, String description) {
-		super();
+	public TattooStyleBean(short id, String name, String description) {		
 		this.id = id;
 		this.name = name;
 		this.description = description;

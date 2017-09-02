@@ -9,7 +9,7 @@
             <div class="menu-container">
                 
                     <div class="menu-item">
-                        <form id="home-view-link" action="home.html" method="POST">
+                        <form id="home-view-link" action="home.html" method="GET">
                             <input type="hidden" name="command" value="home_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="home-view-link" value="">
@@ -18,7 +18,7 @@
                     </div>
                     
                     <div class="menu-item">
-                        <form id="masters-view-link" action="masters.html" method="POST">
+                        <form id="masters-view-link" action="masters.html" method="GET">
                             <input type="hidden" name="command" value="masters_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="masters-view-link" value="">
@@ -45,7 +45,7 @@
 <!--                     </div> -->
 
                     <div class="menu-item">
-                        <form id="personalArea-view-link" action="personalArea.html" method="POST">
+                        <form id="personalArea-view-link" action="personalArea.html" method="GET">
                             <input type="hidden" name="command" value="personal_area_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="personalArea-view-link" value="">
@@ -54,7 +54,7 @@
                     </div>
                     
                     <div class="menu-item">
-                        <form id="aboutUs-view-link" action="about-us.html" method="POST">
+                        <form id="aboutUs-view-link" action="about-us.html" method="GET">
                             <input type="hidden" name="command" value="about_us_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="aboutUs-view-link" value="">

@@ -14,8 +14,7 @@ public class SeanceEntity {
 	private int masterId;
 	private String masterName;
 
-	public SeanceEntity() {
-		
+	public SeanceEntity() {		
 	}
 
 	public SeanceEntity(int id, Date date, byte duration, BigDecimal costPerHour, int clientId, String clientName,

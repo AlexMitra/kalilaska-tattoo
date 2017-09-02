@@ -19,7 +19,16 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import by.kalilaska.ktattoo.dataexception.CreationConnectionDataException;
+import by.kalilaska.ktattoo.dataexception.JdbcDriverNotFoundDataException;
+import by.kalilaska.ktattoo.dataexception.PoolSizeUnadmittedDataException;
+
 public class ProxyConnection implements Connection{
+	private final static Logger LOGGER = LogManager.getLogger(ProxyConnection.class);
 	private Connection connection;
 
 	ProxyConnection(Connection connection) {
@@ -33,7 +42,11 @@ public class ProxyConnection implements Connection{
 
 	@Override
 	public void close() {
-		ConnectionPool.getInstance().releaseConnection(this);		
+		try {
+			ConnectionPool.getInstance().releaseConnection(this);
+		} catch (JdbcDriverNotFoundDataException | CreationConnectionDataException | PoolSizeUnadmittedDataException e) {
+			LOGGER.log(Level.ERROR, "can not get connectionPool: " + e.getMessage());
+		}		
 	}
 
 
