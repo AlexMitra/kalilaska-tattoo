@@ -12,16 +12,16 @@ import by.kalilaska.ktattoo.dao.TransactionManager;
 import by.kalilaska.ktattoo.dao.impl.RoleDAO;
 import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.RoleEntity;
-import by.kalilaska.ktattoo.service.RoleService;
 import by.kalilaska.ktattoo.service.DaoFactory;
+import by.kalilaska.ktattoo.service.RoleService;
 
-public class RoleServiceJdbc implements RoleService {
-	private final static Logger LOGGER = LogManager.getLogger(RoleServiceJdbc.class);
+public class RoleServiceImpl implements RoleService {
+	private final static Logger LOGGER = LogManager.getLogger(RoleServiceImpl.class);
 	
 	private RoleDAO roleDao;
 	private TransactionManager transactionManager;
 
-	public RoleServiceJdbc() {		
+	public RoleServiceImpl() {		
 		roleDao = DaoFactory.createDao(this.getClass());
 		transactionManager = new TransactionManager();
 	}	
@@ -38,7 +38,7 @@ public class RoleServiceJdbc implements RoleService {
 		RoleBean roleBean = null;
 		try {			
 			roleEntityList = roleDao.findAll();
-			
+			transactionManager.commit();
 			if(roleEntityList != null && !roleEntityList.isEmpty()) {
 				roleBeanList = new LinkedList<>();
 				for (RoleEntity roleEntity : roleEntityList) {
@@ -46,7 +46,6 @@ public class RoleServiceJdbc implements RoleService {
 					roleBeanList.add(roleBean);
 				}					
 			}			
-			transactionManager.commit();
 		}catch (SQLDataException e) {
 			transactionManager.rollback();
 			LOGGER.log(Level.ERROR, "Exception in RoleDAO: " + e.getMessage());

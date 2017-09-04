@@ -16,40 +16,39 @@ import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.ConsultationEntity;
 import by.kalilaska.ktattoo.service.ConsultationService;
 import by.kalilaska.ktattoo.service.DaoFactory;
-import by.kalilaska.ktattoo.serviceexception.MessageFileNotFoundServiceException;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
 import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 
-public class ConsultationServiceJdbc implements ConsultationService {
-	private final static Logger LOGGER = LogManager.getLogger(ConsultationServiceJdbc.class);
+public class ConsultationServiceImpl implements ConsultationService {
+	private final static Logger LOGGER = LogManager.getLogger(ConsultationServiceImpl.class);
 	private ConsultationDAO consultationDao;
 	private TransactionManager transactionManager;
-	private ServiceMessageManager messageManager;
+//	private ServiceMessageManager messageManager;
 	private String worningMessage;
 
-	public ConsultationServiceJdbc() {		
+	public ConsultationServiceImpl() {		
 		consultationDao = DaoFactory.createDao(this.getClass());
 		transactionManager = new TransactionManager();
-		initManager();
+//		initManager();
 	}
 	
-	private void initManager() {
-		try {
-			messageManager = new ServiceMessageManager();
-		} catch (MessageFileNotFoundServiceException e) {
-			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-		}
-	}
-
+//	private void initManager() {
+//		try {
+//			messageManager = new ServiceMessageManager();
+//		} catch (MessageFileNotFoundServiceException e) {
+//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
+//		}
+//	}
+	
 	@Override
-	public List<ConsultationBean> findAllConsultationsByClientId(int id) {
+	public List<ConsultationBean> findAllApprovedConsultationsByClientId(int id) {
 		List<ConsultationEntity> consultationEntityList = null;
 		List<ConsultationBean> consultationBeanList = null;
 		ConsultationBean consultationBean = null;
 		
 		transactionManager.beginTransaction(consultationDao);
 		try {
-			consultationEntityList = consultationDao.findAllConsultationsByClientId(id);
+			consultationEntityList = consultationDao.findAllApprovedConsultationsByClientId(id);
 			transactionManager.commit();
 			if(consultationEntityList != null) {
 				consultationBeanList = new LinkedList<>();
@@ -76,6 +75,31 @@ public class ConsultationServiceJdbc implements ConsultationService {
 		try {
 			List<ConsultationEntity> consultationEntityList = 
 					consultationDao.findAllConsultationsByMasterId(id);
+			transactionManager.commit();
+			if(consultationEntityList != null) {
+				consultationBeanList = new LinkedList<>();
+				for (ConsultationEntity consultationEntity : consultationEntityList) {
+					consultationBean = convertEntityToBean(consultationEntity);
+					consultationBeanList.add(consultationBean);
+				}
+			}
+		} catch (SQLDataException e) {
+			transactionManager.rollback();
+			LOGGER.log(Level.ERROR, "exception in ConsultationDAO: " + e.getMessage());
+		}
+		transactionManager.endTransaction();
+		return consultationBeanList;
+	}	
+
+	@Override
+	public List<ConsultationBean> findAllUnapprovedConsultationsByMasterId(int id) {
+		List<ConsultationBean> consultationBeanList = null;
+		ConsultationBean consultationBean = null;
+		
+		transactionManager.beginTransaction(consultationDao);
+		try {
+			List<ConsultationEntity> consultationEntityList = 
+					consultationDao.findAllUnapprovedConsultationsByMasterId(id);
 			transactionManager.commit();
 			if(consultationEntityList != null) {
 				consultationBeanList = new LinkedList<>();
@@ -131,6 +155,49 @@ public class ConsultationServiceJdbc implements ConsultationService {
 		}
 		return consultationBean;
 	}
+	
+	@Override
+	public boolean approveAllConsultationByMasterId(int masterId) {
+		boolean approved = false;
+		
+		transactionManager.beginTransaction(consultationDao);
+		try {
+			approved = consultationDao.approveAllConsultationByMasterId(masterId);
+			transactionManager.commit();
+		} catch (SQLDataException e) {
+			transactionManager.rollback();
+			LOGGER.log(Level.ERROR, "exception in ConsultationDAO: " + e.getMessage());
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.APPROVE_CONSULTATION_CAN_NOT_APPROVE);			
+		}		
+		if(!approved) {
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.APPROVE_CONSULTATION_ALL_ALREADY_APPROVED);			
+		}
+		transactionManager.endTransaction();
+		return approved;
+	}
+	
+
+	@Override
+	public boolean approveConsultationById(String idStr) {
+		boolean approved = false;
+		if(idStr != null && !idStr.isEmpty()) {
+			int id = Integer.parseInt(idStr);
+			transactionManager.beginTransaction(consultationDao);
+			try {
+				approved = consultationDao.approveConsultationById(id);
+				transactionManager.commit();
+			} catch (SQLDataException e) {
+				transactionManager.rollback();
+				LOGGER.log(Level.ERROR, "exception in ConsultationDAO: " + e.getMessage());
+				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.APPROVE_CONSULTATION_CAN_NOT_APPROVE);
+			}			
+			if(!approved) {
+				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.APPROVE_CONSULTATION_ALL_ALREADY_APPROVED);			
+			}
+			transactionManager.endTransaction();
+		}
+		return approved;
+	}
 
 	@Override
 	public ConsultationBean create(int clientId, String masterIdStr, String clientName, String masterName, 
@@ -166,26 +233,29 @@ public class ConsultationServiceJdbc implements ConsultationService {
 				transactionManager.endTransaction();
 			}else {					
 				if(clientBusyCheck != null) {
-					worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_CLIENT_ALREADY_BUSY);
+					//worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_CLIENT_ALREADY_BUSY);
+					worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_CONSULTATION_CLIENT_ALREADY_BUSY);
 				}
 				if(masterBusyCheck != null) {
-					worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_MASTER_ALREADY_BUSY);
+					//worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_MASTER_ALREADY_BUSY);
+					worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_CONSULTATION_MASTER_ALREADY_BUSY);
 				}
 			}
 		}else {
-			worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_DATA_INVALID);
+			//worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_DATA_INVALID);
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_CONSULTATION_DATA_INVALID);
 		}		
 		return consultationBean;
 	}
 	
 	
-	private String makeWorningMessage(String messagePath) {
-		String message = null;
-		if(messageManager != null) {
-			message = messageManager.getProperty(messagePath);
-		}
-		return message;
-	}
+//	private String makeWorningMessage(String messagePath) {
+//		String message = null;
+//		if(messageManager != null) {
+//			message = messageManager.getProperty(messagePath);
+//		}
+//		return message;
+//	}
 
 	@Override
 	public String getWorningMessage() {

@@ -103,7 +103,7 @@ public class UploadController extends HttpServlet {
 									SessionRequestContent content = new SessionRequestContent();
 									content.extractValues(request);
 
-									IActionCommand command = CommandType.UPDATE_AVATAR.getCommand();
+									IActionCommand command = CommandType.PERSONAL_AREA_UPDATE_AVATAR.getCommand();
 									redirectedUri = command.getView(content);
 									content.rewriteValues(request);
 									session.setAttribute(SessionAttrNameList.ATTRIBUTE_FOR_COMMAND, 

@@ -9,7 +9,7 @@
             <div class="menu-container">
                 
                     <div class="menu-item">
-                        <form id="home-view-link" action="home.html" method="GET">
+                        <form id="home-view-link" action="home.html" method="POST">
                             <input type="hidden" name="command" value="home_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="home-view-link" value="">
@@ -18,7 +18,7 @@
                     </div>
                     
                     <div class="menu-item">
-                        <form id="masters-view-link" action="masters.html" method="GET">
+                        <form id="masters-view-link" action="masters.html" method="POST">
                             <input type="hidden" name="command" value="masters_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="masters-view-link" value="">
@@ -26,26 +26,8 @@
                         </button>
                     </div>
 
-<!--                     <div class="menu-item"> -->
-<!--                         <form id="login-view-link" action="login.html" method="POST"> -->
-<!--                             <input type="hidden" name="command" value="login_view" /> -->
-<!--                         </form> -->
-<!--                         <button class="menu-item-link" type="submit" form="login-view-link" value=""> -->
-<%--                             <fmt:message key="menu.bar.login" bundle="${ rb }" /> --%>
-<!--                         </button> -->
-<!--                     </div> -->
-
-<!--                     <div class="menu-item"> -->
-<!--                         <form id="registration-view-link" action="registration.html" method="POST"> -->
-<!--                             <input type="hidden" name="command" value="registration_view" /> -->
-<!--                         </form> -->
-<!--                         <button class="menu-item-link" type="submit" form="registration-view-link" value=""> -->
-<%--                             <fmt:message key="menu.bar.registration" bundle="${ rb }" /> --%>
-<!--                         </button> -->
-<!--                     </div> -->
-
                     <div class="menu-item">
-                        <form id="personalArea-view-link" action="personalArea.html" method="GET">
+                        <form id="personalArea-view-link" action="personalArea.html" method="POST">
                             <input type="hidden" name="command" value="personal_area_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="personalArea-view-link" value="">
@@ -54,7 +36,7 @@
                     </div>
                     
                     <div class="menu-item">
-                        <form id="aboutUs-view-link" action="about-us.html" method="GET">
+                        <form id="aboutUs-view-link" action="about-us.html" method="POST">
                             <input type="hidden" name="command" value="about_us_view" />
                         </form>
                         <button class="menu-item-link" type="submit" form="aboutUs-view-link" value="">

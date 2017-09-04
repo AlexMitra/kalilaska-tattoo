@@ -20,10 +20,12 @@ public interface TattooMasterService extends BaseService<TattooMasterBean, Tatto
 		return tattooMasterBean;
 	}
 	
+	TattooMasterDAO getDao();
+	
 	TattooMasterBean findMasterById(int id);
 	List<TattooMasterBean> findAllAllowedMasters();
 	TattooMasterBean create(int id, String aboutInfo);
 	boolean updateMasterProfile(TattooMasterBean masterBean);
 	boolean deleteMasterById(Integer id);
-	TattooMasterDAO getDao();
+	
 }

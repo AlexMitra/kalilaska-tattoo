@@ -21,7 +21,7 @@ public interface AccountService extends BaseService<AccountBean, AccountEntity>{
 		return accountBean;
 	}
 	
-	String getWrongMessage();
+	String getWorningngMessage();
 	
 	AccountBean findAccountByName(String name);
 	List<AccountBean> findAccountByNameOrEmail(String name, String email);

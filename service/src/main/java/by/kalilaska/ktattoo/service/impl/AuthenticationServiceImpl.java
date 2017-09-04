@@ -2,7 +2,6 @@ package by.kalilaska.ktattoo.service.impl;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,54 +17,51 @@ import by.kalilaska.ktattoo.service.AuthenticationService;
 import by.kalilaska.ktattoo.service.ConsultationService;
 import by.kalilaska.ktattoo.service.SeanceService;
 import by.kalilaska.ktattoo.service.TattooStyleService;
-import by.kalilaska.ktattoo.serviceexception.MessageFileNotFoundServiceException;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
 import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 import by.kalilaska.ktattoo.servicetype.AccountRoleType;
 import by.kalilaska.ktattoo.servicetype.DataType;
 import by.kalilaska.ktattoo.validator.FormDataValidator;
 
-public class AuthenticationServiceJdbc implements AuthenticationService{
-	private final static Logger LOGGER = LogManager.getLogger(AuthenticationServiceJdbc.class);
+public class AuthenticationServiceImpl implements AuthenticationService{
+	private final static Logger LOGGER = LogManager.getLogger(AuthenticationServiceImpl.class);
 	private AccountService accountService;
 	private ConsultationService consultationService;
 	private SeanceService seanceService;
-	private TattooStyleService styleService;
-	private FormDataValidator validator;
+	private TattooStyleService styleService;	
 	
-	private ServiceMessageManager messageManager;
+//	private ServiceMessageManager messageManager;
 
-	public AuthenticationServiceJdbc(AccountService accountService, ConsultationService consultationService, 
+	public AuthenticationServiceImpl(AccountService accountService, ConsultationService consultationService, 
 			SeanceService seanceService, TattooStyleService styleService) {		
 		this.accountService = accountService;
 		this.consultationService = consultationService;
 		this.seanceService = seanceService;
-		this.styleService = styleService;
-		validator = new FormDataValidator();
-		initManager();
+		this.styleService = styleService;		
+//		initManager();
 	}
 	
-	private void initManager() {
-		try {
-			messageManager = new ServiceMessageManager();
-		} catch (MessageFileNotFoundServiceException e) {
-			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-		}
-	}
+//	private void initManager() {
+//		try {
+//			messageManager = new ServiceMessageManager();
+//		} catch (MessageFileNotFoundServiceException e) {
+//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
+//		}
+//	}
 	
-	private String makeWrongMessage(String messagePath) {
-		String message = null;
-		if(messageManager != null) {
-			message = messageManager.getProperty(messagePath);
-		}
-		return message;
-	}
+//	private String makeWorningMessage(String messagePath) {
+//		String message = null;
+//		if(messageManager != null) {
+//			message = messageManager.getProperty(messagePath);
+//		}
+//		return message;
+//	}
 	
 	public AbstractPersonalAreaViewBean checkAccount(String name, String password) {
 		AbstractPersonalAreaViewBean viewBean = null;		
 		
-		if(name != null && validator.validate(name, DataType.NAME) 
-				&& password != null && validator.validate(password, DataType.PASS)){
+		if(name != null && FormDataValidator.validate(name, DataType.NAME) 
+				&& password != null && FormDataValidator.validate(password, DataType.PASS)){
 			
 			password = MD5Encoder.encode(password);			
 			AccountBean accountBean = accountService.findAccountByName(name);			
@@ -86,23 +82,37 @@ public class AuthenticationServiceJdbc implements AuthenticationService{
 				viewBean.setRole(accountBean.getRole());				
 				
 				List<ConsultationBean> consultations = 
-						consultationService.findAllConsultationsByClientId(accountBean.getId());
+						consultationService.findAllApprovedConsultationsByClientId(accountBean.getId());
 				
 				if(consultations != null) {
 					viewBean.setConsultations(consultations);
 				}
 				
-				List<SeanceBean> seances = seanceService.findAllSeancesByClientId(accountBean.getId());
+				List<SeanceBean> seances = seanceService.findAllApprovedSeancesByClientId(accountBean.getId());
 				
 				if(seances != null) {
 					viewBean.setSeances(seances);
 				}
 				
 				if(roleType == AccountRoleType.MASTER) {
+					MasterPersonalAreaViewBean masterViewBean = (MasterPersonalAreaViewBean)viewBean;
 					List<TattooStyleBean> styles = styleService.findAllTattooStyleByMasterId(accountBean.getId());
-					if(styles != null) {
-						MasterPersonalAreaViewBean masterViewBean = (MasterPersonalAreaViewBean)viewBean;
+					if(styles != null) {						
 						masterViewBean.setStyles(styles);
+					}
+					
+					List<ConsultationBean> unapprovedConsultations = 
+							consultationService.findAllUnapprovedConsultationsByMasterId(accountBean.getId());
+					
+					if(unapprovedConsultations != null) {
+						masterViewBean.setUnapprovedConsultations(unapprovedConsultations);
+					}
+					
+					List<SeanceBean> unapprovedSeances = 
+							seanceService.findAllUnapprovedSeancesByMasterId(accountBean.getId());
+					
+					if(unapprovedSeances != null) {
+						masterViewBean.setUnapprovedSeances(unapprovedSeances);
 					}
 				}				
 			}
@@ -111,8 +121,9 @@ public class AuthenticationServiceJdbc implements AuthenticationService{
 	}
 
 	@Override
-	public String getWrongMessage() {		
-		return makeWrongMessage(ServiceMessageNameList.AUTHENTICATION_FAILURE);
+	public String getWorningMessage() {		
+//		return makeWorningMessage(ServiceMessageNameList.AUTHENTICATION_FAILURE);		
+		return ServiceMessageManager.getMessage(ServiceMessageNameList.AUTHENTICATION_FAILURE);
 	}
 
 }

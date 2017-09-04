@@ -17,8 +17,8 @@
                 </div>
                 
                 <div class="modal-footer">
-                	<form id="allow-account-form" action="personalArea-allAccounts.html" method="POST" enctype="utf8">
-                		<input name="command" type="hidden" value="allow_account"/>
+                	<form id="allow-account-form" action="personalArea-allowAccount.html" method="POST" enctype="utf8">
+                		<input name="command" type="hidden" value="personal_area_allow_account"/>
                     	<input id="allow-account-id-input" name="allow_account_id" type="hidden" value=""/>
                     </form>
                     <button id="allow-account-dialog-close2" type="button" class="btn btn-default" data-dismiss="modal" ><fmt:message key="form.close.button" bundle="${ rb }" /></button>

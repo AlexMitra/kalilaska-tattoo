@@ -1,4 +1,5 @@
 var workWithConsultationsTable = {
+		
     selectedConsultation : null,
     
     selectedConsultationArr : [],
@@ -64,5 +65,15 @@ var workWithConsultationsTable = {
 		} else {
 			document.getElementById("approve-consultation-button").disabled = true;
         }
+	},
+	
+	unselectAllCheckboxes : function() {
+
+		for (var i = 0; this.selectedConsultationArr.length > 0;) {
+			document.getElementById(this.selectedConsultationArr[i]).checked = false;			
+			this.selectedConsultationArr.shift();
+		}
+		this.selectedConsultation = null;
+		this.switchApproveButton();		
 	}
 }

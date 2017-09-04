@@ -24,6 +24,16 @@ public class RequestParamNameList {
 	public final static String PARAMETER_FOR_ADD_CONSULTATION_MASTER_NAME = "add_tattoo_consultation_master_name";
 	public final static String PARAMETER_FOR_ADD_CONSULTATION_DATE = "add_tattoo_consultation_date";
 	
+	public final static String PARAMETER_FOR_APPROVE_CONSULTATION_ID = "approve_consultation_id";
+	
+	public final static String PARAMETER_FOR_ADD_SEANCE_MASTER_ID = "add_tattoo_seance_master_id";
+	public final static String PARAMETER_FOR_ADD_SEANCE_MASTER_NAME = "add_tattoo_seance_master_name";
+	public final static String PARAMETER_FOR_ADD_SEANCE_DATE = "add_tattoo_seance_date";
+	public final static String PARAMETER_FOR_ADD_SEANCE_DURATION = "add_tattoo_seance_duration";
+	
+	public final static String PARAMETER_FOR_APPROVE_SEANCE_ID = "approve_seance_id";
+	public final static String PARAMETER_FOR_APPROVE_SEANCE_COST = "approve_seance_cost";
+	
 	public final static String PARAMETER_FOR_ADD_TATTOO_STYLE_NAME = "add_tattoo_style_name";
 	public final static String PARAMETER_FOR_ADD_TATTOO_STYLE_DESCRIPTION = "add_tattoo_style_description";
 	

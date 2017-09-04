@@ -20,7 +20,7 @@
                         <c:if test="${personalAreaViewBean.getPhotoURL() != null}">
                         	<div class="delete-avatar-button-container">
 	                            <form id="avatar-delete-link" action="personalArea-deleteAvatar.html" method="POST">
-	                                <input type="hidden" name="command" value="delete_avatar" />
+	                                <input type="hidden" name="command" value="personal_area_delete_avatar" />
 	                            </form>
 	                            <button class="delete-avatar-button" type="submit" form="avatar-delete-link">
 	                                <i class="fa fa-times" aria-hidden="true"></i>
@@ -28,7 +28,7 @@
                         	</div>
                         </c:if>
                     </div>
-                    <form id="profile-edit-link" action="personalArea-edit.html" method="POST">
+                    <form id="profile-edit-link" action="personalArea-editProfile.html" method="POST">
                         <input type="hidden" name="command" value="personal_area_edit_profile_view" />
                     </form>
                     <button class="account-profile-edit-button" type="submit" form="profile-edit-link">
@@ -50,16 +50,15 @@
                     </c:if>
 
 					<kalilaska:follow-user-event-notice consultationList="${personalAreaViewBean.getConsultations()}" 
-					seanceList="${personalAreaViewBean.getSeances()}"/>
+					seanceList="${personalAreaViewBean.getSeances()}"/>					
 					
-                    <div class="working-message-container">
-                        <span class="signal-message working-message">
-                        	<fmt:message key="personalArea.profile.marker.consultation" bundle="${ rb }" />
-                        </span>
-                        <span class="signal-message working-message">
-                        	<fmt:message key="personalArea.profile.marker.seance" bundle="${ rb }" />
-                        </span>
-                    </div>                    
+					<div class="working-message-container">
+						<c:if test="${personalAreaViewBean.getRole() eq masterRole}">
+	                    <kalilaska:unapproved-master-event-notice consultationList="${personalAreaViewBean.getUnapprovedConsultations()}" 
+						seanceList="${personalAreaViewBean.getUnapprovedSeances()}"/>
+	                        </c:if>
+	                </div>					
+                   
                     <div class="account-info">
                         <p class="account-info-item-value"><span class="account-info-item">
 	                        <fmt:message key="personalArea.profile.info.email" bundle="${ rb }" />

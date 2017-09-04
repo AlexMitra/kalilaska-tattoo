@@ -54,7 +54,7 @@
 			                                message: 'Name must be more than 5 and less than 30 characters long'
 			                            },
 			                            regexp: {
-			                                regexp: /^[\wА-Яа-яё]+( [A-Za-zА-Яа-яё]+)?$/,
+			                                regexp: /^(([A-Za-zА-Яа-яё]+)([\wА-Яа-яё]+)?( [A-Za-zА-Яа-яё]+)?){5,30}$/,
 			                                message: 'Name can only consist of latin and cyrillic letters, numbers, _ and one space'
 			                            }
 			                        }

@@ -17,8 +17,8 @@
                 </div>
                 
                 <div class="modal-footer">
-                	<form id="delete-account-form" action="personalArea-allAccounts.html" method="POST" enctype="utf8">
-                		<input name="command" type="hidden" value="delete_account"/>
+                	<form id="delete-account-form" action="personalArea-deleteAccount.html" method="POST" enctype="utf8">
+                		<input name="command" type="hidden" value="personal_area_delete_account"/>
                     	<input id="delete-account-id-input" name="delete_account_id" type="hidden" value=""/>
                     </form>
                     <button id="delete-account-dialog-close2" type="button" class="btn btn-default" data-dismiss="modal" ><fmt:message key="form.close.button" bundle="${ rb }" /></button>

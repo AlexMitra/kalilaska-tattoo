@@ -17,8 +17,8 @@
                 </div>
                 
                 <div class="modal-footer">
-                	<form id="forbide-account-form" action="personalArea-allAccounts.html" method="POST" enctype="utf8">
-                		<input name="command" type="hidden" value="forbide_account"/>
+                	<form id="forbide-account-form" action="personalArea-forbideAccount.html" method="POST" enctype="utf8">
+                		<input name="command" type="hidden" value="personal_area_forbide_account"/>
                     	<input id="forbide-account-id-input" name="forbide_account_id" type="hidden" value=""/>
                     </form>
                     <button id="forbide-account-dialog-close2" type="button" class="btn btn-default" data-dismiss="modal" ><fmt:message key="form.close.button" bundle="${ rb }" /></button>

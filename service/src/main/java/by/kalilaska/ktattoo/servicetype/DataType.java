@@ -5,5 +5,6 @@ public enum DataType {
 	PASS,
 	EMAIL,
 	PHONE,
-	DATE
+	DATE,
+	COST
 }

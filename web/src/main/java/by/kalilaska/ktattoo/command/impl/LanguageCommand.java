@@ -34,10 +34,9 @@ public class LanguageCommand implements IActionCommand {
 		}
     }
 	
-	private void execute(SessionRequestContent content) {	
+	private void handle(SessionRequestContent content) {	
 		
-		if(content.getSessionAttributes().get(SessionAttrNameList.ATTRIBUTE_FOR_VIEW) == null){
-			content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_VIEW, defaultView);
+		if(content.getSessionAttributes().get(SessionAttrNameList.ATTRIBUTE_FOR_VIEW) == null){			
 			view = defaultView;
 		}else {
 			view = (String)content.getSessionAttributes().get(SessionAttrNameList.ATTRIBUTE_FOR_VIEW);
@@ -48,7 +47,7 @@ public class LanguageCommand implements IActionCommand {
 
     @Override
     public String getView(SessionRequestContent content) {
-        execute(content);
+        handle(content);
         return view;
     }
 }

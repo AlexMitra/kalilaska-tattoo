@@ -15,12 +15,12 @@ import by.kalilaska.ktattoo.entity.TattooPhotoEntity;
 import by.kalilaska.ktattoo.service.TattooPhotoService;
 import by.kalilaska.ktattoo.service.DaoFactory;
 
-public class TattooPhotoServiceJdbc implements TattooPhotoService {
-	private final static Logger LOGGER = LogManager.getLogger(TattooPhotoServiceJdbc.class);
+public class TattooPhotoServiceImpl implements TattooPhotoService {
+	private final static Logger LOGGER = LogManager.getLogger(TattooPhotoServiceImpl.class);
 	private TattooPhotoDAO tattooPhotoDAO;
 	private TransactionManager transactionManager;
 
-	public TattooPhotoServiceJdbc() {		
+	public TattooPhotoServiceImpl() {		
 		tattooPhotoDAO = DaoFactory.createDao(this.getClass());
 		transactionManager = new TransactionManager();
 	}

@@ -29,7 +29,8 @@ public class FollowSeanceMessageTag extends AbstractI18nMessageTag{
 		initResourceBundle();
 		if(resourceBundle != null) {
 			String message = getMessage(I18nNameList.SEANCE_MESSAGE_NEGATIVE);
-			if(seances != null) {
+			if(seances != null && !seances.isEmpty()) {
+				message = getMessage(I18nNameList.CONSULTATION_SEANCE_MESSAGE_POSITIVE);
 				SeanceBean seance = null;
 				int count = 0;
 				while (count < seances.size()) {

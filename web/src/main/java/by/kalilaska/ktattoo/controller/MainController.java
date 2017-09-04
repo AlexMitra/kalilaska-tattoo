@@ -28,15 +28,25 @@ import by.kalilaska.ktattoo.webtype.TransitionType;
 		"/home.html", 
 		"/masters.html", 
 		"/login.html", 
-		"/registration.html",
+		"/signup.html",
 		"/personalArea.html",  
 		"/about-us.html", 
 		"/personalArea-deleteAvatar.html", 
-		"/personalArea-edit.html", 
+		"/personalArea-editProfile.html", 
 		"/personalArea-addConsultation.html", 
 		"/personalArea-allConsultations.html", 
+		"/personalArea-approveAllConsultations.html", 
+		"/personalArea-approveConsultation.html", 
+		"/personalArea-addSeance.html", 
+		"/personalArea-allSeances.html", 
+		"/personalArea-approveSeance.html", 
 		"/personalArea-addStyle.html", 
-		"/personalArea-allAccounts.html"})
+		"/personalArea-allAccounts.html", 		
+		"/personalArea-addAccount.html", 
+		"/personalArea-editAccount.html", 
+		"/personalArea-forbideAccount.html", 
+		"/personalArea-allowAccount.html", 
+		"/personalArea-deleteAccount.html"})
 
 public class MainController extends HttpServlet {
 	private final static Logger LOGGER = LogManager.getLogger(MainController.class);
@@ -52,12 +62,13 @@ public class MainController extends HttpServlet {
 	}
 
 	private void executeRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {		
+			throws ServletException, IOException {
 		CommandFactory commandFactory = new CommandFactory();
 		SessionRequestContent content = new SessionRequestContent();
 		content.extractValues(request);
 
-		IActionCommand command = commandFactory.initCommand(content);		
+		IActionCommand command = commandFactory.initCommand(content);
+		
 		String view = command.getView(content);
 		TransitionType transition = content.getTransition();		
 		content.rewriteValues(request);
@@ -86,7 +97,7 @@ public class MainController extends HttpServlet {
 			dispatcher = getServletContext().getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 			break;
-		case SEND_REDIRECT:
+		case SEND_REDIRECT:			
 			response.sendRedirect(view);
 			break;
 		case SESSION_INVALIDATE:

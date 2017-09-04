@@ -18,6 +18,11 @@ public class SessionAttrNameList {
 	public final static String ATTRIBUTE_FOR_EDIT_PROFILE_FAILURE = "editProfileFailure";
 	
 	public final static String ATTRIBUTE_FOR_ADD_CONSULTATION_FAILURE = "addTattooConsultationFailure";
+	public final static String ATTRIBUTE_FOR_APPROVE_CONSULTATION_FAILURE = "approveConsultationFailure";
+	
+	public final static String ATTRIBUTE_FOR_ADD_SEANCE_FAILURE = "addTattooSeanceFailure";
+	public final static String ATTRIBUTE_FOR_APPROVE_SEANCE_FAILURE = "approveSeanceFailure";
+	
 	public final static String ATTRIBUTE_FOR_ADD_TATTOO_STYLE_FAILURE = "addTattooStyleFailure";
 	
 	public final static String ATTRIBUTE_FOR_CREATE_ACCOUNT_FAILURE = "createAccountFailure";

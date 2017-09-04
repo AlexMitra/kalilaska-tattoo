@@ -13,8 +13,8 @@
                 </div>
                 <div class="modal-body">                	
 					<div class="dialog-form-screen">
-	                	<form id="edit-account-form" class="form-horizontal" action="personalArea-allAccounts.html" method="POST" enctype="utf8">
-	                		<input name="command" type="hidden" value="edit_account"/>
+	                	<form id="edit-account-form" class="form-horizontal" action="personalArea-editAccount.html" method="POST" enctype="utf8">
+	                		<input name="command" type="hidden" value="personal_area_edit_account"/>
 	                		<input id="edit-account-id" name="edit_account_id" type="hidden" value=""/>
 	                		
 	                		<div class="form-group">

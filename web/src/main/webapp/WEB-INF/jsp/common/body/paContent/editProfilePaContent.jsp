@@ -12,7 +12,7 @@
 		        </div>
 		            
 		        <form id="edit-profile-form" action="personalArea.html" method="POST" enctype="utf8">
-		        	<input type="hidden" name="command" value="edit_profile" />
+		        	<input type="hidden" name="command" value="personal_area_edit_profile" />
 		        	<input type="hidden" name="edit_profile_id" value="${personalAreaViewBean.getId()}" />
 		            <div class="form-group">
 		                <label class="form-label-style" for="edit-profile-name">Name*</label>
@@ -89,7 +89,7 @@
 		                                message: 'Name must be more than 5 and less than 30 characters long'
 		                            },
 		                            regexp: {
-		                                regexp: /^[\wА-Яа-яё]+( [A-Za-zА-Яа-яё]+)?$/,
+		                                regexp: /^(([A-Za-zА-Яа-яё]+)([\wА-Яа-яё]+)?( [A-Za-zА-Яа-яё]+)?){5,30}$/,
 		                                message: 'Name can only consist of latin and cyrillic letters, numbers, _ and one space'
 		                            }
 		                        }

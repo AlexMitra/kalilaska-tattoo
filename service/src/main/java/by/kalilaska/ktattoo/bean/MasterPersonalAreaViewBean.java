@@ -7,6 +7,8 @@ public class MasterPersonalAreaViewBean extends AbstractPersonalAreaViewBean{
 	private String aboutInfo;
 	private List<TattooPhotoBean> photos;
 	private List<TattooStyleBean> styles;
+	private List<ConsultationBean> unapprovedConsultations;
+	private List<SeanceBean> unapprovedSeances;	
 
 	public MasterPersonalAreaViewBean() {
 	}
@@ -72,6 +74,22 @@ public class MasterPersonalAreaViewBean extends AbstractPersonalAreaViewBean{
 		if(style != null) {
 			styles.remove(style);
 		}		
+	}
+	
+	public List<ConsultationBean> getUnapprovedConsultations() {
+		return unapprovedConsultations;
+	}
+
+	public List<SeanceBean> getUnapprovedSeances() {
+		return unapprovedSeances;
+	}
+
+	public void setUnapprovedConsultations(List<ConsultationBean> unapprovedConsultations) {
+		this.unapprovedConsultations = unapprovedConsultations;
+	}
+
+	public void setUnapprovedSeances(List<SeanceBean> unapprovedSeances) {
+		this.unapprovedSeances = unapprovedSeances;
 	}
 
 	@Override

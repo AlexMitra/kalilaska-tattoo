@@ -1,9 +1,13 @@
 package by.kalilaska.ktattoo.bean;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SeanceBean {
+	private final static String DATE_PATTERN = "dd MMMM HH:mm";
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
+	
 	private int id;
 	private Date date;
 	private byte duration;
@@ -91,6 +95,10 @@ public class SeanceBean {
 
 	public void setMasterName(String masterName) {
 		this.masterName = masterName;
+	}
+	
+	public String writeDate() {
+		return dateFormat.format(date);
 	}
 
 	@Override

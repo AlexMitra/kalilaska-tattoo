@@ -19,7 +19,7 @@ public interface TattooPhotoService extends BaseService<TattooPhotoBean, TattooP
 		return tattooPhotoBean;
 	}
 	
-	List<TattooPhotoBean> findAllTattooPhotoByMasterId(int id);
-	
 	TattooPhotoDAO getDao();
+	
+	List<TattooPhotoBean> findAllTattooPhotoByMasterId(int id);
 }

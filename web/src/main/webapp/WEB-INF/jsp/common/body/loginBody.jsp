@@ -9,7 +9,7 @@
                 <span class="login-title"><fmt:message key="login.signup.title.login" bundle="${ rb }" /></span>
                 <div class="login-signup-link-container">
                     
-                        <form id="registration-view-link" action="registration.html" method="POST">
+                        <form id="registration-view-link" action="signup.html" method="POST">
                             <input type="hidden" name="command" value="registration_view" />
                         </form>
                         <button class="login-signup-link" type="submit" form="registration-view-link" value="">
@@ -19,7 +19,7 @@
                 </div>
         </div>
         
-        <form id="authenticationForm" action="personalArea.html" method="POST" enctype="utf8">
+        <form id="authenticationForm" action="login.html" method="POST" enctype="utf8">
         	<input type="hidden" name="command" value="authentication" />
             <div class="form-group">
                 <label class="form-label-style" for="authenticationName"><fmt:message key="form.name" bundle="${ rb }" /></label>
@@ -62,7 +62,7 @@
                                 message: 'Name must be more than 5 and less than 30 characters long'
                             },
                             regexp: {
-                                regexp: /^[\wА-Яа-яё]+( [A-Za-zА-Яа-яё]+)?$/,
+                                regexp: /^(([A-Za-zА-Яа-яё]+)([\wА-Яа-яё]+)?( [A-Za-zА-Яа-яё]+)?){5,30}$/,
                                 message: 'Name can only consist of latin and cyrillic letters, numbers, _ and one space'
                             }
                         }

@@ -1,5 +1,6 @@
 package by.kalilaska.ktattoo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import by.kalilaska.ktattoo.bean.SeanceBean;
@@ -12,7 +13,7 @@ public interface SeanceService extends BaseService<SeanceBean, SeanceEntity>{
 		if(entity != null) {
 			seanceBean = new SeanceBean(
 					entity.getId(), 
-					entity.getDate(), 
+					entity.getDateStart(), 
 					entity.getDuration(), 
 					entity.getCostPerHour(), 
 					entity.getClientId(), 
@@ -23,6 +24,17 @@ public interface SeanceService extends BaseService<SeanceBean, SeanceEntity>{
 		return seanceBean;
 	}
 	
-	List<SeanceBean> findAllSeancesByClientId(int id);
+	String getWorningMessage();
+	
+	SeanceBean findSeanceByMasterIdAndDate(int id, Date date);
+	SeanceBean findSeanceByClientIdAndDate(int id, Date date);
+	
+	List<SeanceBean> findAllApprovedSeancesByClientId(int id);
 	List<SeanceBean> findAllSeancesByMasterId(int id);
+	List<SeanceBean> findAllUnapprovedSeancesByMasterId(int id);
+
+	boolean approveSeanceById(String idStr, String costStr);
+	
+	SeanceBean create(int clientId, String masterIdStr, String clientName, String masterName, 
+			String dateStr, String durationStr);
 }

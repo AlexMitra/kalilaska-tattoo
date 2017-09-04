@@ -15,34 +15,31 @@ import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.TattooStyleEntity;
 import by.kalilaska.ktattoo.service.DaoFactory;
 import by.kalilaska.ktattoo.service.TattooStyleService;
-import by.kalilaska.ktattoo.serviceexception.MessageFileNotFoundServiceException;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
 import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 import by.kalilaska.ktattoo.servicetype.DataType;
 import by.kalilaska.ktattoo.validator.FormDataValidator;
 
-public class TattooStyleServiceJdbc implements TattooStyleService{
-	private final static Logger LOGGER = LogManager.getLogger(TattooStyleServiceJdbc.class);
+public class TattooStyleServiceImpl implements TattooStyleService{
+	private final static Logger LOGGER = LogManager.getLogger(TattooStyleServiceImpl.class);
 	private TattooStyleDAO tattooStyleDAO;
-	private TransactionManager transactionManager;
-	private FormDataValidator validator;
-	private ServiceMessageManager messageManager;
+	private TransactionManager transactionManager;	
+//	private ServiceMessageManager messageManager;
 	private String worningMessage;
 
-	public TattooStyleServiceJdbc() {		
+	public TattooStyleServiceImpl() {		
 		tattooStyleDAO = DaoFactory.createDao(this.getClass());
-		transactionManager = new TransactionManager();
-		validator = new FormDataValidator();
-		initManager();
+		transactionManager = new TransactionManager();		
+//		initManager();
 	}
 	
-	private void initManager() {
-		try {
-			messageManager = new ServiceMessageManager();
-		} catch (MessageFileNotFoundServiceException e) {
-			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-		}
-	}
+//	private void initManager() {
+//		try {
+//			messageManager = new ServiceMessageManager();
+//		} catch (MessageFileNotFoundServiceException e) {
+//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
+//		}
+//	}
 
 	@Override
 	public TattooStyleBean findTattooStyleByStyleName(String name) {
@@ -50,10 +47,11 @@ public class TattooStyleServiceJdbc implements TattooStyleService{
 		transactionManager.beginTransaction(tattooStyleDAO);
 		try {
 			TattooStyleEntity styleEntity = tattooStyleDAO.findTattooStyleByName(name);
+			transactionManager.commit();
+			
 			if(styleEntity != null) {
 				styleBean = convertEntityToBean(styleEntity);
-			}
-			transactionManager.commit();
+			}			
 		} catch (SQLDataException e) {
 			transactionManager.rollback();
 			LOGGER.log(Level.ERROR, "Exception in TattooStyleDAO: " + e.getMessage());
@@ -85,13 +83,15 @@ public class TattooStyleServiceJdbc implements TattooStyleService{
 	}
 
 	@Override
-	public List<TattooStyleBean> findAllTattooStyleByMasterId(int id) {
-		transactionManager.beginTransaction(tattooStyleDAO);
+	public List<TattooStyleBean> findAllTattooStyleByMasterId(int id) {		
 		LinkedList<TattooStyleBean> styleBeanList = null;
 		TattooStyleBean tattooStyleBean = null;
 		
+		transactionManager.beginTransaction(tattooStyleDAO);
 		try {
 			List<TattooStyleEntity> styleEntityList = tattooStyleDAO.findAllTattooStyleByMasterId(id);
+			transactionManager.commit();
+			
 			if(styleEntityList != null && !styleEntityList.isEmpty()) {
 				styleBeanList = new LinkedList<>();
 				
@@ -100,8 +100,7 @@ public class TattooStyleServiceJdbc implements TattooStyleService{
 					tattooStyleBean = convertEntityToBean(tattooStyleEntity);
 					styleBeanList.add(tattooStyleBean);
 				}
-			}
-			transactionManager.commit();
+			}			
 		} catch (SQLDataException e) {			
 			transactionManager.rollback();
 			LOGGER.log(Level.ERROR, "Exception in TattooStyleDAO: " + e.getMessage());
@@ -118,6 +117,8 @@ public class TattooStyleServiceJdbc implements TattooStyleService{
 		
 		try {
 			List<TattooStyleEntity> styleEntityList = tattooStyleDAO.findAll();
+			transactionManager.commit();
+			
 			if(styleEntityList != null && !styleEntityList.isEmpty()) {
 				styleBeanList = new LinkedList<>();
 				
@@ -126,8 +127,7 @@ public class TattooStyleServiceJdbc implements TattooStyleService{
 					tattooStyleBean = convertEntityToBean(tattooStyleEntity);
 					styleBeanList.add(tattooStyleBean);
 				}
-			}
-			transactionManager.commit();
+			}			
 		}catch(SQLDataException e){
 			transactionManager.rollback();
 			LOGGER.log(Level.ERROR, "Exception in TattooStyleDAO: " + e.getMessage());
@@ -174,11 +174,10 @@ public class TattooStyleServiceJdbc implements TattooStyleService{
 	}
 
 	@Override
-	public TattooStyleBean create(String name, String description) {
-		worningMessage = null;
+	public TattooStyleBean create(String name, String description) {		
 		TattooStyleBean styleBean = null;
 		
-		if(name != null && validator.validate(name, DataType.NAME)) {
+		if(name != null && FormDataValidator.validate(name, DataType.NAME)) {
 			TattooStyleBean nameCheckBean = findTattooStyleByStyleName(name);
 			
 			if(nameCheckBean == null) {
@@ -199,25 +198,27 @@ public class TattooStyleServiceJdbc implements TattooStyleService{
 				}
 				transactionManager.endTransaction();
 			}else {
-				worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_TATTOO_STYLE_ALREADY_EXISTS);
+				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_TATTOO_STYLE_ALREADY_EXISTS);
 			}			
 		}else {
-			worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_TATTOO_STYLE_DATA_INVALID);			
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_TATTOO_STYLE_DATA_INVALID);			
 		}
 		
 		return styleBean;
 	}
 	
-	private String makeWorningMessage(String messagePath) {
-		String message = null;
-		if(messageManager != null) {
-			message = messageManager.getProperty(messagePath);
-		}
-		return message;
-	}
+//	private String makeWorningMessage(String messagePath) {
+//		String message = null;
+//		if(messageManager != null) {
+//			message = messageManager.getProperty(messagePath);
+//		}
+//		return message;
+//	}
 
 	@Override
 	public String getWorningMessage() {		
-		return worningMessage;
+		String message = worningMessage == null ? "" : worningMessage;		
+		worningMessage = null;
+		return message;
 	}
 }

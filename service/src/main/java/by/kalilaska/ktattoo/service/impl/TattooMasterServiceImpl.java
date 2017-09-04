@@ -13,32 +13,31 @@ import by.kalilaska.ktattoo.dao.TransactionManager;
 import by.kalilaska.ktattoo.dao.impl.TattooMasterDAO;
 import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.TattooMasterEntity;
+import by.kalilaska.ktattoo.service.DaoFactory;
 import by.kalilaska.ktattoo.service.TattooMasterService;
 import by.kalilaska.ktattoo.service.TattooPhotoService;
 import by.kalilaska.ktattoo.service.TattooStyleService;
-import by.kalilaska.ktattoo.service.DaoFactory;
 
-public class TattooMasterServiceJdbc implements TattooMasterService {
-	private final static Logger LOGGER = LogManager.getLogger(TattooMasterServiceJdbc.class);
+public class TattooMasterServiceImpl implements TattooMasterService {
+	private final static Logger LOGGER = LogManager.getLogger(TattooMasterServiceImpl.class);
 	private TattooMasterDAO tattooMasterDAO;
 	private TattooPhotoService tattooPhotoService;
 	private TattooStyleService tattooStyleService;
-	private TransactionManager transactionManager;	
+	private TransactionManager transactionManager;
 
-	public TattooMasterServiceJdbc() {		
+	public TattooMasterServiceImpl() {		
 		tattooMasterDAO = DaoFactory.createDao(this.getClass());
-		tattooPhotoService = new TattooPhotoServiceJdbc();
-		tattooStyleService = new TattooStyleServiceJdbc();
+		tattooPhotoService = new TattooPhotoServiceImpl();
+		tattooStyleService = new TattooStyleServiceImpl();
 		transactionManager = new TransactionManager();
 	}
 
 	@Override
 	public List<TattooMasterBean> findAllAllowedMasters() {
-		transactionManager.beginTransaction(tattooMasterDAO, tattooPhotoService.getDao(), tattooStyleService.getDao());
-		
 		List<TattooMasterBean> tattooMasterBeanList = null;
 		TattooMasterBean tattooMasterBean = null;
 		
+		transactionManager.beginTransaction(tattooMasterDAO, tattooPhotoService.getDao(), tattooStyleService.getDao());
 		try {
 			List<TattooMasterEntity> tattooMasterEntityList = tattooMasterDAO.findAll();
 			if(tattooMasterEntityList != null && !tattooMasterEntityList.isEmpty()) {
@@ -80,10 +79,10 @@ public class TattooMasterServiceJdbc implements TattooMasterService {
 		
 		try {
 			TattooMasterEntity masterEntity = tattooMasterDAO.findById(id);
+			transactionManager.commit();
 			if(masterEntity != null) {
 				masterBean = convertEntityToBean(masterEntity);
-			}
-			transactionManager.commit();
+			}			
 		}catch(SQLDataException e) {			
 			transactionManager.rollback();
 			LOGGER.log(Level.ERROR, "Exception in TattooMasterDAO: " + e.getMessage());

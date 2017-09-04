@@ -8,6 +8,7 @@ import java.util.List;
 
 import by.kalilaska.ktattoo.dao.AbstractDAO;
 import by.kalilaska.ktattoo.dataexception.SQLDataException;
+import by.kalilaska.ktattoo.dataname.daoNameList;
 import by.kalilaska.ktattoo.entity.TattooMasterEntity;
 
 public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
@@ -134,10 +135,10 @@ public class TattooMasterDAO extends AbstractDAO<Integer, TattooMasterEntity>{
 		TattooMasterEntity master = null;
 		try {
 			master = new TattooMasterEntity();
-			master.setId(resultSet.getInt("id"));
-			master.setName(resultSet.getString("name"));
-			master.setPhotoUrl(resultSet.getString("photo_url"));
-			master.setAboutInfo(resultSet.getString("about_info"));
+			master.setId(resultSet.getInt(daoNameList.MASTER_DAO_RESULTSET_GET_ID));
+			master.setName(resultSet.getString(daoNameList.MASTER_DAO_RESULTSET_GET_NAME));
+			master.setPhotoUrl(resultSet.getString(daoNameList.MASTER_DAO_RESULTSET_GET_PHOTO_URL));
+			master.setAboutInfo(resultSet.getString(daoNameList.MASTER_DAO_RESULTSET_GET_ABOUT));
 		}catch(SQLException e) {
 			throw new SQLDataException(e);
 		}

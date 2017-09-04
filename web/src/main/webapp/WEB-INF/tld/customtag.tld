@@ -66,6 +66,23 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    
+    <tag>
+        <name>unapproved-master-event-notice</name>
+        <tag-class>by.kalilaska.ktattoo.customtag.UnapprovedMasterEventNoticeTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>consultationList</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>seanceList</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    
     <tag>
         <name>own-consultation-list</name>
         <tag-class>by.kalilaska.ktattoo.customtag.OwnConsultationsListTag</tag-class>

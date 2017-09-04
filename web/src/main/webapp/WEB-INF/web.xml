@@ -15,10 +15,4 @@
   <session-config>
 	<session-timeout>10</session-timeout>
  </session-config>
- 
-<!--   <context-param> -->
-<!--     <description>File upload location</description> -->
-<!--     <param-name>file_upload</param-name> -->
-<!--     <param-value>D:\images</param-value> -->
-<!--   </context-param> -->
 </web-app>

@@ -16,10 +16,10 @@ import by.kalilaska.ktattoo.webname.SessionAttrNameList;
  */
 public class SimpleViewCommand implements IActionCommand{
 	private final static Logger LOGGER = LogManager.getLogger(SimpleViewCommand.class);
-	private PathViewManager viewManager;
-	private PathBodyManager bodyManager;
-	private String view;
-	private String viewBody;
+	protected PathViewManager viewManager;
+	protected PathBodyManager bodyManager;
+	protected String view;
+	protected String viewBody;
 	
     public SimpleViewCommand(String viewPath) {    	
     	initViewManager();
@@ -55,7 +55,7 @@ public class SimpleViewCommand implements IActionCommand{
 		}
     }
     
-    private void execute(SessionRequestContent content) {    	
+    protected void handle(SessionRequestContent content) {    	
         if(viewBody != null){        	
         	content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_VIEW_BODY, viewBody);
         }        
@@ -63,7 +63,7 @@ public class SimpleViewCommand implements IActionCommand{
 
     @Override
     public String getView(SessionRequestContent content) {
-        execute(content);
+        handle(content);
         return view;
     }
 }

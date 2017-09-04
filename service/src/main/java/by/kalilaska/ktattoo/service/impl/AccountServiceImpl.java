@@ -16,47 +16,43 @@ import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.encoder.MD5Encoder;
 import by.kalilaska.ktattoo.entity.AccountEntity;
 import by.kalilaska.ktattoo.service.AccountService;
-import by.kalilaska.ktattoo.service.TattooMasterService;
 import by.kalilaska.ktattoo.service.DaoFactory;
-import by.kalilaska.ktattoo.serviceexception.MessageFileNotFoundServiceException;
+import by.kalilaska.ktattoo.service.TattooMasterService;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
 import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 import by.kalilaska.ktattoo.servicetype.AccountRoleType;
 import by.kalilaska.ktattoo.servicetype.DataType;
 import by.kalilaska.ktattoo.validator.FormDataValidator;
 
-public class AccountServiceJdbc implements AccountService{
-	private final static Logger LOGGER = LogManager.getLogger(AccountServiceJdbc.class);
-	private ServiceMessageManager messageManager;
-	private String wrongMessage;
+public class AccountServiceImpl implements AccountService{
+	private final static Logger LOGGER = LogManager.getLogger(AccountServiceImpl.class);
+//	private ServiceMessageManager messageManager;
+	private String worningMessage;
 	
 	private TattooMasterService masterService;
 	private AccountDAO accountDao;
-	private TransactionManager transactionManager;
-	private FormDataValidator validator;
+	private TransactionManager transactionManager;	
 	
-	public AccountServiceJdbc() {		
+	public AccountServiceImpl() {		
 		accountDao = DaoFactory.createDao(this.getClass());
-		transactionManager = new TransactionManager();
-		validator = new FormDataValidator();
-		initManager();
+		transactionManager = new TransactionManager();		
+//		initManager();
 	}
 	
-	public AccountServiceJdbc(TattooMasterService masterService) {
+	public AccountServiceImpl(TattooMasterService masterService) {
 		this.masterService = masterService;
 		accountDao = DaoFactory.createDao(this.getClass());
-		transactionManager = new TransactionManager();
-		validator = new FormDataValidator();
-		initManager();
+		transactionManager = new TransactionManager();		
+//		initManager();
 	}
 	
-	private void initManager() {
-		try {
-			messageManager = new ServiceMessageManager();
-		} catch (MessageFileNotFoundServiceException e) {
-			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-		}
-	}
+//	private void initManager() {
+//		try {
+//			messageManager = new ServiceMessageManager();
+//		} catch (MessageFileNotFoundServiceException e) {
+//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
+//		}
+//	}
 
 	@Override
 	public AccountBean findAccountByName(String name) {		
@@ -67,17 +63,16 @@ public class AccountServiceJdbc implements AccountService{
 		
         try {
         	accountEntity = accountDao.findAccountByName(name);
+        	transactionManager.commit();
             if(accountEntity != null) {
             	accountBean = convertEntityToBean(accountEntity);
             	accountBean.setPassword(accountEntity.getPassword());
-            }
-        	
-        	transactionManager.commit();
+            }        	
         } catch (SQLDataException e) {        	
         	transactionManager.rollback();
         	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
         }		
-        transactionManager.endTransaction();        
+        transactionManager.endTransaction();
         return accountBean;
 	}
 	
@@ -92,6 +87,7 @@ public class AccountServiceJdbc implements AccountService{
 		
         try {
         	accountEntityList = accountDao.findAccountByNameOrEmail(name, email);
+        	transactionManager.commit();
             if(accountEntityList != null && !accountEntityList.isEmpty()) {
             	accountBeanList = new LinkedList<>();
             	for (AccountEntity accountEntity : accountEntityList) {
@@ -99,7 +95,6 @@ public class AccountServiceJdbc implements AccountService{
             		accountBeanList.add(accountBean);
 				}
             }        	
-        	transactionManager.commit();
         } catch (SQLDataException e) {        	
         	transactionManager.rollback();
         	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
@@ -119,6 +114,7 @@ public class AccountServiceJdbc implements AccountService{
 		
         try {
         	accountEntityList = accountDao.findAccountByNameOrEmailOrPass(name, email, pass);
+        	transactionManager.commit();
             if(accountEntityList != null && !accountEntityList.isEmpty()) {
             	accountBeanList = new LinkedList<>();
             	for (AccountEntity accountEntity : accountEntityList) {
@@ -128,7 +124,6 @@ public class AccountServiceJdbc implements AccountService{
             		accountBeanList.add(accountBean);
 				}
             }        	
-        	transactionManager.commit();
         } catch (SQLDataException e) {        	
         	transactionManager.rollback();
         	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
@@ -148,6 +143,7 @@ public class AccountServiceJdbc implements AccountService{
 		
         try {
         	accountEntityList = accountDao.findAccountByPhotoUrl(photoUrl);
+        	transactionManager.commit();
             if(accountEntityList != null && !accountEntityList.isEmpty()) {
             	accountBeanList = new LinkedList<>();
             	for (AccountEntity accountEntity : accountEntityList) {
@@ -156,7 +152,6 @@ public class AccountServiceJdbc implements AccountService{
             		accountBeanList.add(accountBean);
 				}
             }        	
-        	transactionManager.commit();
         } catch (SQLDataException e) {        	
         	transactionManager.rollback();
         	LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
@@ -175,7 +170,7 @@ public class AccountServiceJdbc implements AccountService{
 		
 		try {
 			List<AccountEntity> accountEntityList = accountDao.findAll();
-			
+			transactionManager.commit();
 			if(accountEntityList != null && !accountEntityList.isEmpty()) {
 				accountBeanList = new LinkedList<>();
 				
@@ -185,7 +180,7 @@ public class AccountServiceJdbc implements AccountService{
 					accountBeanList.add(accountBean);
 				}
 			}
-			transactionManager.commit();
+			
 		}catch (SQLDataException e) {
 			transactionManager.rollback();
 			LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
@@ -235,11 +230,10 @@ public class AccountServiceJdbc implements AccountService{
 		transactionManager.beginTransaction(accountDao);
 		try {			
 			accountEntity = accountDao.create(accountEntity);
-			
+			transactionManager.commit();
 			if(accountEntity != null) {
 				accountBean = convertEntityToBean(accountEntity);
-			}
-			transactionManager.commit();			
+			}					
 		}catch (SQLDataException e) {
 			transactionManager.rollback();
 			LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
@@ -267,8 +261,7 @@ public class AccountServiceJdbc implements AccountService{
 	@Override
 	public boolean updateAccount(AccountBean account) {
 		boolean accountUpdated = false;
-		boolean masterDeleted = false;
-		wrongMessage = null;
+		boolean masterDeleted = false;		
 		
 		int id = account.getId();
 		String name = account.getName();
@@ -276,14 +269,15 @@ public class AccountServiceJdbc implements AccountService{
 		String phone = account.getPhone();
 		String role = account.getRole();		
 		
-		if(name != null && validator.validate(name, DataType.NAME) 
-				&& email != null && validator.validate(email, DataType.EMAIL) 
-				&& phone != null && (phone.length() == 0 || validator.validate(phone, DataType.PHONE)) 
+		if(name != null && FormDataValidator.validate(name, DataType.NAME) 
+				&& email != null && FormDataValidator.validate(email, DataType.EMAIL) 
+				&& phone != null && (phone.length() == 0 || FormDataValidator.validate(phone, DataType.PHONE)) 
 				&& role != null) {			
 			List<AccountBean> nameEmailCheckList = findAccountByNameOrEmail(account.getName(), account.getEmail());
 			
 			if(nameEmailCheckList != null && matchAccountIdWithList(id, nameEmailCheckList) == false) {
-				wrongMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_ALREADY_EXISTS);				
+				//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_ALREADY_EXISTS);
+				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_ALREADY_EXISTS);
 			} else {
 				AccountEntity accountEntity = new AccountEntity();
 				accountEntity.setId(id);
@@ -315,7 +309,8 @@ public class AccountServiceJdbc implements AccountService{
 				transactionManager.endTransaction();
 			}
 		}else {
-			wrongMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);			
+			//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
 		}
 		return accountUpdated;
 	}
@@ -335,8 +330,7 @@ public class AccountServiceJdbc implements AccountService{
 	@Override
 	public boolean updateProfile(AccountBean account) {
 		boolean result = false;
-		boolean updateWithPass = false;
-		wrongMessage = null;
+		boolean updateWithPass = false;		
 		
 		int id = account.getId();
 		String name = account.getName();
@@ -346,12 +340,12 @@ public class AccountServiceJdbc implements AccountService{
 		String confirmPass = account.getConfirmPassword();
 		String role = account.getRole();
 		
-		if(name != null && validator.validate(name, DataType.NAME) 
-				&& email != null && validator.validate(email, DataType.EMAIL)) {
+		if(name != null && FormDataValidator.validate(name, DataType.NAME) 
+				&& email != null && FormDataValidator.validate(email, DataType.EMAIL)) {
 			
 			List<AccountBean> accountCheckList = null;
 			
-			if(pass != null && validator.validate(pass, DataType.PASS) 
+			if(pass != null && FormDataValidator.validate(pass, DataType.PASS) 
 					&& confirmPass != null && pass.equals(confirmPass)) {
 				
 				updateWithPass = true;
@@ -362,14 +356,15 @@ public class AccountServiceJdbc implements AccountService{
 			}
 			
 			if(accountCheckList != null && matchAccountIdWithList(id, accountCheckList) == false) {
-				wrongMessage = makeWrongMessage(ServiceMessageNameList.EDIT_PROFILE_DATA_ALREADY_EXISTS);								
+				//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_PROFILE_DATA_ALREADY_EXISTS);
+				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_PROFILE_DATA_ALREADY_EXISTS);
 			} else {
 				AccountEntity accountEntity = new AccountEntity();
 				accountEntity.setId(id);
 				accountEntity.setName(name);
 				accountEntity.setEmail(email);
 				accountEntity.setRole(role);
-				if(phone != null && validator.validate(phone, DataType.PHONE)) {
+				if(phone != null && FormDataValidator.validate(phone, DataType.PHONE)) {
 					accountEntity.setPhone(phone);
 				}
 				
@@ -395,15 +390,15 @@ public class AccountServiceJdbc implements AccountService{
 				transactionManager.endTransaction();
 			}
 		}else {
-			wrongMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);			
+			//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
 		}
 		return result;
 	}
 	
 	@Override
 	public boolean updatePhotoUrl(AccountBean account) {
-		boolean updated = false;
-		wrongMessage = null;
+		boolean updated = false;		
 		int id = account.getId();
 		String photoUrl = account.getPhotoURL();
 		List<AccountBean> photoCheckList = null;
@@ -425,18 +420,19 @@ public class AccountServiceJdbc implements AccountService{
 				}
 				transactionManager.endTransaction();
 			}else {
-				wrongMessage = makeWrongMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_ALREADY_EXISTS);				
+				//worningMessage = makeWrongMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_ALREADY_EXISTS);
+				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_ALREADY_EXISTS);
 			}
 		}else {			
-			wrongMessage = makeWrongMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_INVALID);
+			//worningMessage = makeWrongMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_INVALID);
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_INVALID);
 		}
 		return updated;
 	}
 	
 	@Override
 	public boolean deletePhotoUrl(Integer id) {
-		boolean deleted = false;
-		wrongMessage = null;		
+		boolean deleted = false;				
 		
 		if(id != null) {
 			transactionManager.beginTransaction(accountDao);
@@ -449,22 +445,25 @@ public class AccountServiceJdbc implements AccountService{
 			}
 			transactionManager.endTransaction();
 		}else {			
-			wrongMessage = makeWrongMessage(ServiceMessageNameList.DELETE_AVATAR_DATA_INVALID);
+			//worningMessage = getWorningngMessage(ServiceMessageNameList.DELETE_AVATAR_DATA_INVALID);
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.DELETE_AVATAR_DATA_INVALID);
 		}
 		
 		return deleted;
 	}
 	
-	private String makeWrongMessage(String messagePath) {
-		String message = null;
-		if(messageManager != null) {
-			message = messageManager.getProperty(messagePath);
-		}
-		return message;
-	}
+//	private String makeWrongMessage(String messagePath) {
+//		String message = null;
+//		if(messageManager != null) {
+//			message = messageManager.getProperty(messagePath);
+//		}
+//		return message;
+//	}
 
 	@Override
-	public String getWrongMessage() {		
-		return wrongMessage;
+	public String getWorningngMessage() {		
+		String message = worningMessage == null ? "" : worningMessage;		
+		worningMessage = null;
+		return message;
 	}
 }

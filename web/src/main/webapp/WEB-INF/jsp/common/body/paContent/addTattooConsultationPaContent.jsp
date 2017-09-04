@@ -8,7 +8,7 @@
 	    <div class="personal-area-center-content-container">
 	        <div class="personal-area-center-form-container">
 		        <div class="edit-profile-title-container">
-		            <span>Add tattoo style</span>
+		            <span>Add consultation</span>
 		        </div>
 		        
 		        <form id="add-tattoo-consultation-form" action="personalArea-addConsultation.html" method="POST" enctype="utf8">

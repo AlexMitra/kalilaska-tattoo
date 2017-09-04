@@ -17,7 +17,7 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 			 "SELECT `a`.`id`, `a`.`name`, `a`.`email`, `a`.`password`, `a`.`phone`, `a`.`photo_url`, " +
 					 "`a`.`is_allowed`, `r`.`name` AS `role` " +
 					 "FROM `account` AS `a` " +
-					 "INNER JOIN `role` AS `r` ON `a`.`FK_role_id` = `r`.`id`;";
+					 "INNER JOIN `role` AS `r` ON `a`.`FK_role_id` = `r`.`id` ORDER BY `role`, `a`.`id`;";
 	
 	private final static String SQL_SELECT_ACCOUNT_BY_NAME =
 			 "SELECT `a`.`id`, `a`.`name`, `a`.`email`, `a`.`password`, `a`.`phone`, `a`.`photo_url`, " +
@@ -350,14 +350,14 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 		
 		try {
 			account = new AccountEntity();
-			account.setId(resultSet.getInt("id"));
-			account.setName(resultSet.getString("name"));
-			account.setEmail(resultSet.getString("email"));
-			account.setPassword(resultSet.getString("password"));
-			account.setPhone(resultSet.getString("phone"));
-			account.setPhotoURL(resultSet.getString("photo_url"));
-			account.setAllowed(resultSet.getBoolean("is_allowed"));
-			account.setRole(resultSet.getString("role"));
+			account.setId(resultSet.getInt(daoNameList.ACCOUNT_DAO_RESULTSET_GET_ID));
+			account.setName(resultSet.getString(daoNameList.ACCOUNT_DAO_RESULTSET_GET_NAME));
+			account.setEmail(resultSet.getString(daoNameList.ACCOUNT_DAO_RESULTSET_GET_EMAIL));
+			account.setPassword(resultSet.getString(daoNameList.ACCOUNT_DAO_RESULTSET_GET_PASS));
+			account.setPhone(resultSet.getString(daoNameList.ACCOUNT_DAO_RESULTSET_GET_PHONE));
+			account.setPhotoURL(resultSet.getString(daoNameList.ACCOUNT_DAO_RESULTSET_GET_PHOTO_URL));
+			account.setAllowed(resultSet.getBoolean(daoNameList.ACCOUNT_DAO_RESULTSET_GET_IS_ALLOWED));
+			account.setRole(resultSet.getString(daoNameList.ACCOUNT_DAO_RESULTSET_GET_ROLE));
 		} catch (SQLException e) {
 			throw new SQLDataException(e);			
 		}				

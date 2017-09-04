@@ -13,8 +13,8 @@
                 </div>
                 <div class="modal-body">                	
 					<div class="dialog-form-screen">
-	                	<form id="add-account-form" class="form-horizontal" action="personalArea-allAccounts.html" method="POST" enctype="utf8">
-	                		<input name="command" type="hidden" value="add_account"/>
+	                	<form id="add-account-form" class="form-horizontal" action="personalArea-addAccount.html" method="POST" enctype="utf8">
+	                		<input name="command" type="hidden" value="personal_area_add_account"/>
 	                		
 	                		<div class="form-group">
 	                            <label class="control-label" for="add-account-name"><fmt:message key="form.name" bundle="${ rb }" /></label>
@@ -64,7 +64,7 @@
 			                                message: 'Name must be more than 5 and less than 30 characters long'
 			                            },
 			                            regexp: {
-			                                regexp: /^[\wА-Яа-яё]+( [A-Za-zА-Яа-яё]+)?$/,
+			                                regexp: /^(([A-Za-zА-Яа-яё]+)([\wА-Яа-яё]+)?( [A-Za-zА-Яа-яё]+)?){5,30}$/,
 			                                message: 'Name can only consist of latin and cyrillic letters, numbers, _ and one space'
 			                            }
 			                        }

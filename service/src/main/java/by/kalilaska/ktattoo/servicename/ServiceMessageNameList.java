@@ -15,6 +15,16 @@ public class ServiceMessageNameList {
 	public final static String CREATE_CONSULTATION_CLIENT_ALREADY_BUSY = "message.createConsultation.client.alreadyBusy";
 	public final static String CREATE_CONSULTATION_DATA_INVALID = "message.createConsultation.data.invalid";
 	
+	public final static String APPROVE_CONSULTATION_ALL_ALREADY_APPROVED = "message.createConsultation.all.alreadyApproved";
+	public final static String APPROVE_CONSULTATION_CAN_NOT_APPROVE = "message.approveConsultation.unable";
+	
+	public final static String CREATE_SEANCE_MASTER_ALREADY_BUSY = "message.createSeance.master.alreadyBusy";
+	public final static String CREATE_SEANCE_CLIENT_ALREADY_BUSY = "message.createSeance.client.alreadyBusy";
+	public final static String CREATE_SEANCE_DATA_INVALID = "message.createSeance.data.invalid";
+	
+	public final static String APPROVE_SEANCE_CAN_NOT_APPROVE = "message.approveSeance.unable";
+	public final static String APPROVE_SEANCE_DATA_INVALID = "message.approveSeance.data.invalid";
+	
 	public final static String CREATE_TATTOO_STYLE_ALREADY_EXISTS = "message.createTattooStyle.data.alreadyExists";
 	public final static String CREATE_TATTOO_STYLE_DATA_INVALID = "message.createTattooStyle.data.invalid";
 

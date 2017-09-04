@@ -15,7 +15,6 @@
 		<h2><fmt:message key="personalArea.allAccounts.title" bundle="${ rb }" />
 			<label class="switch">
 				<input id="accounts-enabled-disabled-toggle" type="checkbox" checked onclick="if(this.checked){accountAllowedForbiddenToggle.toggleEnable()} else {accountAllowedForbiddenToggle.toggleDisable()}">
-<!-- 				<input id="accounts-enabled-disabled-toggle" type="checkbox" checked > -->
 				<div class="slider round"></div>
 			</label>
 		</h2>

@@ -12,6 +12,8 @@ public class RequestAttrNameList {
 	
 	public final static String ATTRIBUTE_FOR_ALL_CONSULTATION_LIST = "allConsultationList";
 	
+	public final static String ATTRIBUTE_FOR_ALL_SEANCE_LIST = "allSeanceList";
+	
 	public final static String ATTRIBUTE_FOR_MASTER_BEAN_LIST = "masterBeanList";
 	public final static String ATTRIBUTE_FOR_ALL_TATTOO_STYLE_LIST = "allStyleList";
 	

@@ -29,7 +29,8 @@ public class FollowConsultationMessageTag extends AbstractI18nMessageTag{
 		initResourceBundle();
 		if(resourceBundle != null) {
 			String message = getMessage(I18nNameList.CONSULTATION_MESSAGE_NEGATIVE);
-			if(consultations != null) {
+			if(consultations != null && !consultations.isEmpty()) {
+				message = getMessage(I18nNameList.CONSULTATION_SEANCE_MESSAGE_POSITIVE);
 				ConsultationBean consultation = null;
 				int count = 0;
 				while (count < consultations.size()) {

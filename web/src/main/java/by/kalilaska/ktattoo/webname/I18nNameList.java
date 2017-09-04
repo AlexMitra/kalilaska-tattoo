@@ -9,6 +9,8 @@ public class I18nNameList {
 	public final static String CONSULTATION_MESSAGE_POSITIVE_TODAY = "personalArea.profile.consultation.list.message.positive.today";
 	public final static String CONSULTATION_LIST_ITEM_BEGIN_WITH = "personalArea.profile.consultation.list.item.begin.with";
 	
+	public final static String CONSULTATION_SEANCE_MESSAGE_POSITIVE = "personalArea.profile.consultation.seance.list.message.positive";
+	
 	public final static String SEANCE_MESSAGE_NEGATIVE = "personalArea.profile.seance.list.message.negative";
 	public final static String SEANCE_MESSAGE_POSITIVE_TOMORROW = "personalArea.profile.seance.list.message.positive.tomorrow";
 	public final static String SEANCE_MESSAGE_POSITIVE_TODAY = "personalArea.profile.seance.list.message.positive.today";

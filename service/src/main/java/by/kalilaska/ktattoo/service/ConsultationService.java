@@ -28,9 +28,13 @@ public interface ConsultationService extends BaseService<ConsultationBean, Consu
 	
 	ConsultationBean findConsultationByMasterIdAndDate(int id, Date date);
 	ConsultationBean findConsultationByClientIdAndDate(int id, Date date);
-	
-	List<ConsultationBean> findAllConsultationsByClientId(int id);
+
+	List<ConsultationBean> findAllApprovedConsultationsByClientId(int id);
 	List<ConsultationBean> findAllConsultationsByMasterId(int id);
+	List<ConsultationBean> findAllUnapprovedConsultationsByMasterId(int id);
+	
+	boolean approveAllConsultationByMasterId(int masterId);
+	boolean approveConsultationById(String idStr);
 	
 	ConsultationBean create(int cliendId, String masterIdStr, String clientName, String masterName, String dateStr);
 }

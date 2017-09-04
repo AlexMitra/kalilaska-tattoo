@@ -118,7 +118,8 @@
 
 .working-message-container {
     clear: both;
-    overflow: auto;    
+    height: 55px;
+    overflow: auto;
 }
 
 .working-message {    
@@ -378,6 +379,17 @@ position: absolute;
     overflow: auto;  
     max-height: 90%;   
     border: 0px;    
+}
+
+.input-with-border {
+    border: 1px solid brown;
+    border-radius: 3px;
+}
+
+.small-button {
+    display: inline-block;
+    padding: 3px;
+    margin-left: 10px;
 }
 
 /* All accounts content classes */

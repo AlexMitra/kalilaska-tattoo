@@ -26,17 +26,17 @@ public class LogoutCommand implements IActionCommand {
     		this.view = viewManager.getProperty(viewPath);
     	}catch (ViewSourceNotFoundWebException e) {
 			LOGGER.log(Level.WARN, "can not find configuration file for views creation: " + e.getMessage());
-		}           
+		}
     }
     
-    public void execute(SessionRequestContent content) {
+    public void handle(SessionRequestContent content) {
     	LanguageType.resetCurrentLocaleAndLanguage();
     	content.setTransition(TransitionType.SESSION_INVALIDATE);
     }
 
     @Override
     public String getView(SessionRequestContent content) {
-        execute(content);
+        handle(content);
         return view;
     }
 }
