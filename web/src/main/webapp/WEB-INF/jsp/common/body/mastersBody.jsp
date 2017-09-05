@@ -7,7 +7,7 @@
     
     <main class="masters-body">
         <div class="masters-title-container">
-            OUR MASTERS
+            <fmt:message key="masters.view.title" bundle="${ rb }"/>
         </div>
         <div class="all-masters-list-container">
 			<kalilaska:all-master-work-card masterList="${requestScope.masterBeanList}"/>

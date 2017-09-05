@@ -18,8 +18,14 @@ public interface TattooPhotoService extends BaseService<TattooPhotoBean, TattooP
 		}
 		return tattooPhotoBean;
 	}
-	
+	String getWorningngMessage();
 	TattooPhotoDAO getDao();
 	
+	TattooPhotoBean findTattooPhotoByPhotoUrl(String photoUrl);
 	List<TattooPhotoBean> findAllTattooPhotoByMasterId(int id);
+	List<TattooPhotoBean> findAllTattooPhotoByMasterIdTransacted(int id);
+	
+	TattooPhotoBean create(String photoUrl, int masterId, Boolean isDone);
+	
+	boolean changeTattooPhotoDone(String idStr, boolean doneValue);
 }

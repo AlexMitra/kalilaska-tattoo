@@ -1,9 +1,6 @@
 package by.kalilaska.ktattoo.filter;
 
-//@WebFilter(urlPatterns = {URINameList.HOME_PAGE_URI, 
-//		URINameList.LOGIN_PAGE_URI, 
-//		URINameList.REGISTRATION_PAGE_URI, 
-//		URINameList.PERSONAL_AREA_PAGE_URI})
+//@WebFilter(urlPatterns = {})
 //public class CommandSetterFilter implements Filter{
 //
 //	@Override

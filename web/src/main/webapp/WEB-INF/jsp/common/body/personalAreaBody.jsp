@@ -35,6 +35,9 @@
 				<c:when test="${paContent == 'addTattooStyleContent' and personalAreaViewBean.getRole() eq masterRole}">					
 					<%@include file="paContent/addTattooStylePaContent.jsp" %>
 				</c:when>
+				<c:when test="${paContent == 'tattooWorksContent' and personalAreaViewBean.getRole() eq masterRole}">					
+					<%@include file="paContent/MyWorksPaContent.jsp" %>
+				</c:when>
 				<c:when test="${paContent == 'allAccountsContent' and personalAreaViewBean.getRole() eq adminRole}">					
 					<%@include file="paContent/allAccountsPaContent.jsp" %>
 				</c:when>

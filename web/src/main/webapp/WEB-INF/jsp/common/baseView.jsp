@@ -38,36 +38,6 @@
 				<%@include file="body/homeBody.jsp"%>
 			</c:otherwise>
 		</c:choose>
-		
-<%-- 		<c:if test="${viewBody != null}"> --%>
-<%--             <c:if test="${viewBody == 'homeBody'}"> --%>
-<%--                 <%@include file="body/homeBody.jsp"%> --%>
-<%--             </c:if> --%>
-<%--             <c:if test="${viewBody == 'mastersBody'}"> --%>
-<%--                 <%@include file="body/mastersBody.jsp"%> --%>
-<%--             </c:if> --%>
-            
-<%--             <c:if test="${viewBody == 'loginBody'}"> --%>
-<%--                 <%@include file="body/loginBody.jsp"%> --%>
-<%--             </c:if> --%>
-            
-<%--             <c:if test="${viewBody == 'registrationBody'}"> --%>
-<%--                 <%@include file="body/registrationBody.jsp"%> --%>
-<%--             </c:if> --%>
-            
-<%--             <c:if test="${viewBody == 'personalAreaBody'}"> --%>
-<%--                 <%@include file="body/personalAreaBody.jsp"%> --%>
-<%--             </c:if> --%>
-            
-<%--             <c:if test="${viewBody == 'aboutUsBody'}"> --%>
-<%--                 <%@include file="body/aboutUsBody.jsp"%> --%>
-<%--             </c:if> --%>
-<%-- 		</c:if> --%>
-
-<%--         <c:if test="${viewBody == null}"> --%>
-<%--             <%@include file="body/homeBody.jsp"%> --%>
-<%--         </c:if> --%>
-        
 
         <%@include file="footer/footer.jsp"%>
     </body>

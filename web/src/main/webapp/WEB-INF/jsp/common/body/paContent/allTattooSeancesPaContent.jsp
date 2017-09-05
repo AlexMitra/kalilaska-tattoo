@@ -7,7 +7,7 @@
 <div class="personal-area-stretch-content-container">
 	<div class="all-accounts-title">
 		<h2>
-			Seances
+			<fmt:message key="personalArea.allSeances.title" bundle="${ rb }"/>
 			<label class="switch">
 				<input id="seances-enabled-disabled-toggle" type="checkbox" checked onclick="if(this.checked){seanceAllowedForbiddenToggle.toggleEnable()} else {seanceAllowedForbiddenToggle.toggleDisable()}">
 				<div class="slider round"></div>
@@ -77,7 +77,9 @@
 		                                            <input type="hidden" name="command" value="personal_area_approve_seance"/>
 		                                            <input type="hidden" name="approve_seance_id" value="${seance.id}"/>
 		                                            <input type="text" class="input-with-border" name="approve_seance_cost"/>
-		                                            <button type="submit" class="btn btn-default small-button">Approve</button>
+		                                            <button type="submit" class="btn btn-default small-button">
+		                                            	<fmt:message key="personalArea.controlButton.approve" bundle="${ rb }"/>
+		                                            </button>
 	                                        	</form>
 	                                    	</td>
 		                                </tr>

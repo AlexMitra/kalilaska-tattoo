@@ -8,29 +8,37 @@
 	    <div class="personal-area-center-content-container">
 	        <div class="personal-area-center-form-container">
 		        <div class="edit-profile-title-container">
-		            <span>Edit profile</span>
+		            <span>
+		            	<fmt:message key="personalArea.editProfile.title" bundle="${ rb }"/>
+		            </span>
 		        </div>
 		            
 		        <form id="edit-profile-form" action="personalArea.html" method="POST" enctype="utf8">
 		        	<input type="hidden" name="command" value="personal_area_edit_profile" />
 		        	<input type="hidden" name="edit_profile_id" value="${personalAreaViewBean.getId()}" />
 		            <div class="form-group">
-		                <label class="form-label-style" for="edit-profile-name">Name*</label>
+		                <label class="form-label-style" for="edit-profile-name">
+		                	<fmt:message key="form.name" bundle="${ rb }"/>
+		                </label>
 		                <input id="edit-profile-name" type="text" class="form-control" placeholder="Name" name="edit_profile_name" value="${personalAreaViewBean.getName()}" oninput="editProfile.updateInputValue(this.id)">
 		            </div>
 		            <div class="form-group">
-		                <label class="form-label-style" for="edit-profile-email">Email*</label>
+		                <label class="form-label-style" for="edit-profile-email">
+		                	<fmt:message key="form.email" bundle="${ rb }"/>
+		                </label>
 		                <input id="edit-profile-email" type="email" class="form-control" placeholder="Email" name="edit_profile_email" value="${personalAreaViewBean.getEmail()}" oninput="editProfile.updateInputValue(this.id)">
 		            </div>
 		            <div class="form-group">
-		                <label class="form-label-style" for="edit-profile-phone">Phone</label>
+		                <label class="form-label-style" for="edit-profile-phone">
+		                	<fmt:message key="form.phone" bundle="${ rb }"/>
+		                </label>
 		                <input id="edit-profile-phone" type="text" class="form-control" placeholder="297776655" name="edit_profile_phone" value="${personalAreaViewBean.getPhone()}" oninput="editProfile.updateInputValue(this.id)">
 		            </div>
 		            <c:if test="${personalAreaViewBean.getRole() eq masterRole}">
 			            <div class="form-group">		            
 			               <div class="dropdown">
 					  		    <button class="btn btn-default dropdown-toggle" type="button" id="edit-profile-styleList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-					    	        Styles<span class="caret"></span>
+					    	        <fmt:message key="form.styles.button" bundle="${ rb }"/><span class="caret"></span>
 					  		    </button>		
 			                    <ul class="dropdown-menu" aria-labelledby="edit-profile-styleList">
 									<kalilaska:all-style-list styleList="${allStyleList}"/>
@@ -45,16 +53,22 @@
 	                
 	            		</div>
 			            <div class="form-group">
-			                <label class="form-label-style" for="edit-profile-about">About</label>
+			                <label class="form-label-style" for="edit-profile-about">
+			                	<fmt:message key="form.about" bundle="${ rb }"/>
+			                </label>
 			                <textarea id="edit-profile-about" form="edit-profile-form" class="form-control" rows="4" name="edit_profile_about" oninput="editProfile.updateInputValue(this.id)">${personalAreaViewBean.getAboutInfo()}</textarea>                		                
 			            </div>
 		            </c:if>
 		            <div class="form-group">
-		                <label class="form-label-style" for="edit-profile-pass">Password</label>
+		                <label class="form-label-style" for="edit-profile-pass">
+		                	<fmt:message key="form.password" bundle="${ rb }"/>
+		                </label>
 		                <input type="password" class="form-control" id="edit-profile-pass" placeholder="Password" name="edit_profile_pass" oninput="editProfile.updateInputValue(this.id)">
 		            </div>
 		            <div class="form-group">
-		                <label class="form-label-style" for="edit-profile-confirm-pass">Password</label>
+		                <label class="form-label-style" for="edit-profile-confirm-pass">
+		                	<fmt:message key="form.confirmPassword" bundle="${ rb }"/>
+		                </label>
 		                <input type="password" class="form-control" id="edit-profile-confirm-pass" placeholder="Confirm password" name="edit_profile_confirm_pass" oninput="editProfile.updateInputValue(this.id)">
 		            </div>
 
@@ -63,7 +77,9 @@
 		            </div>
 
 		
-		            <button type="submit" class="btn btn-default form-input-style">Edit profile</button>
+		            <button type="submit" class="btn btn-default form-input-style">
+		            	<fmt:message key="personalArea.editProfile.title" bundle="${ rb }"/>
+		            </button>
 		        </form>
 		       <c:set var="editProfileFailure" value="${null}" scope="session"/>
 		        

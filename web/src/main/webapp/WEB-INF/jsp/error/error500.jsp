@@ -35,8 +35,6 @@
 		<div class="body-container">
 		    <div class="error-body-view-main-picture"><img src="images/error.jpg" alt=""></div>
 		    <div class="error-content">
-<%-- 		    	<p><c:out value="${errorCode}"/></p> --%>
-<%-- 		        <p><c:out value="${pageNotFound}"/></p> --%>
 		        <p>500</p>
 		        <p>The server was unable to complete your request</p>
 		    </div>

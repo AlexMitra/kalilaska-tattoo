@@ -3,6 +3,7 @@ package by.kalilaska.ktattoo.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 	public List<AccountEntity> findAll() throws SQLDataException {
 		LinkedList<AccountEntity> accounts = null;
 		AccountEntity account = null;
-		
+		ArrayList list = null;
 		try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_ACCOUNT)){
 			ResultSet resultSet = statement.executeQuery();
 			if(resultSet.next()) {
@@ -96,6 +97,7 @@ public class AccountDAO extends AbstractDAO<Integer, AccountEntity>{
 					account = mapRow(resultSet);
 					accounts.add(account);					
 				}while (resultSet.next());
+				
 			}
 
 		}catch (SQLException e) {

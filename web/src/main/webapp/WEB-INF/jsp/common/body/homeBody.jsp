@@ -4,7 +4,8 @@
 
 <main class="body-container">    
     <div class="center-view-body-content-container home-view-background">
-        <span class="home-view-body-content">Индивидуальная разработка вашей татуировки.
-Внушительная коллекция эскизов и работ за наш 10-летний опыт.</span>
+        <span class="home-view-body-content">
+        	<fmt:message key="home.view.mesage" bundle="${ rb }"/>
+        </span>
     </div>
 </main>

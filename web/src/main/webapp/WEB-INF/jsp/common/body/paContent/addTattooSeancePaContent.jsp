@@ -8,7 +8,9 @@
 	    <div class="personal-area-center-content-container">
 	        <div class="personal-area-center-form-container">
 		        <div class="edit-profile-title-container">
-		            <span>Add seance</span>
+		            <span>
+		            	<fmt:message key="personalArea.addSeance.title" bundle="${ rb }"/>
+		            </span>
 		        </div>
 		        
 		        <form id="add-tattoo-seance-form" action="personalArea-addSeance.html" method="POST" enctype="utf8">
@@ -17,7 +19,7 @@
 		            <div class="form-group">
 		               <div class="dropdown">
 				  		    <button class="btn btn-default dropdown-toggle" type="button" id="add-seance-masterList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    	        Masters<span class="caret"></span>
+				    	        <fmt:message key="form.masters.button" bundle="${ rb }"/><span class="caret"></span>
 				  		    </button>		
 		                    <ul class="dropdown-menu" aria-labelledby="add-seance-masterList">
 			                    <c:forEach var="master" items="${masterBeanList}" varStatus="status">
@@ -44,7 +46,9 @@
 		            </div>
 		            
 		            <div class="form-group">
-		                <label class="form-input-style" for="add-tattoo-seance-duration">Duration (hrs)</label>
+		                <label class="form-input-style" for="add-tattoo-seance-duration">
+		                	<fmt:message key="form.duration" bundle="${ rb }"/>
+		                </label>
 		                <input id="add-tattoo-seance-duration" type="text" class="form-control" placeholder="1-2-3 hours" name="add_tattoo_seance_duration">
 		            </div>
 		            <script>
@@ -106,7 +110,9 @@
 	                <span><c:out value="${addTattooSeanceFailure}"/></span>
 	            </div>
 	
-	            <button type="submit" class="btn btn-default form-input-style">Add seance</button>
+	            <button type="submit" class="btn btn-default form-input-style">
+	            	<fmt:message key="personalArea.addSeance.title" bundle="${ rb }"/>
+	            </button>
 	        </form>
 	        <c:set var="addTattooSeanceFailure" value="${null}" scope="session"/>
 	       

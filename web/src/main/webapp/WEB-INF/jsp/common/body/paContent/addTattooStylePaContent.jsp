@@ -8,19 +8,25 @@
 	    <div class="personal-area-center-content-container">
 	        <div class="personal-area-center-form-container">
 		        <div class="edit-profile-title-container">
-		            <span>Add tattoo style</span>
+		            <span>
+		            	<fmt:message key="personalArea.addTattooStyle.title" bundle="${ rb }"/>
+		            </span>
 		        </div>
 		        
 		        <form id="add-tattoo-style-form" action="personalArea-addStyle.html" method="POST" enctype="utf8">
 		        	<input type="hidden" name="command" value="personal_area_add_style" />
 		           
 		            <div class="form-group">
-		                <label class="form-input-style" for="add-tattoo-style-name">Name*</label>
+		                <label class="form-input-style" for="add-tattoo-style-name">
+		                	<fmt:message key="form.name" bundle="${ rb }"/>
+		                </label>
 		                <input id="add-tattoo-style-name" type="text" class="form-control" placeholder="Name" name="add_tattoo_style_name">
 		            </div>
 		            
 		            <div class="form-group">
-		                <label class="form-input-style" for="add-tattoo-style-description">Description</label>
+		                <label class="form-input-style" for="add-tattoo-style-description">
+		                	<fmt:message key="form.description" bundle="${ rb }"/>
+		                </label>
 		                <textarea id="add-tattoo-style-description" form="add-tattoo-style-form" class="form-control" rows="4" name="add_tattoo_style_description"></textarea>                
 		            </div>		            
 
@@ -28,7 +34,9 @@
 		                <span><c:out value="${addTattooStyleFailure}"/></span>
 		            </div>
 		
-		            <button type="submit" class="btn btn-default form-input-style">Add style</button>
+		            <button type="submit" class="btn btn-default form-input-style">
+		            	<fmt:message key="personalArea.addTattooStyle.button" bundle="${ rb }"/>
+		            </button>
 		        </form>
 
 		        <c:set var="addTattooStyleFailure" value="${null}" scope="session"/>		        

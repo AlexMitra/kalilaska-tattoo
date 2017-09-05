@@ -11,13 +11,13 @@ import by.kalilaska.ktattoo.service.ConsultationService;
 import by.kalilaska.ktattoo.service.SeanceService;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 
-public class PersonalAreaViewCommandUpd extends SimpleViewBodyContentCommand{
+public class PersonalAreaViewCommand extends SimpleViewBodyContentCommand{
 	
 	private ConsultationService consultationService;
 	private SeanceService seanceService;
 
 
-    public PersonalAreaViewCommandUpd(ConsultationService consultationService, SeanceService seanceService, 
+    public PersonalAreaViewCommand(ConsultationService consultationService, SeanceService seanceService, 
     		String viewPath, String viewBodyPath, String bodyContentPath) {
     	super(viewPath, viewBodyPath, bodyContentPath);
     	this.consultationService = consultationService;

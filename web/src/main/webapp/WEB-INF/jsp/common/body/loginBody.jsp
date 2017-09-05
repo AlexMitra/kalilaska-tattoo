@@ -32,14 +32,10 @@
             <div class="form-group warning-message">
                 <span><c:out value="${invalidNamePassMessage}"/></span>
             </div>
-<!--             <div class="form-group"> -->
-<%--                 <span><c:out value="${accountForbiddenMessage}"/></span> --%>
-<!--             </div> -->
 
             <button type="submit" class="btn btn-default form-input-style"><fmt:message key="form.logIn.button" bundle="${ rb }" /></button>
         </form>
         <c:set var="invalidNamePassMessage" value="${null}" scope="session"/>
-<%--         <c:set var="accountForbiddenMessage" value="${null}" scope="session"/> --%>
         
         <script>
         $(document).ready(function() {

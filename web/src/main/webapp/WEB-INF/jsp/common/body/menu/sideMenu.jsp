@@ -77,7 +77,7 @@
                 </form>
                 <button class="side-menu-item-link" type="submit" form="add-style-view-link" value="">
                     <i class="fa fa-pencil-square-o fa-lg side-menu-icon" aria-hidden="true"></i>
-                    Add style
+                    <fmt:message key="personalArea.addTattooStyle.button" bundle="${ rb }"/>
                 </button>
             </li>
 			</c:if>

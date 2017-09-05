@@ -25,7 +25,7 @@
 		    </div>
 		    
 		    <div class="footer-message-container">
-		      <span>Made in Belarus</span>
+		      <span><fmt:message key="footer.message" bundle="${ rb }" /></span>
 		    </div>
   		</footer>
   		

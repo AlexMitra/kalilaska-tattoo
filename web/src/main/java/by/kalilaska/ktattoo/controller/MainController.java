@@ -41,6 +41,8 @@ import by.kalilaska.ktattoo.webtype.TransitionType;
 		"/personalArea-allSeances.html", 
 		"/personalArea-approveSeance.html", 
 		"/personalArea-addStyle.html", 
+		"/personalArea-works.html", 
+		"/personalArea-tattooPhotoDone.html", 
 		"/personalArea-allAccounts.html", 		
 		"/personalArea-addAccount.html", 
 		"/personalArea-editAccount.html", 

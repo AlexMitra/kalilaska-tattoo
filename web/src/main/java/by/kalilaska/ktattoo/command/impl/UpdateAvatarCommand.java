@@ -39,7 +39,7 @@ public class UpdateAvatarCommand extends AbstractPrgCommand {
     		}else {
     			personalAreaViewBean.setPhotoURL(photoUrl);
     			content.insertSessionAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN, 
-    					personalAreaViewBean);	
+    					personalAreaViewBean);
     		}
     	}
     	redirectedURI = defaultURI;

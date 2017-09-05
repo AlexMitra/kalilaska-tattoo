@@ -15,7 +15,9 @@
                                 <label for="update-avatar-input" class="update-avatar-label">Update photo</label>
                                 <input id="update-avatar-input" class="update-avatar-input" type="file" name="uploadFile" onchange="document.getElementById('update-avatar-submit').click();">
                             </form>
-                            <button id="update-avatar-submit" class="update-avatar-button" type="submit" form="avatar-edit-link" style="display: none;">Update photo</button>
+                            <button id="update-avatar-submit" class="update-avatar-button" type="submit" form="avatar-edit-link" style="display: none;">
+                            	<fmt:message key="personalArea.profile.button.udatePhoto" bundle="${ rb }"/>
+                            </button>
                         </div>
                         <c:if test="${personalAreaViewBean.getPhotoURL() != null}">
                         	<div class="delete-avatar-button-container">
@@ -46,7 +48,9 @@
                     
                     
                     <c:if test="${personalAreaViewBean.isAllowed() eq false}">
-                    	<span class="signal-message wrong-message"><i class="fa fa-frown-o fa-lg" aria-hidden="true"></i> Forbidden!</span>
+                    	<span class="signal-message wrong-message">
+                    		<i class="fa fa-frown-o fa-lg" aria-hidden="true"></i> <fmt:message key="personalArea.profile.marker.forbidden" bundle="${ rb }"/>
+                    	</span>
                     </c:if>
 
 					<kalilaska:follow-user-event-notice consultationList="${personalAreaViewBean.getConsultations()}" 

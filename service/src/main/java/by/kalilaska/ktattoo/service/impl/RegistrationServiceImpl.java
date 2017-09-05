@@ -18,22 +18,12 @@ import by.kalilaska.ktattoo.validator.FormDataValidator;
 
 public class RegistrationServiceImpl implements RegistrationService {
 	private final static Logger LOGGER = LogManager.getLogger(RegistrationServiceImpl.class);
-	private AccountService accountService;	
-//	private ServiceMessageManager messageManager;
+	private AccountService accountService;
 	private String worningMessage;
 
 	public RegistrationServiceImpl(AccountService accountService) {
-		this.accountService = accountService;		
-//		initManager();
+		this.accountService = accountService;
 	}
-	
-//	private void initManager() {
-//		try {
-//			messageManager = new ServiceMessageManager();
-//		} catch (MessageFileNotFoundServiceException e) {
-//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-//		}
-//	}
 
 	@Override
 	public AbstractPersonalAreaViewBean registerAccount(String name, String email, String password,
@@ -70,22 +60,14 @@ public class RegistrationServiceImpl implements RegistrationService {
 				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_ACCOUNT_DATA_ALREADY_EXISTS);				
 			}
 		}else {
-			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_ACCOUNT_DATA_INVALID);			
+			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_ACCOUNT_DATA_INVALID);
 		}
 		return viewBean;
 	}
 	
-//	private String makeWrongMessage(String messagePath) {
-//		String message = null;
-//		if(messageManager != null) {
-//			message = messageManager.getProperty(messagePath);
-//		}
-//		return message;
-//	}
-	
 	@Override
 	public String getWorningMessage() {
-		String message = worningMessage == null ? "" : worningMessage;		
+		String message = worningMessage;		
 		worningMessage = null;
 		return message;
 	}

@@ -19,5 +19,9 @@ public class URINameList {
 	
 	public final static String PERSONAL_AREA_ADD_TATTOO_STYLE_PAGE_URI = ROOT_CONTEXT + "/personalArea-addStyle.html";
 	
+	public final static String PERSONAL_AREA_ADD_TATTOO_WORKS_PAGE_URI = ROOT_CONTEXT + "/personalArea-works.html";
+	public final static String PERSONAL_AREA_ADD_TATTOO_PHOTO_URI = ROOT_CONTEXT + "/personalArea-addTattoPhoto.html";
+	public final static String PERSONAL_AREA_ADD_TATTOO_SKETCH_URI = ROOT_CONTEXT + "/personalArea-addTattoSketch.html";
+	
 	public final static String PERSONAL_AREA_ALL_ACCOUNTS_PAGE_URI = ROOT_CONTEXT + "/personalArea-allAccounts.html";
 }

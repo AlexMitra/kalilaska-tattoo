@@ -18,5 +18,8 @@ public class RequestAttrNameList {
 	public final static String ATTRIBUTE_FOR_ALL_TATTOO_STYLE_LIST = "allStyleList";
 	
 	public final static String ATTRIBUTE_FOR_UPDATED_PHOTO_URL = "updatedPhotoUrl";
+	
+	public final static String ATTRIBUTE_FOR_WORK_PHOTO_URL = "uploadWorkPhotoUrl";
+	public final static String ATTRIBUTE_FOR_WORK_PHOTO_IS_DONE = "uploadWorkIsDone";
 
 }

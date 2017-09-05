@@ -392,6 +392,58 @@ position: absolute;
     margin-left: 10px;
 }
 
+/* My works content classes */
+
+.inline-element {
+    display: inline-block;
+}
+
+.add-tattoo-photo-button {
+    display: inline-block;    
+    border: none;
+    border-radius: 3px;
+    background-color: black;
+    margin: 0 20px;
+    padding: 10px 20px;
+    color: white;
+    outline: none;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+.all-gallery-container {
+    overflow: auto;
+}
+
+.gallery-container {
+    clear: both;
+    width: 100%;    
+    text-align: center;    
+}
+
+.gallery-photo {
+    float: left;
+    width: 33%;
+    display: inline-block;    
+    height: auto;
+}
+
+.gallery-title {
+    display: inline-block;
+    text-align: left;
+    padding: 3vh 0;
+}
+
+.inline-form {
+    display: inline-block;
+    float: left;
+}
+
+.black-button {    
+    background-color: black;    
+    color: white;
+}
+
 /* All accounts content classes */
 
 .personal-area-stretch-content-container {

@@ -23,7 +23,11 @@ import by.kalilaska.ktattoo.webname.URINameList;
 		"/personalArea-approveConsultation.html",		
 		"/personalArea-allSeances.html", 
 		"/personalArea-approveSeance.html", 
-		"/personalArea-addStyle.html"})
+		"/personalArea-addStyle.html", 
+		"/personalArea-works.html", 
+		"/personalArea-addTattoPhoto.html", 
+		"/personalArea-addTattoSketch.html", 
+		"/personalArea-tattooPhotoDone.html"})
 public class AuthorityMasterFilter implements Filter {
 
 	@Override

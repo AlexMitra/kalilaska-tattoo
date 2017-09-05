@@ -12,6 +12,9 @@ public class PathBodyContentList {
 	public final static String PA_BODY_CONTENT_ALL_TATOO_SEANCES = "personalArea.body.content.allTattooSeances";
 	
 	public final static String PA_BODY_CONTENT_ADD_TATOO_STYLE = "personalArea.body.content.addTattooStyle";
+	
+	public final static String PA_BODY_CONTENT_TATOO_WORKS = "personalArea.body.content.tattooWorks";
+	
 	public final static String PA_BODY_CONTENT_ALL_ACCOUNTS = "personalArea.body.content.allAccounts";
 
 }

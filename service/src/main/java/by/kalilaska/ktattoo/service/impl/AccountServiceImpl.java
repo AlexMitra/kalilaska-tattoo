@@ -26,7 +26,6 @@ import by.kalilaska.ktattoo.validator.FormDataValidator;
 
 public class AccountServiceImpl implements AccountService{
 	private final static Logger LOGGER = LogManager.getLogger(AccountServiceImpl.class);
-//	private ServiceMessageManager messageManager;
 	private String worningMessage;
 	
 	private TattooMasterService masterService;
@@ -35,24 +34,14 @@ public class AccountServiceImpl implements AccountService{
 	
 	public AccountServiceImpl() {		
 		accountDao = DaoFactory.createDao(this.getClass());
-		transactionManager = new TransactionManager();		
-//		initManager();
+		transactionManager = new TransactionManager();
 	}
 	
 	public AccountServiceImpl(TattooMasterService masterService) {
 		this.masterService = masterService;
 		accountDao = DaoFactory.createDao(this.getClass());
-		transactionManager = new TransactionManager();		
-//		initManager();
+		transactionManager = new TransactionManager();
 	}
-	
-//	private void initManager() {
-//		try {
-//			messageManager = new ServiceMessageManager();
-//		} catch (MessageFileNotFoundServiceException e) {
-//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-//		}
-//	}
 
 	@Override
 	public AccountBean findAccountByName(String name) {		
@@ -272,11 +261,10 @@ public class AccountServiceImpl implements AccountService{
 		if(name != null && FormDataValidator.validate(name, DataType.NAME) 
 				&& email != null && FormDataValidator.validate(email, DataType.EMAIL) 
 				&& phone != null && (phone.length() == 0 || FormDataValidator.validate(phone, DataType.PHONE)) 
-				&& role != null) {			
+				&& role != null) {
 			List<AccountBean> nameEmailCheckList = findAccountByNameOrEmail(account.getName(), account.getEmail());
 			
 			if(nameEmailCheckList != null && matchAccountIdWithList(id, nameEmailCheckList) == false) {
-				//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_ALREADY_EXISTS);
 				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_ALREADY_EXISTS);
 			} else {
 				AccountEntity accountEntity = new AccountEntity();
@@ -309,7 +297,6 @@ public class AccountServiceImpl implements AccountService{
 				transactionManager.endTransaction();
 			}
 		}else {
-			//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
 			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
 		}
 		return accountUpdated;
@@ -355,8 +342,7 @@ public class AccountServiceImpl implements AccountService{
 				accountCheckList = findAccountByNameOrEmail(name, email);
 			}
 			
-			if(accountCheckList != null && matchAccountIdWithList(id, accountCheckList) == false) {
-				//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_PROFILE_DATA_ALREADY_EXISTS);
+			if(accountCheckList != null && matchAccountIdWithList(id, accountCheckList) == false) {				
 				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_PROFILE_DATA_ALREADY_EXISTS);
 			} else {
 				AccountEntity accountEntity = new AccountEntity();
@@ -389,8 +375,7 @@ public class AccountServiceImpl implements AccountService{
 				}				
 				transactionManager.endTransaction();
 			}
-		}else {
-			//worningMessage = makeWrongMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
+		}else {			
 			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.EDIT_ACCOUNT_DATA_INVALID);
 		}
 		return result;
@@ -411,7 +396,7 @@ public class AccountServiceImpl implements AccountService{
 				accountEntity.setPhotoURL(photoUrl);
 				
 				transactionManager.beginTransaction(accountDao);
-				try {			
+				try {
 					updated = accountDao.updatePhotoUrl(accountEntity);
 					transactionManager.commit();
 				}catch (SQLDataException e) {
@@ -462,7 +447,7 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public String getWorningngMessage() {		
-		String message = worningMessage == null ? "" : worningMessage;		
+		String message = worningMessage;		
 		worningMessage = null;
 		return message;
 	}

@@ -7,7 +7,7 @@
 <div class="personal-area-stretch-content-container">
 	<div class="all-accounts-title">
 		<h2>
-			Consultations
+			<fmt:message key="personalArea.allConsultations.title" bundle="${ rb }"/>
 			<label class="switch">
 				<input id="consultations-enabled-disabled-toggle" type="checkbox" checked onclick="if(this.checked){consultationAllowedForbiddenToggle.toggleEnable()} else {consultationAllowedForbiddenToggle.toggleDisable()}">
 				<div class="slider round"></div>
@@ -86,7 +86,9 @@
                             <input type="hidden" name="command" value="personal_area_approve_all_consultations" />                            
                         </form> 
                         <div class="btn-group" role="group">                       
-                        <button class="btn btn-default" type="submit" form="approve-all-consultations-link">Approve all</button>
+	                        <button class="btn btn-default" type="submit" form="approve-all-consultations-link">
+	                        	<fmt:message key="personalArea.controlButton.approveAll" bundle="${ rb }"/>
+	                        </button>
                         </div>
 
                         <form id="approve-consultation-link" action="personalArea-approveConsultation.html" method="POST" style="display:none">
@@ -94,7 +96,9 @@
                             <input id="approve-consultation-id-input" type="hidden" name="approve_consultation_id" />
                         </form> 
                         <div class="btn-group" role="group">                          
-                        <button id="approve-consultation-button" type="submit" form="approve-consultation-link" class="btn btn-default" disabled>Approve</button>
+                        <button id="approve-consultation-button" type="submit" form="approve-consultation-link" class="btn btn-default" disabled>
+                        	<fmt:message key="personalArea.controlButton.approve" bundle="${ rb }"/>
+                        </button>
                         </div>
                     </div>
 

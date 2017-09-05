@@ -8,7 +8,9 @@
 	    <div class="personal-area-center-content-container">
 	        <div class="personal-area-center-form-container">
 		        <div class="edit-profile-title-container">
-		            <span>Add consultation</span>
+		            <span>
+		            	<fmt:message key="personalArea.addConsultation.title" bundle="${ rb }"/>
+		            </span>
 		        </div>
 		        
 		        <form id="add-tattoo-consultation-form" action="personalArea-addConsultation.html" method="POST" enctype="utf8">
@@ -17,7 +19,7 @@
 		            <div class="form-group">
 		               <div class="dropdown">
 				  		    <button class="btn btn-default dropdown-toggle" type="button" id="add-consultation-masterList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    	        Masters<span class="caret"></span>
+				    	        <fmt:message key="form.masters.button" bundle="${ rb }"/><span class="caret"></span>
 				  		    </button>		
 		                    <ul class="dropdown-menu" aria-labelledby="add-consultation-masterList">
 			                    <c:forEach var="master" items="${masterBeanList}" varStatus="status">
@@ -85,7 +87,9 @@
 	                <span><c:out value="${addTattooConsultationFailure}"/></span>
 	            </div>
 	
-	            <button type="submit" class="btn btn-default form-input-style">Add consultation</button>
+	            <button type="submit" class="btn btn-default form-input-style">
+	            	<fmt:message key="personalArea.addConsultation.title" bundle="${ rb }"/>
+	            </button>
 	        </form>
 	        <c:set var="addTattooConsultationFailure" value="${null}" scope="session"/>
 	       

@@ -27,6 +27,13 @@ public class ServiceMessageNameList {
 	
 	public final static String CREATE_TATTOO_STYLE_ALREADY_EXISTS = "message.createTattooStyle.data.alreadyExists";
 	public final static String CREATE_TATTOO_STYLE_DATA_INVALID = "message.createTattooStyle.data.invalid";
+	
+	public final static String CREATE_TATTOO_PHOTO_ALREADY_EXISTS = "message.createTattoophoto.data.alreadyExists";
+	public final static String CREATE_TATTOO_PHOTO_DATA_INVALID = "message.createTattoophoto.data.invalid";
+	public final static String CREATE_TATTOO_PHOTO_UNABLE = "message.createTattoophoto.unable";
+	
+	public final static String CHANGE_TATTOO_PHOTO_DATA_INVALID = "message.changeTattoophoto.data.invalid";
+	public final static String CHANGE_TATTOO_PHOTO_UNABLE = "message.changeTattoophoto.unable";
 
 	public final static String CREATE_ACCOUNT_UNKNOWN_ERROR = "message.createAccount.unknownError";
 	public final static String CREATE_ACCOUNT_DATA_ALREADY_EXISTS = "message.createAccount.data.alreadyExists";

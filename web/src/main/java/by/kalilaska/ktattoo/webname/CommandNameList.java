@@ -16,5 +16,7 @@ public class CommandNameList {
 	
 	public final static String PERSONAL_AREA_ADD_TATTOO_STYLE_VIEW_COMMAND = "personal_area_add_style_view";
 	
+	public final static String PERSONAL_AREA_WORKS_VIEW_COMMAND = "personal_area_works_view";
+	
 	public final static String PERSONAL_AREA_ALL_ACCOUNTS_VIEW_COMMAND = "personal_area_all_accounts_view";
 }

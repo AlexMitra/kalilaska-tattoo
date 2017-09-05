@@ -41,51 +41,7 @@
     <c:set var="forbideAccountFailure" value="${null}" scope="session"/>
     <c:set var="allowAccountFailure" value="${null}" scope="session"/>
     <c:set var="deleteAccountFailure" value="${null}" scope="session"/>
-	
-	<!-- Search panel -->
-	<div class="form-group input-group all-accounts-search-panel">
-		<div class="input-group-btn">
-			<button id="account-search-option-button" type="button" class="btn btn-default dropdown-toggle" 
-			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >By Name<span class="caret"></span>
-			</button>
-			
-			<ul class="dropdown-menu">
-				<li><a id = "search-by-login" href="#" onclick="searchAccountOption.searchByName()">By Name</a> 
-				</li>
-				<li class="divider"></li>
-				<li><a id = "search-by-email" href="#" onclick="searchAccountOption.searchByEmail()">By Email</a>
-				</li>											
-			</ul>
-		</div>
-		
-<!-- 		onkeyup="workWithData.getSearchedData()" -->
-		<input id = "search-accounts" type="text" class="form-control" >
-		<span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
-	</div>
-	
-	<!-- Role button -->
-	<div id="select-roles" align="left">
-		<a class="btn search-account-by-role-btn" role="button" data-toggle="collapse" href="#role-variants" aria-expanded="false">
-		Roles
-		</a>
-		
-		<div class="collapse" id="role-variants">
-			<div class="well">
-				<div id="role-checkboxes" class="role-checkboxes-area">				
-					<c:set var="allRoles" value="${personalAreaViewBean.getRoles()}"/>
-					<c:forEach items="${allRoles}" var="role">
-						<div class="col-lg-4 col-md-4 col-sm-4">
-							<div class="checkbox">
-								<label>
-								<input type="checkbox" id="checkbox-${role.getName()}" onclick="if(this.checked){searchAccountOption.addRole(this.id)} else {searchAccountOption.removeRole(this.id)}"><c:out value="${role.getName()}"/>
-								</label>
-							</div>
-						</div>
-					</c:forEach>				                                        			
-				</div>
-			</div>
-		</div>
-	</div>
+
 
 	<!-- table -->
 	<div id="allowed-accounts-table" class="table-responsive accounts-table-area" style="display: block;">

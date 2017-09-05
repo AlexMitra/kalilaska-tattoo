@@ -5,6 +5,7 @@ import by.kalilaska.ktattoo.command.impl.AddTattooConsultationCommand;
 import by.kalilaska.ktattoo.command.impl.AddTattooEventViewCommand;
 import by.kalilaska.ktattoo.command.impl.AddTattooSeanceCommand;
 import by.kalilaska.ktattoo.command.impl.AddTattooStyleCommand;
+import by.kalilaska.ktattoo.command.impl.AddWorkPhotoCommand;
 import by.kalilaska.ktattoo.command.impl.AllAccountsViewCommand;
 import by.kalilaska.ktattoo.command.impl.AllTattooConsultationsViewCommand;
 import by.kalilaska.ktattoo.command.impl.AllTattooSeancesViewCommand;
@@ -22,11 +23,13 @@ import by.kalilaska.ktattoo.command.impl.ForbideAccountCommand;
 import by.kalilaska.ktattoo.command.impl.LanguageCommand;
 import by.kalilaska.ktattoo.command.impl.LogoutCommand;
 import by.kalilaska.ktattoo.command.impl.MastersViewCommand;
-import by.kalilaska.ktattoo.command.impl.PersonalAreaViewCommandUpd;
+import by.kalilaska.ktattoo.command.impl.PersonalAreaViewCommand;
 import by.kalilaska.ktattoo.command.impl.RegistrationAccountCommand;
 import by.kalilaska.ktattoo.command.impl.SimpleViewBodyContentCommand;
 import by.kalilaska.ktattoo.command.impl.SimpleViewCommand;
+import by.kalilaska.ktattoo.command.impl.TattooWorkDoneCommand;
 import by.kalilaska.ktattoo.command.impl.UpdateAvatarCommand;
+import by.kalilaska.ktattoo.command.impl.WorksViewCommand;
 import by.kalilaska.ktattoo.pathlist.PathBodyContentList;
 import by.kalilaska.ktattoo.pathlist.PathBodyList;
 import by.kalilaska.ktattoo.pathlist.PathViewList;
@@ -37,6 +40,7 @@ import by.kalilaska.ktattoo.service.impl.RegistrationServiceImpl;
 import by.kalilaska.ktattoo.service.impl.RoleServiceImpl;
 import by.kalilaska.ktattoo.service.impl.SeanceServiceImpl;
 import by.kalilaska.ktattoo.service.impl.TattooMasterServiceImpl;
+import by.kalilaska.ktattoo.service.impl.TattooPhotoServiceImpl;
 import by.kalilaska.ktattoo.service.impl.TattooStyleServiceImpl;
 import by.kalilaska.ktattoo.webname.URINameList;
 import by.kalilaska.ktattoo.webtype.LanguageType;
@@ -68,7 +72,7 @@ public enum CommandType {
     		PathViewList.BASE_VIEW_PATH, 
     		PathBodyList.REGISTRATION_VIEW_BODY)),
     
-    PERSONAL_AREA_VIEW (new PersonalAreaViewCommandUpd(
+    PERSONAL_AREA_VIEW (new PersonalAreaViewCommand(
     		new ConsultationServiceImpl(), 
     		new SeanceServiceImpl(), 
     		PathViewList.BASE_VIEW_PATH, 
@@ -140,7 +144,22 @@ public enum CommandType {
     		PathBodyContentList.PA_BODY_CONTENT_ADD_TATOO_STYLE)),    
     
     PERSONAL_AREA_ADD_STYLE (
-    		new AddTattooStyleCommand(new TattooStyleServiceImpl(), URINameList.PERSONAL_AREA_PAGE_URI)),
+    		new AddTattooStyleCommand(new TattooStyleServiceImpl(), URINameList.PERSONAL_AREA_PAGE_URI)),    
+    
+    PERSONAL_AREA_WORKS_VIEW(
+    		new WorksViewCommand(new TattooPhotoServiceImpl(), 
+    		PathViewList.BASE_VIEW_PATH, 
+    	    PathBodyList.PERSONAL_AREA_VIEW_BODY, 
+    	    PathBodyContentList.PA_BODY_CONTENT_TATOO_WORKS)),
+    
+    PERSONAL_AREA_ADD_TATTOO_WORK_PHOTO(
+    		new AddWorkPhotoCommand(new TattooPhotoServiceImpl(), URINameList.PERSONAL_AREA_ADD_TATTOO_WORKS_PAGE_URI)),
+    
+    PERSONAL_AREA_ADD_TATTOO_SKETCH_PHOTO(
+    		new AddWorkPhotoCommand(new TattooPhotoServiceImpl(), URINameList.PERSONAL_AREA_ADD_TATTOO_WORKS_PAGE_URI)),    
+
+    PERSONAL_AREA_TATTOO_WORK_DONE(
+    		new TattooWorkDoneCommand(new TattooPhotoServiceImpl(), URINameList.PERSONAL_AREA_ADD_TATTOO_WORKS_PAGE_URI)),
     
     PERSONAL_AREA_ALL_ACCOUNTS_VIEW (new AllAccountsViewCommand(
     		new AccountServiceImpl(), new RoleServiceImpl(), 
@@ -167,8 +186,7 @@ public enum CommandType {
     LOGOUT (new LogoutCommand(PathViewList.BASE_VIEW_PATH)),
 	
 	AUTHENTICATION(new AuthenticationCommand(
-			new AuthenticationServiceImpl(new AccountServiceImpl(), 
-					new ConsultationServiceImpl(), new SeanceServiceImpl(), new TattooStyleServiceImpl()), 
+			new AuthenticationServiceImpl(new AccountServiceImpl(), new TattooStyleServiceImpl()), 
 			URINameList.PERSONAL_AREA_PAGE_URI)),	
 	
 	REGISTRATION_ACCOUNT(new RegistrationAccountCommand(
