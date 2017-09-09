@@ -77,10 +77,13 @@ public class UploadController extends HttpServlet {
 				
 			try {
 				Map<String, List<FileItem>> fileItemsMap = upload.parseParameterMap(request);
+//				List<FileItem> fileItems = upload.parseRequest(request);
 				List<FileItem> fileItems = fileItemsMap.get(RequestParamNameList.PARAMETER_FOR_UPLOAD_FILE);
 					
 				if(fileItems != null && fileItems.size() > 0) {
 					FileItem item = fileItems.get(0);
+//				if(fileItems != null && !fileItems.isEmpty()) {
+//					FileItem item = fileItems.get(0);
 					if (!item.isFormField()) {
 						String name = new File(item.getName()).getName();
 							

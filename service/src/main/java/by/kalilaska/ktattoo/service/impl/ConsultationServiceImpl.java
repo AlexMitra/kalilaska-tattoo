@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.kalilaska.ktattoo.bean.ConsultationBean;
+import by.kalilaska.ktattoo.bean.SeanceBean;
 import by.kalilaska.ktattoo.converter.DateConverter;
 import by.kalilaska.ktattoo.dao.TransactionManager;
 import by.kalilaska.ktattoo.dao.impl.ConsultationDAO;
@@ -16,6 +17,7 @@ import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.ConsultationEntity;
 import by.kalilaska.ktattoo.service.ConsultationService;
 import by.kalilaska.ktattoo.service.DaoFactory;
+import by.kalilaska.ktattoo.service.SeanceService;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
 import by.kalilaska.ktattoo.servicename.ServiceMessageNameList;
 
@@ -23,22 +25,19 @@ public class ConsultationServiceImpl implements ConsultationService {
 	private final static Logger LOGGER = LogManager.getLogger(ConsultationServiceImpl.class);
 	private ConsultationDAO consultationDao;
 	private TransactionManager transactionManager;
-//	private ServiceMessageManager messageManager;
+	private SeanceService seanceService;
 	private String worningMessage;
 
 	public ConsultationServiceImpl() {		
 		consultationDao = DaoFactory.createDao(this.getClass());
 		transactionManager = new TransactionManager();
-//		initManager();
 	}
 	
-//	private void initManager() {
-//		try {
-//			messageManager = new ServiceMessageManager();
-//		} catch (MessageFileNotFoundServiceException e) {
-//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-//		}
-//	}
+	public ConsultationServiceImpl(SeanceService seanceService) {		
+		consultationDao = DaoFactory.createDao(this.getClass());
+		transactionManager = new TransactionManager();
+		this.seanceService = seanceService;
+	}
 	
 	@Override
 	public List<ConsultationBean> findAllApprovedConsultationsByClientId(int id) {
@@ -210,8 +209,15 @@ public class ConsultationServiceImpl implements ConsultationService {
 			int masterId = Integer.parseInt(masterIdStr);			
 			ConsultationBean masterBusyCheck = findConsultationByMasterIdAndDate(masterId, dateStart);
 			ConsultationBean clientBusyCheck = findConsultationByClientIdAndDate(clientId, dateStart);
+			SeanceBean masterBusyInSeance = null;
+			SeanceBean clientBusyInSeance = null;
+			if(seanceService != null) {
+				masterBusyInSeance = seanceService.findSeanceByMasterIdAndDate(masterId, dateStart);
+				clientBusyInSeance = seanceService.findSeanceByClientIdAndDate(clientId, dateStart);
+			}
 			
-			if(masterBusyCheck == null && clientBusyCheck == null) {
+			if(masterBusyCheck == null && clientBusyCheck == null && 
+					masterBusyInSeance == null && clientBusyInSeance == null) {
 				ConsultationEntity consultationEntity = new ConsultationEntity();
 				consultationEntity.setClientId(clientId);
 				consultationEntity.setClientName(clientName);
@@ -232,30 +238,18 @@ public class ConsultationServiceImpl implements ConsultationService {
 				}
 				transactionManager.endTransaction();
 			}else {					
-				if(clientBusyCheck != null) {
-					//worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_CLIENT_ALREADY_BUSY);
+				if(clientBusyCheck != null || clientBusyInSeance != null) {					
 					worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_CONSULTATION_CLIENT_ALREADY_BUSY);
 				}
-				if(masterBusyCheck != null) {
-					//worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_MASTER_ALREADY_BUSY);
+				if(masterBusyCheck != null || masterBusyInSeance != null) {					
 					worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_CONSULTATION_MASTER_ALREADY_BUSY);
 				}
 			}
-		}else {
-			//worningMessage = makeWorningMessage(ServiceMessageNameList.CREATE_CONSULTATION_DATA_INVALID);
+		}else {			
 			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_CONSULTATION_DATA_INVALID);
 		}		
 		return consultationBean;
 	}
-	
-	
-//	private String makeWorningMessage(String messagePath) {
-//		String message = null;
-//		if(messageManager != null) {
-//			message = messageManager.getProperty(messagePath);
-//		}
-//		return message;
-//	}
 
 	@Override
 	public String getWorningMessage() {

@@ -3,7 +3,7 @@
     <parent>
         <artifactId>kalilaska-tattoo</artifactId>
         <groupId>by.kalilaska</groupId>
-        <version>${project.version}</version>
+        <version>${app.version}</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -18,12 +18,12 @@
         <dependency>
             <groupId>by.kalilaska</groupId>
             <artifactId>data</artifactId>
-            <version>${project.version}</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>by.kalilaska</groupId>
             <artifactId>service</artifactId>
-            <version>${project.version}</version>
+            <version>${app.version}</version>
         </dependency>
 
         <dependency>
@@ -46,6 +46,21 @@
             <version>${jstl.version}</version>
         </dependency>
         
+        <dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>${commons-fileupload.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>${commons-lang3.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+
     </dependencies>
 
     <build>

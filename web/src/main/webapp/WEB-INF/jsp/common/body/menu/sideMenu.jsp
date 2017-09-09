@@ -13,7 +13,7 @@
                 	<fmt:message key="personalArea.side.menu.start" bundle="${ rb }" />
             	</button>
 			</li>
-			
+			<c:if test="${personalAreaViewBean.isAllowed() eq true}">
 			<li class="side-menu-item">
 	            <form id="add-consultation-view-link" action="personalArea-addConsultation.html" method="POST">
 	            	<input type="hidden" name="command" value="personal_area_add_consultation_view" />
@@ -23,6 +23,7 @@
 	            	<fmt:message key="personalArea.side.menu.add.consultation" bundle="${ rb }" />
 	            </button>
             </li>
+            </c:if>
             
             <c:if test="${personalAreaViewBean.getRole() eq masterRole}">
             <li class="side-menu-item">
@@ -36,6 +37,7 @@
             </li>
             </c:if>
             
+            <c:if test="${personalAreaViewBean.isAllowed() eq true}">
             <li class="side-menu-item">
                 <form id="add-seance-view-link" action="personalArea-addSeance.html" method="POST">
                     <input type="hidden" name="command" value="personal_area_add_seance_view" />
@@ -45,6 +47,7 @@
                     <fmt:message key="personalArea.side.menu.add.seance" bundle="${ rb }" />
                 </button>
             </li>
+            </c:if>
             
             <c:if test="${personalAreaViewBean.getRole() eq masterRole}">
             <li class="side-menu-item">

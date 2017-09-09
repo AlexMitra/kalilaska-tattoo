@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.kalilaska.ktattoo.bean.ConsultationBean;
 import by.kalilaska.ktattoo.bean.SeanceBean;
 import by.kalilaska.ktattoo.converter.BigDecimalConverter;
 import by.kalilaska.ktattoo.converter.DateConverter;
@@ -18,6 +19,7 @@ import by.kalilaska.ktattoo.dao.TransactionManager;
 import by.kalilaska.ktattoo.dao.impl.SeanceDAO;
 import by.kalilaska.ktattoo.dataexception.SQLDataException;
 import by.kalilaska.ktattoo.entity.SeanceEntity;
+import by.kalilaska.ktattoo.service.ConsultationService;
 import by.kalilaska.ktattoo.service.DaoFactory;
 import by.kalilaska.ktattoo.service.SeanceService;
 import by.kalilaska.ktattoo.servicemanager.ServiceMessageManager;
@@ -28,23 +30,19 @@ public class SeanceServiceImpl implements SeanceService {
 	private final static Logger LOGGER = LogManager.getLogger(SeanceServiceImpl.class);
 	private SeanceDAO seanceDao;
 	private TransactionManager transactionManager;
-//	private ServiceMessageManager messageManager;
+	private ConsultationService consultationService;
 	private String worningMessage;
 
 	public SeanceServiceImpl() {		
 		seanceDao = DaoFactory.createDao(this.getClass());
 		transactionManager = new TransactionManager();
-//		initManager();
 	}
 	
-//	private void initManager() {
-//		try {
-//			messageManager = new ServiceMessageManager();
-//		} catch (MessageFileNotFoundServiceException e) {
-//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-//		}
-//	}
-	
+	public SeanceServiceImpl(ConsultationService consultationService) {		
+		seanceDao = DaoFactory.createDao(this.getClass());
+		transactionManager = new TransactionManager();
+		this.consultationService = consultationService;
+	}	
 
 	@Override
 	public List<SeanceBean> findAllApprovedSeancesByClientId(int id) {
@@ -201,8 +199,17 @@ public class SeanceServiceImpl implements SeanceService {
 			
 			SeanceBean masterBusyCheck = findSeanceByMasterIdAndDate(masterId, dateStart);
 			SeanceBean clientBusyCheck = findSeanceByClientIdAndDate(clientId, dateStart);
+			ConsultationBean masterBusyInConsultation = null;
+			ConsultationBean clientBusyInConsultation = null;
+			if(consultationService != null) {
+				masterBusyInConsultation = 
+						consultationService.findConsultationByMasterIdAndDate(masterId, dateStart);
+				clientBusyInConsultation = 
+						consultationService.findConsultationByClientIdAndDate(clientId, dateStart);
+			}
 			
-			if(masterBusyCheck == null && clientBusyCheck == null) {
+			if(masterBusyCheck == null && clientBusyCheck == null 
+					&& masterBusyInConsultation == null && clientBusyInConsultation == null) {
 				byte duration = Byte.parseByte(durationStr);
 				
 				GregorianCalendar calendar = new GregorianCalendar();
@@ -234,10 +241,10 @@ public class SeanceServiceImpl implements SeanceService {
 				transactionManager.endTransaction();
 				
 			}else {
-				if(clientBusyCheck != null) {
+				if(clientBusyCheck != null || clientBusyInConsultation != null) {
 					worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_SEANCE_CLIENT_ALREADY_BUSY);
 				}
-				if(masterBusyCheck != null) {
+				if(masterBusyCheck != null || masterBusyInConsultation != null) {
 					worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.CREATE_SEANCE_MASTER_ALREADY_BUSY);
 				}
 			}
@@ -247,14 +254,6 @@ public class SeanceServiceImpl implements SeanceService {
 		
 		return seanceBean;
 	}
-	
-//	private String makeWorningMessage(String messagePath) {
-//		String message = null;		
-//		if(messageManager != null) {
-//			message = messageManager.getProperty(messagePath);			
-//		}
-//		return message;
-//	}
 	
 	@Override
 	public String getWorningMessage() {

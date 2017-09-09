@@ -404,12 +404,10 @@ public class AccountServiceImpl implements AccountService{
 					LOGGER.log(Level.ERROR, "exception in AccountDAO: " + e.getMessage());
 				}
 				transactionManager.endTransaction();
-			}else {
-				//worningMessage = makeWrongMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_ALREADY_EXISTS);
+			}else {				
 				worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_ALREADY_EXISTS);
 			}
 		}else {			
-			//worningMessage = makeWrongMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_INVALID);
 			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.UPDATE_AVATAR_DATA_INVALID);
 		}
 		return updated;
@@ -430,20 +428,12 @@ public class AccountServiceImpl implements AccountService{
 			}
 			transactionManager.endTransaction();
 		}else {			
-			//worningMessage = getWorningngMessage(ServiceMessageNameList.DELETE_AVATAR_DATA_INVALID);
 			worningMessage = ServiceMessageManager.getMessage(ServiceMessageNameList.DELETE_AVATAR_DATA_INVALID);
 		}
 		
 		return deleted;
 	}
-	
-//	private String makeWrongMessage(String messagePath) {
-//		String message = null;
-//		if(messageManager != null) {
-//			message = messageManager.getProperty(messagePath);
-//		}
-//		return message;
-//	}
+
 
 	@Override
 	public String getWorningngMessage() {		

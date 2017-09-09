@@ -24,22 +24,12 @@ public class TattooStyleServiceImpl implements TattooStyleService{
 	private final static Logger LOGGER = LogManager.getLogger(TattooStyleServiceImpl.class);
 	private TattooStyleDAO tattooStyleDAO;
 	private TransactionManager transactionManager;	
-//	private ServiceMessageManager messageManager;
 	private String worningMessage;
 
 	public TattooStyleServiceImpl() {		
 		tattooStyleDAO = DaoFactory.createDao(this.getClass());
-		transactionManager = new TransactionManager();		
-//		initManager();
+		transactionManager = new TransactionManager();
 	}
-	
-//	private void initManager() {
-//		try {
-//			messageManager = new ServiceMessageManager();
-//		} catch (MessageFileNotFoundServiceException e) {
-//			LOGGER.log(Level.WARN, "can not init ServiceMessageManager: " + e.getMessage());
-//		}
-//	}
 
 	@Override
 	public TattooStyleBean findTattooStyleByStyleName(String name) {
@@ -206,14 +196,6 @@ public class TattooStyleServiceImpl implements TattooStyleService{
 		
 		return styleBean;
 	}
-	
-//	private String makeWorningMessage(String messagePath) {
-//		String message = null;
-//		if(messageManager != null) {
-//			message = messageManager.getProperty(messagePath);
-//		}
-//		return message;
-//	}
 
 	@Override
 	public String getWorningMessage() {		

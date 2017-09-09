@@ -28,7 +28,7 @@ public class ConnectionPool {
 	
 	private static Lock lock = new ReentrantLock();
 	
-	private BlockingQueue<ProxyConnection> connectionQueue;
+	private static BlockingQueue<ProxyConnection> connectionQueue;
 	
 	private ConnectionPool() throws JdbcDriverNotFoundDataException, 
 	CreationConnectionDataException, PoolSizeUnadmittedDataException{
@@ -85,7 +85,9 @@ public class ConnectionPool {
 	public ProxyConnection getConnection() {
 		ProxyConnection connection = null;
 		try {
-			connection = connectionQueue.take();
+			if(connectionQueue != null) {
+				connection = connectionQueue.take();
+			}			
 		} catch (InterruptedException e) {			
 			LOGGER.log(Level.ERROR, "can not take connetion from connectionQueue: " + e.getMessage());
 		}

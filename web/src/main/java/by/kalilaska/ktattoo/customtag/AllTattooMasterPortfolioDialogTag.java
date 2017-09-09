@@ -63,13 +63,11 @@ public class AllTattooMasterPortfolioDialogTag extends TagSupport {
 					out.write("</div>");
 					out.write("</div>");
 					out.write("<div class='consultation-link-container'>");
-					out.write("<form id='consultation-view-link' action='#' method='POST'>");
+					out.write("<form id='add-consultation-view-link-from-masters' action='personalArea-addConsultation.html' method='POST'>");
 					
-					out.write("<input type='hidden' name='command' value='' />");
+					out.write("<input type='hidden' name='command' value='personal_area_add_consultation_view' />");
 					out.write("</form>");
-					out.write("<button class='consultation-view-button' type='submit' form='consultation-view-link' value=''>");
-					out.write("Записаться на консультацию");
-					out.write("</button>");
+					
 					out.write("</div>");
 					out.write("<div class='modal-footer'>");
 					out.write("<button class='btn btn-default' data-dismiss='modal'>Close</button>");

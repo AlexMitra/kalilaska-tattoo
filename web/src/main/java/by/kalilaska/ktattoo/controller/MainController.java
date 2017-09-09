@@ -49,7 +49,6 @@ import by.kalilaska.ktattoo.webtype.TransitionType;
 		"/personalArea-forbideAccount.html", 
 		"/personalArea-allowAccount.html", 
 		"/personalArea-deleteAccount.html"})
-
 public class MainController extends HttpServlet {
 	private final static Logger LOGGER = LogManager.getLogger(MainController.class);
 

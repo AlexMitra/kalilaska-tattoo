@@ -26,19 +26,26 @@ public class DateUtil {
 	}
 	
 	public FollowDayType getFollowDayType(Date date) {
-		FollowDayType dayType = FollowDayType.FUTURE;
-		
-		GregorianCalendar comparedDate = new GregorianCalendar();
-		comparedDate.setTime(date);
-		
-		if(currentDate.before(comparedDate) && 
-				comparedDate.get(Calendar.DAY_OF_YEAR) == currentDate.get(Calendar.DAY_OF_YEAR)) {
-			dayType = FollowDayType.TODAY;
-		}
-		
-		if(currentDate.before(comparedDate) && 
-				(comparedDate.get(Calendar.DAY_OF_YEAR) - currentDate.get(Calendar.DAY_OF_YEAR)) == 1) {
-			dayType = FollowDayType.TOMORROW;
+		FollowDayType dayType = null;
+		if(date != null) {
+			dayType = FollowDayType.FUTURE;
+			
+			GregorianCalendar comparedDate = new GregorianCalendar();
+			comparedDate.setTime(date);
+			
+			if(currentDate.before(comparedDate) && 
+					comparedDate.get(Calendar.DAY_OF_YEAR) == currentDate.get(Calendar.DAY_OF_YEAR)) {
+				dayType = FollowDayType.TODAY;
+			}
+			
+			if(currentDate.before(comparedDate) && 
+					(comparedDate.get(Calendar.DAY_OF_YEAR) - currentDate.get(Calendar.DAY_OF_YEAR)) == 1) {
+				dayType = FollowDayType.TOMORROW;
+			}
+			
+			if(!currentDate.before(comparedDate)) {
+				dayType = FollowDayType.PAST;
+			}
 		}
 		
 		return dayType;

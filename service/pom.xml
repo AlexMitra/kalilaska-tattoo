@@ -3,7 +3,7 @@
     <parent>
         <artifactId>kalilaska-tattoo</artifactId>
         <groupId>by.kalilaska</groupId>
-        <version>${project.version}</version>
+        <version>${app.version}</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -18,8 +18,7 @@
         <dependency>
             <groupId>by.kalilaska</groupId>
             <artifactId>data</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
+            <version>${app.version}</version>            
         </dependency>
     </dependencies>
     <build>

@@ -4,6 +4,7 @@ import by.kalilaska.ktattoo.command.AbstractPrgCommand;
 import by.kalilaska.ktattoo.controller.SessionRequestContent;
 import by.kalilaska.ktattoo.service.TattooPhotoService;
 import by.kalilaska.ktattoo.webname.CommandNameList;
+import by.kalilaska.ktattoo.webname.RequestParamNameList;
 import by.kalilaska.ktattoo.webname.SessionAttrNameList;
 
 public class TattooWorkDoneCommand extends AbstractPrgCommand {
@@ -17,7 +18,7 @@ public class TattooWorkDoneCommand extends AbstractPrgCommand {
 
 	@Override
 	protected void handle(SessionRequestContent content) {
-		String idArr[] = content.getRequestParameters().get("tattoo_photo_id");
+		String idArr[] = content.getRequestParameters().get(RequestParamNameList.PARAMETER_FOR_TATTOO_PHOTO_ID);
 		String idStr = getFirstParameter(idArr);
 		
     	boolean done = photoService.changeTattooPhotoDone(idStr, true);

@@ -232,8 +232,7 @@ public class ConsultationDAO extends AbstractDAO<Integer, ConsultationEntity> {
 		if(entity != null) {
 			int clientId = entity.getClientId();
 			int masterId = entity.getMasterId();
-			Date dateStart = entity.getDateStart();
-			
+			Date dateStart = entity.getDateStart();			
 			GregorianCalendar calendar = new GregorianCalendar();
 			calendar.setTime(dateStart);
 			calendar.add(Calendar.HOUR_OF_DAY, daoNameList.DEFAULT_CONSULTATION_DURATION);
@@ -243,8 +242,7 @@ public class ConsultationDAO extends AbstractDAO<Integer, ConsultationEntity> {
 				statement.setTimestamp(1, new java.sql.Timestamp(dateStart.getTime()));
 				statement.setTimestamp(2, new java.sql.Timestamp(dateEnd.getTime()));
 				statement.setInt(3, clientId);
-				statement.setInt(4, masterId);			
-				
+				statement.setInt(4, masterId);				
 				int executeUpdate = statement.executeUpdate();
 				
 				if(executeUpdate > 0) {

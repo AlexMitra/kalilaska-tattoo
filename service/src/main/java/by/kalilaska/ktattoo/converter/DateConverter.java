@@ -18,6 +18,11 @@ public class DateConverter {
 	private final static String DATE_TIME_DELIMITER = "\\p{Blank}";
 	private final static String DATE_DELIMITER = "-";
 	private final static String TIME_DELIMITER = ":";
+	
+	private final static int MAX_MONTH_VAL = 11;
+	private final static int MAX_DAY_VAL = 31;
+	private final static int MAX_HOUR_VAL = 24;
+	private final static int MAX_MINUTE_VAL = 60;
 
 	public static Date convertStringToDate(String dateTimeStr) {
 		Date date = null;
@@ -37,6 +42,10 @@ public class DateConverter {
 			int day = Integer.parseInt(dateArr[DAY_PART]);
 			int hour = Integer.parseInt(timeArr[HOUR_PART]);
 			int minute = Integer.parseInt(timeArr[MINUTE_PART]);
+			
+			if(month > MAX_MONTH_VAL || day > MAX_DAY_VAL || hour > MAX_HOUR_VAL || minute > MAX_MINUTE_VAL) {
+				return null;
+			}
 			
 			GregorianCalendar calendar = new GregorianCalendar(year, month, day, hour, minute);
 			date = calendar.getTime();

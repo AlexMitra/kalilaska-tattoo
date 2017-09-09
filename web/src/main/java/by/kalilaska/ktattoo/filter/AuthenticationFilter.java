@@ -40,7 +40,6 @@ import by.kalilaska.ktattoo.webname.URINameList;
 		"/personalArea-forbideAccount.html", 
 		"/personalArea-allowAccount.html", 
 		"/personalArea-deleteAccount.html"})
-
 public class AuthenticationFilter implements Filter{
 
 	@Override
@@ -53,15 +52,14 @@ public class AuthenticationFilter implements Filter{
 			throws IOException, ServletException {
 		HttpServletRequest httRequest = (HttpServletRequest) request;
 		HttpSession session = httRequest.getSession();
-		System.out.println("authentication filter");
+		
 		Object bean = session.getAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN);
-    	if(bean == null) {
-    		System.out.println("authentication filter, bean: " + bean);
+    	if(bean == null) {    		
     		session.setAttribute(SessionAttrNameList.ATTRIBUTE_FOR_COMMAND, 
         			CommandNameList.LOGIN_VIEW_COMMAND);
 
     		HttpServletResponse httpResponse = (HttpServletResponse)response;
-    		httpResponse.sendRedirect(URINameList.LOGIN_PAGE_URI);	        
+    		httpResponse.sendRedirect(URINameList.LOGIN_PAGE_URI);    		
         }else {
         	chain.doFilter(request, response);
         }    	

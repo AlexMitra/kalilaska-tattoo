@@ -16,13 +16,11 @@ public class TattooPhotoDAO extends AbstractDAO<Integer, TattooPhotoEntity> {
 	private final static String SQL_SELECT_TATTOO_PHOTO_BY_PHOTO_URL = 
 			 "SELECT `twph`.`id`, `twph`.`url`, `twph`.`is_done`, `twph`.`FK_master_id` " +					 
 					 "FROM `tattoo_work_photo` AS `twph` " +
-//					 "INNER JOIN `tattoo_master_info` AS `tmi` ON `twph`.`FK_master_id` = `tmi`.`id` " +
 					 "WHERE `twph`.`url` = ?;";
 	
 	private final static String SQL_SELECT_ALL_TATTOO_PHOTO_BY_MASTER_ID =
 			 "SELECT `twph`.`id`, `twph`.`url`, `twph`.`is_done`, `twph`.`FK_master_id` " +					 
 					 "FROM `tattoo_work_photo` AS `twph` " +
-//					 "INNER JOIN `tattoo_master_info` AS `tmi` ON `twph`.`FK_master_id` = `tmi`.`id` " +
 					 "WHERE `twph`.`FK_master_id` = ?;";
 	
 	private final static String SQL_INSERT_NEW_TATTOO_PHOTO = 

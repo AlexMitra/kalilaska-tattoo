@@ -48,4 +48,5 @@ public class RequestParamNameList {
 	public final static String PARAMETER_FOR_DELETE_ACCOUNT = "delete_account_id";
 
 	public final static String PARAMETER_FOR_UPLOAD_FILE = "uploadFile";
+	public final static String PARAMETER_FOR_TATTOO_PHOTO_ID = "tattoo_photo_id";
 }

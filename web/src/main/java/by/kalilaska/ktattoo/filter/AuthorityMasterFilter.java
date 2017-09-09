@@ -40,11 +40,9 @@ public class AuthorityMasterFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		HttpSession session = httpRequest.getSession();
 		
-		Object bean = session.getAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN);
-		System.out.println("PermissionMasterFilter");
+		Object bean = session.getAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN);		
 		
-		if(bean != null && !bean.getClass().equals(MasterPersonalAreaViewBean.class)) {
-			System.out.println("PermissionMasterFilter, bean: " + bean);			
+		if(bean != null && !bean.getClass().equals(MasterPersonalAreaViewBean.class)) {				
 			session.setAttribute(SessionAttrNameList.ATTRIBUTE_FOR_COMMAND, 
 					CommandNameList.PERSONAL_AREA_VIEW_COMMAND);
 			

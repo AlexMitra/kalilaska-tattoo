@@ -47,7 +47,7 @@ import by.kalilaska.ktattoo.webtype.LanguageType;
 
 
 /**
- * Created by lovcov on 13.07.2017.
+ * Created by lovcov on 23.07.2017.
  */
 public enum CommandType {
     ERROR_VIEW (new SimpleViewCommand(PathViewList.ERROR_VIEW_PATH)),    
@@ -106,7 +106,7 @@ public enum CommandType {
     		PathBodyContentList.PA_BODY_CONTENT_ADD_TATOO_CONSULTATION)),
     
     PERSONAL_AREA_ADD_CONSULTATION (new AddTattooConsultationCommand (
-    		new ConsultationServiceImpl(), URINameList.PERSONAL_AREA_PAGE_URI)),
+    		new ConsultationServiceImpl(new SeanceServiceImpl()), URINameList.PERSONAL_AREA_PAGE_URI)),
     
     PERSONAL_AREA_ALL_CONSULTATIONS_VIEW(new AllTattooConsultationsViewCommand (
     		new ConsultationServiceImpl(), 
@@ -127,7 +127,7 @@ public enum CommandType {
     		PathBodyContentList.PA_BODY_CONTENT_ADD_TATOO_SEANCE)),
     
     PERSONAL_AREA_ADD_SEANCE (new AddTattooSeanceCommand (
-    		new SeanceServiceImpl(), URINameList.PERSONAL_AREA_PAGE_URI)),    
+    		new SeanceServiceImpl(new ConsultationServiceImpl()), URINameList.PERSONAL_AREA_PAGE_URI)),    
 
     PERSONAL_AREA_ALL_SEANCES_VIEW(new AllTattooSeancesViewCommand (
     		new SeanceServiceImpl(), 

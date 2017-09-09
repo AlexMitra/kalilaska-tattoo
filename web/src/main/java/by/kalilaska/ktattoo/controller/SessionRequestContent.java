@@ -2,23 +2,17 @@ package by.kalilaska.ktattoo.controller;
 
 
 
-import by.kalilaska.ktattoo.pathlist.PathBodyList;
-import by.kalilaska.ktattoo.pathlist.PathViewList;
-import by.kalilaska.ktattoo.webmanager.PathBodyManager;
-import by.kalilaska.ktattoo.webmanager.PathViewManager;
-import by.kalilaska.ktattoo.webname.RequestAttrNameList;
-import by.kalilaska.ktattoo.webname.SessionAttrNameList;
-import by.kalilaska.ktattoo.webtype.LanguageType;
-import by.kalilaska.ktattoo.webtype.TransitionType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import by.kalilaska.ktattoo.webtype.TransitionType;
+
 /**
- * Created by lovcov on 13.07.2017.
+ * Created by lovcov on 23.07.2017.
  */
 public class SessionRequestContent {
     private HashMap<String, Object> requestAttributes;

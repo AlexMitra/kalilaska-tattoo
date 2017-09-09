@@ -2,8 +2,7 @@ package by.kalilaska.ktattoo.webexception;
 
 public class ViewSourceNotFoundWebException extends Exception {
 
-	public ViewSourceNotFoundWebException() {
-		
+	public ViewSourceNotFoundWebException() {		
 	}
 
 	public ViewSourceNotFoundWebException(String message) {

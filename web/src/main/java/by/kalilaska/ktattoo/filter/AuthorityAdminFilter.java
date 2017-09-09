@@ -35,13 +35,11 @@ public class AuthorityAdminFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {		
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
-		HttpSession session = httpRequest.getSession();
-		System.out.println("PermissionAdminFilter");
+		HttpSession session = httpRequest.getSession();		
 		
 		Object bean = session.getAttribute(SessionAttrNameList.ATTRIBUTE_FOR_PERSONAL_AREA_VIEW_BEAN);
 		
-		if(bean != null && !bean.getClass().equals(AdminPersonalAreaViewBean.class)) {
-			System.out.println("PermissionAdminFilter filter, bean: " + bean);			
+		if(bean != null && !bean.getClass().equals(AdminPersonalAreaViewBean.class)) {			
 			session.setAttribute(SessionAttrNameList.ATTRIBUTE_FOR_COMMAND, 
         			CommandNameList.PERSONAL_AREA_VIEW_COMMAND);
 			HttpServletResponse httpResponse = (HttpServletResponse)response;
