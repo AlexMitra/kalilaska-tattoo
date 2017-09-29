@@ -35,6 +35,14 @@
       <scope>test</scope>
     </dependency>
     
+    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+	<dependency>
+	    <groupId>org.testng</groupId>
+	    <artifactId>testng</artifactId>
+	    <version>6.11</version>
+	    <scope>test</scope>
+	</dependency>    
+    
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
@@ -62,7 +70,7 @@
 				<exclude>src/main/java/by/kalilaska/ktattoo/controller/UploadController.java</exclude>
          	</excludes>
         </configuration>
-      </plugin>
+      </plugin>      
     </plugins>
     <finalName>kalilaska-tattoo</finalName>
   </build>

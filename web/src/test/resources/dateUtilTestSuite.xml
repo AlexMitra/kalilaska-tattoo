@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+  
+<suite name="dateUtilTestSuite" verbose="2" >
+  <test name="dateUtilTest" >
+    <classes>
+       <class name="by.kalilaska.ktattoo.webutil.DateUtilTestNG" />
+    </classes>
+  </test>
+</suite>

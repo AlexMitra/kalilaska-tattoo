@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+  
+<suite name="BigDecimalConverterTestSuite" verbose="2" >
+  <test name="BigDecimalConverterTest" >
+    <classes>
+       <class name="by.kalilaska.ktattoo.converter.BigDecimalConverterTestNG" />
+    </classes>
+  </test>
+</suite>

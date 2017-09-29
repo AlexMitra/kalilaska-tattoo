@@ -1,31 +1,26 @@
 package by.kalilaska.ktattoo.converter;
 
-import static org.junit.Assert.assertTrue;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-public class BigDecimalConverterTest {
-
+public class BigDecimalConverterTestNG {
+  
 	@Test
 	public void testConvertNullToBigDecimal() {
-		String source = null;
-        Assert.assertNull("method should return null", 
-        		BigDecimalConverter.convertStringToBigDecimal(source));
+		String source = null;	  
+		Assert.assertNull(BigDecimalConverter.convertStringToBigDecimal(source), "method should return null");
 	}
-	
+  
 	@Test
 	public void testConvertEmptyStringToBigDecimal() {
 		String source = "";
-		Assert.assertNull("method should return null", 
-				BigDecimalConverter.convertStringToBigDecimal(source));
+		Assert.assertNull(BigDecimalConverter.convertStringToBigDecimal(source), "method should return null");
 	}
 	
 	@Test
 	public void testConvertInvalidStringToBigDecimal() {
 		String source = "l5";
-		Assert.assertNull("method should return null", 
-				BigDecimalConverter.convertStringToBigDecimal(source));
+		Assert.assertNull(BigDecimalConverter.convertStringToBigDecimal(source), "method should return null");
 	}
 	
 	@Test
@@ -33,14 +28,13 @@ public class BigDecimalConverterTest {
 		String source = "0.99";
 		double result = 0.99;
 		boolean condition = BigDecimalConverter.convertStringToBigDecimal(source).doubleValue() == result;
-		Assert.assertTrue("condition should be true", condition);
+		Assert.assertTrue(condition, "condition should be true");
 	}
 	
 	@Test
 	public void testConvertStringToBigDecimalTwo() {
 		String source = "-0.99";		
-		Assert.assertNull("price should be positive number, converter return null", 
-				BigDecimalConverter.convertStringToBigDecimal(source));		
+		Assert.assertNull(BigDecimalConverter.convertStringToBigDecimal(source), "price should be positive number, converter return null");		
 	}
 	
 	@Test
@@ -48,7 +42,7 @@ public class BigDecimalConverterTest {
 		String source = "0.01";
 		double result = 0.01;
 		boolean condition = BigDecimalConverter.convertStringToBigDecimal(source).doubleValue() == result;
-		assertTrue("condition should be true", condition);
+		Assert.assertTrue(condition, "condition should be true");
 	}
 	
 	@Test
@@ -56,6 +50,7 @@ public class BigDecimalConverterTest {
 		String source = "99";
 		double result = 99;
 		boolean condition = BigDecimalConverter.convertStringToBigDecimal(source).doubleValue() == result;
-		assertTrue("condition should be true", condition);
+		Assert.assertTrue(condition, "condition should be true");
 	}
+
 }
